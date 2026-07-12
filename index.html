@@ -1,283 +1,453 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WonderLana - Interactive Workspace</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&family=Playfair+Display:ital,wght@0,600;1,600&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --pink: #ff85a2; --green: #5cdb95; --navy: #0a1128; --dark: #0a0c10;
-      --glass: rgba(255, 255, 255, 0.03); --border: rgba(255, 255, 255, 0.08);
-      --font-cute: 'Fredoka', sans-serif; --font-elegant: 'Playfair Display', serif;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: 'Plus Jakarta Sans', sans-serif; background: var(--dark); color: #f3f4f6;
-      height: 100vh; overflow: hidden; display: flex; flex-direction: column;
-    }
-    
-    /* Desk Grid Background */
-    .desk {
-      flex: 1; position: relative; background-color: #0b0d13;
-      background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 0);
-      background-size: 24px 24px; overflow: hidden;
-      display: flex; justify-content: center; align-items: center;
-    }
-    
-    .desk-instruction {
-      position: absolute; top: 1.5rem; left: 1.5rem; font-size: 0.85rem; color: #4b5563;
-      pointer-events: none; border-left: 2px solid var(--pink); padding-left: 0.8rem;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WonderLana — JKT48 Seitansai & 100th Show Tribute</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --mat: #0f172a; /* Navy background */
+    --mat-dark: #090d16;
+    --ink: #1e1b4b; /* Dark indigo */
+    --ink-2: #020617; /* Slate dark */
+    --cream: #fff1f2; /* Soft pink-white */
+    --cream-dim: #fecdd3; /* Rose light */
+    --coral: #ff85a2; /* Kawaii Pink */
+    --yellow: #f4d35e; /* Golden yellow */
+    --blue: #7C93FF;
+    --green: #5cdb95; /* Grass Green */
+    --line: rgba(255,241,242,0.12);
+    --shadow-soft: 0 10px 30px rgba(0,0,0,0.38);
+    --shadow-lift: 0 24px 48px rgba(0,0,0,0.48);
+    --radius: 14px;
+  }
 
-    /* Draggable Desk Items */
-    .desk-item {
-      position: absolute; cursor: grab; user-select: none; z-index: 10;
-      transition: box-shadow 0.2s, transform 0.2s;
-    }
-    .desk-item:active { cursor: grabbing; z-index: 50; }
-    
-    /* Folders */
-    .folder {
-      width: 140px; height: 160px; border-radius: 12px; display: flex; flex-direction: column;
-      justify-content: flex-end; padding: 1.2rem 1rem; font-weight: bold; border: 1px solid var(--border);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-    }
-    .folder-cute {
-      background: linear-gradient(135deg, #2d0b1d, #14221a); color: var(--pink);
-      border-left: 6px solid var(--green); font-family: var(--font-cute);
-    }
-    .folder-elegant {
-      background: linear-gradient(135deg, #1b0a24, #0a1128); color: #fff;
-      border-left: 6px solid var(--pink); font-family: var(--font-elegant); font-style: italic;
-    }
-    .folder span { font-size: 0.75rem; color: #9ca3af; font-weight: 500; font-family: 'Plus Jakarta Sans', sans-serif; display: block; margin-top: 0.2rem; }
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0;
+    background:var(--mat);
+    color:var(--cream);
+    font-family:'Inter', sans-serif;
+    background-image:
+      radial-gradient(circle, rgba(255,133,162,0.06) 1px, transparent 1px);
+    background-size: 26px 26px;
+    overflow-x:hidden;
+  }
 
-    /* Polaroid */
-    .polaroid {
-      background: #fff; padding: 0.8rem 0.8rem 2rem; box-shadow: 0 15px 35px rgba(0,0,0,0.4);
-      width: 160px; transform: rotate(-5deg); text-align: center;
-    }
-    .polaroid img { width: 100%; height: 140px; object-fit: cover; border: 1px solid #ddd; }
-    .polaroid .caption {
-      font-family: var(--font-cute); color: #111; font-size: 0.9rem; margin-top: 0.8rem;
-      font-weight: bold; transform: rotate(-1deg);
-    }
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important; }
+  }
 
-    /* CD Player */
-    .cd-player {
-      width: 130px; height: 130px; background: #161a22; border-radius: 50%; border: 4px solid #232a36;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.3); display: flex; justify-content: center;
-      align-items: center; position: relative;
-    }
-    .cd-center {
-      width: 40px; height: 40px; background: #0b0d13; border-radius: 50%; border: 3px solid var(--pink);
-      display: flex; justify-content: center; align-items: center; cursor: pointer; z-index: 2;
-    }
-    .cd-center::after {
-      content: ''; width: 10px; height: 10px; background: #fff; border-radius: 50%;
-    }
-    .cd-player.playing { animation: spin 4s linear infinite; }
-    @keyframes spin { 100% { transform: rotate(360deg); } }
+  a{ color:inherit; }
+  h1,h2,h3{ font-family:'Space Grotesk', sans-serif; margin:0; letter-spacing:-0.01em; }
+  .mono{ font-family:'IBM Plex Mono', monospace; }
 
-    /* Interactive Drawers */
-    .drawer {
-      position: fixed; bottom: -100%; left: 0; width: 100%; height: 85%; background: rgba(3, 7, 18, 0.98);
-      backdrop-filter: blur(20px); border-top: 1px solid var(--border); border-radius: 24px 24px 0 0;
-      z-index: 100; transition: bottom 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      display: flex; flex-direction: column; padding: 2rem;
-    }
-    .drawer.open { bottom: 0; }
-    .drawer-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
-    .drawer-close {
-      background: var(--glass); border: 1px solid var(--border); color: #fff; width: 36px; height: 36px;
-      border-radius: 50%; cursor: pointer; display: flex; justify-content: center; align-items: center; font-weight: bold;
-    }
-    .drawer-content { flex: 1; overflow-y: auto; padding-right: 0.5rem; }
-    
-    .badge {
-      display: inline-block; padding: 0.4rem 0.8rem; border-radius: 12px; font-size: 0.75rem;
-      font-weight: 700; margin-bottom: 1rem; width: max-content;
-    }
-    .drawer-cute .badge { background: rgba(92, 219, 149, 0.12); color: var(--green); border: 1px solid rgba(92, 219, 149, 0.2); }
-    .drawer-elegant .badge { background: rgba(255, 133, 162, 0.12); color: var(--pink); border: 1px solid rgba(255, 133, 162, 0.2); }
+  .wrap{ max-width:1140px; margin:0 auto; padding:0 28px; }
 
-    .drawer h2 { font-size: 2.2rem; }
-    .drawer-cute h2 { font-family: var(--font-cute); color: var(--pink); }
-    .drawer-elegant h2 { font-family: var(--font-elegant); font-style: italic; }
-    
-    /* Content Grids */
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
-    .card {
-      background: var(--glass); border: 1px solid var(--border); border-radius: 16px;
-      padding: 1.8rem 1.2rem; text-align: center; transition: all 0.3s;
-      display: flex; flex-direction: column; justify-content: space-between; min-height: 200px;
-    }
-    .card:hover { transform: translateY(-4px); background: rgba(255,255,255,0.06); }
-    .num { font-size: 2rem; font-weight: 800; opacity: 0.15; }
-    .drawer-cute .num { font-family: var(--font-cute); color: var(--green); }
-    .drawer-elegant .num { font-family: var(--font-elegant); color: var(--pink); }
-    .card h3 { font-size: 1.1rem; margin: 0.5rem 0; }
-    .drawer-cute h3 { font-family: var(--font-cute); color: var(--pink); }
-    .drawer-elegant h3 { font-family: var(--font-elegant); }
-    .card p { font-size: 0.85rem; color: #9ca3af; line-height: 1.4; margin-bottom: 0.8rem; }
-    .card span.source { font-size: 0.75rem; color: #4b5563; }
+  /* ---------- NAV ---------- */
+  nav{
+    position:sticky; top:0; z-index:50;
+    backdrop-filter: blur(10px);
+    background: rgba(15,23,42,0.72);
+    border-bottom:1px solid var(--line);
+  }
+  nav .wrap{ display:flex; align-items:center; justify-content:space-between; height:66px; }
+  .brand{ display:flex; align-items:center; gap:10px; font-family:'Space Grotesk'; font-weight:700; font-size:17px; }
+  .brand .dot{ width:10px; height:10px; border-radius:3px; background:var(--coral); box-shadow:0 0 0 3px rgba(255,133,162,0.25); }
+  .navlinks{ display:flex; gap:28px; font-family:'IBM Plex Mono'; font-size:13px; }
+  .navlinks a{ text-decoration:none; opacity:0.8; position:relative; padding:4px 0; }
+  .navlinks a:hover{ opacity:1; }
+  .navlinks a:focus-visible, a:focus-visible, button:focus-visible{ outline:2px solid var(--yellow); outline-offset:3px; border-radius:4px; }
+  .navlinks a::after{ content:''; position:absolute; left:0; bottom:-2px; width:0; height:2px; background:var(--yellow); transition:width .25s ease; }
+  .navlinks a:hover::after{ width:100%; }
 
-    @media (max-width: 768px) {
-      .desk-item { position: relative !important; left: auto !important; top: auto !important; transform: none !important; margin: 1rem 0; }
-      .desk { flex-direction: column; height: auto; overflow-y: auto; padding: 2rem; justify-content: flex-start; }
-      .drawer { height: 95%; }
-    }
-  </style>
+  /* ---------- HERO ---------- */
+  .hero{ padding:96px 0 70px; position:relative; }
+  .hero-grid{ display:grid; grid-template-columns:1.1fr 0.9fr; gap:50px; align-items:center; }
+  .eyebrow{ display:inline-flex; align-items:center; gap:8px; font-family:'IBM Plex Mono'; font-size:12.5px; background:var(--ink-2); color:var(--yellow); padding:6px 12px; border-radius:20px; margin-bottom:22px; border:1px solid rgba(244,211,94,0.35); }
+  .eyebrow .pulse{ width:7px; height:7px; border-radius:50%; background:var(--green); box-shadow:0 0 0 0 rgba(92,219,149,0.6); animation:pulse 2s infinite; }
+  @keyframes pulse{ 0%{box-shadow:0 0 0 0 rgba(92,219,149,0.5);} 70%{box-shadow:0 0 0 8px rgba(92,219,149,0);} 100%{box-shadow:0 0 0 0 rgba(92,219,149,0);} }
+
+  .hero h1{ font-size:clamp(38px,5.4vw,58px); line-height:1.06; color:var(--cream); }
+  .hero h1 span{ color:var(--coral); }
+  .hero p.lead{ margin-top:20px; font-size:17px; line-height:1.65; color:var(--cream-dim); max-width:480px; }
+  .hero-cta{ margin-top:32px; display:flex; gap:14px; flex-wrap:wrap; }
+  .btn{ font-family:'IBM Plex Mono'; font-size:13.5px; padding:13px 22px; border-radius:10px; border:none; cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:8px; transition:transform .18s ease, box-shadow .18s ease; }
+  .btn-primary{ background:var(--coral); color:var(--ink-2); box-shadow:0 6px 0 #C24C33; font-weight:bold; }
+  .btn-primary:hover{ transform:translateY(-2px); box-shadow:0 8px 0 #C24C33; }
+  .btn-primary:active{ transform:translateY(2px); box-shadow:0 3px 0 #C24C33; }
+  .btn-ghost{ background:transparent; color:var(--cream); border:1px solid var(--line); }
+  .btn-ghost:hover{ border-color:var(--cream); }
+
+  /* monitor mock */
+  .monitor{ perspective:1200px; }
+  .screen{
+    background:var(--ink-2); border-radius:16px; padding:20px 22px 26px;
+    box-shadow: var(--shadow-lift), inset 0 0 0 1px rgba(255,255,255,0.04);
+    transform: rotateY(-8deg) rotateX(3deg);
+    transition: transform .4s ease;
+  }
+  .monitor:hover .screen{ transform: rotateY(-3deg) rotateX(1deg); }
+  .screen-bar{ display:flex; gap:6px; margin-bottom:14px; }
+  .screen-bar span{ width:10px; height:10px; border-radius:50%; }
+  .screen-bar span:nth-child(1){ background:#FF6B4A; }
+  .screen-bar span:nth-child(2){ background:#FFD166; }
+  .screen-bar span:nth-child(3){ background:#6CFF9E; }
+  .term{ font-family:'IBM Plex Mono'; font-size:13.5px; line-height:1.9; color:#ffccd5; min-height:190px; }
+  .term .prompt{ color:var(--coral); }
+  .term .out{ color:var(--cream-dim); }
+  .caret{ display:inline-block; width:8px; height:15px; background:var(--yellow); vertical-align:middle; animation:blink 1s step-start infinite; }
+  @keyframes blink{ 50%{ opacity:0; } }
+  .stand{ width:120px; height:16px; background:#0f172a; margin:0 auto; border-radius:0 0 8px 8px; }
+  .base{ width:200px; height:8px; background:#020617; margin:0 auto; border-radius:6px; opacity:0.7; }
+
+  /* ---------- SECTION HEADERS ---------- */
+  .section{ padding:90px 0; }
+  .section-head{ display:flex; align-items:baseline; gap:14px; margin-bottom:44px; }
+  .tag{ font-family:'IBM Plex Mono'; font-size:12px; color:var(--yellow); background:rgba(244,211,94,0.1); border:1px solid rgba(244,211,94,0.3); padding:4px 10px; border-radius:6px; }
+  .section h2{ font-size:clamp(26px,3.2vw,36px); color:var(--cream); }
+
+  /* ---------- ABOUT (sticky note) ---------- */
+  .about{ background:var(--ink-2); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .about-grid{ display:grid; grid-template-columns:0.9fr 1.1fr; gap:60px; align-items:start; }
+  .sticky{
+    background:var(--yellow); color:#111; padding:26px 24px; border-radius:4px 4px 40px 4px;
+    transform:rotate(-3deg); box-shadow:var(--shadow-soft);
+    font-family:'IBM Plex Mono'; font-size:14px; line-height:1.7; max-width:340px;
+    transition: transform .3s ease;
+  }
+  .sticky:hover{ transform:rotate(0deg) translateY(-4px); }
+  .about-text p{ color:var(--cream-dim); font-size:16px; line-height:1.75; margin:0 0 18px; }
+  .stat-row{ display:flex; gap:34px; margin-top:28px; flex-wrap:wrap; }
+  .stat b{ display:block; font-family:'Space Grotesk'; font-size:26px; color:var(--coral); }
+  .stat span{ font-family:'IBM Plex Mono'; font-size:12px; color:var(--cream-dim); }
+
+  /* ---------- PROJECTS (keycaps) ---------- */
+  .keycap-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:26px; }
+  .keycap{
+    background:var(--cream); color:#111; border-radius:12px; padding:22px 20px 20px;
+    box-shadow: 0 8px 0 rgba(0,0,0,0.28), var(--shadow-soft);
+    cursor:grab; user-select:none; position:relative;
+    transition: transform .12s ease, box-shadow .12s ease;
+    transform-style:preserve-3d;
+  }
+  .keycap:active{ cursor:grabbing; }
+  .keycap:hover{ box-shadow: 0 14px 0 rgba(0,0,0,0.28), var(--shadow-lift); }
+  .keycap .kc-tag{ font-family:'IBM Plex Mono'; font-size:11px; color:#6B7B6E; margin-bottom:10px; display:inline-block; }
+  .keycap h3{ font-size:19px; margin-bottom:8px; }
+  .keycap p{ font-size:13.5px; color:#3B4A3E; line-height:1.55; margin:0 0 14px; }
+  .kc-stack{ display:flex; gap:6px; flex-wrap:wrap; }
+  .kc-stack span{ font-family:'IBM Plex Mono'; font-size:11px; background:var(--mat); color:var(--cream); padding:3px 8px; border-radius:5px; }
+  .kc-link{ position:absolute; top:18px; right:18px; font-size:16px; color:var(--coral); text-decoration:none; }
+  .drag-hint{ font-family:'IBM Plex Mono'; font-size:12px; color:var(--cream-dim); opacity:0.7; margin-top:18px; }
+
+  /* ---------- SKILLS (keyboard row) ---------- */
+  .skills{ background:var(--ink-2); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .keyboard{ display:flex; flex-wrap:wrap; gap:10px; }
+  .key{
+    font-family:'IBM Plex Mono'; font-size:13px; color:#111;
+    background:var(--cream); padding:12px 16px; border-radius:8px;
+    box-shadow:0 4px 0 rgba(0,0,0,0.3);
+    transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
+  }
+  .key:hover{ transform:translateY(3px); box-shadow:0 1px 0 rgba(0,0,0,0.3); background:var(--coral); color:#fff; }
+
+  /* ---------- CONTACT ---------- */
+  .contact{ text-align:center; padding:110px 0 120px; }
+  .power{
+    width:126px; height:126px; border-radius:50%; margin:0 auto 30px;
+    background: radial-gradient(circle at 35% 30%, #FF8A6C, var(--coral));
+    display:flex; align-items:center; justify-content:center;
+    box-shadow: 0 12px 0 #C24C33, var(--shadow-lift);
+    font-family:'Space Grotesk'; font-weight:700; font-size:15px; color:#111;
+    cursor:pointer; transition: transform .15s ease, box-shadow .15s ease;
+    text-decoration:none;
+  }
+  .power:hover{ transform:translateY(-4px); }
+  .power:active{ transform:translateY(6px); box-shadow:0 4px 0 #C24C33; }
+  .contact h2{ font-size:clamp(28px,4vw,42px); margin-bottom:14px; }
+  .contact p{ color:var(--cream-dim); max-width:420px; margin:0 auto 8px; font-size:16px; }
+  .contact-links{ margin-top:26px; display:flex; gap:20px; justify-content:center; font-family:'IBM Plex Mono'; font-size:13px; }
+  .contact-links a{ text-decoration:none; opacity:0.85; border-bottom:1px solid transparent; }
+  .contact-links a:hover{ opacity:1; border-color:var(--yellow); }
+
+  footer{ text-align:center; padding:30px 0; font-family:'IBM Plex Mono'; font-size:12px; color:var(--cream-dim); opacity:0.6; }
+
+  @media (max-width:840px){
+    .hero-grid, .about-grid{ grid-template-columns:1fr; }
+    .keycap-grid{ grid-template-columns:1fr 1fr; }
+    .navlinks{ display:none; }
+    .monitor{ order:-1; }
+  }
+  @media (max-width:520px){
+    .keycap-grid{ grid-template-columns:1fr; }
+    .stat-row{ gap:22px; }
+  }
+</style>
 </head>
 <body>
 
-  <main class="desk" id="deskSurface">
-    <div class="desk-instruction">Drag items to organize workspace. Click folders to open drawers.</div>
-
-    <!-- Polaroid Photo -->
-    <div class="desk-item polaroid" style="top: 20%; left: 15%;" data-drag>
-      <img src="daidaidai.jpg" alt="Lana JKT48" draggable="false">
-      <div class="caption">Lana &hearts;</div>
+<nav>
+  <div class="wrap">
+    <div class="brand"><span class="dot"></span> wonderlana.dev</div>
+    <div class="navlinks">
+      <a href="#about">Tentang</a>
+      <a href="#wonders100">100th Show</a>
+      <a href="#wonders20">20th Birthday</a>
+      <a href="#profile">Profil</a>
+      <a href="#hashtags">Tagar</a>
     </div>
+  </div>
+</nav>
 
-    <!-- Kawaii Folder -->
-    <div class="desk-item folder folder-cute" style="top: 25%; right: 20%;" data-drag onclick="openDrawer('cute')">
-      100th Show
-      <span>7 Wonders</span>
-    </div>
-
-    <!-- Mature Folder -->
-    <div class="desk-item folder folder-elegant" style="top: 45%; left: 40%;" data-drag onclick="openDrawer('elegant')">
-      Seitansai
-      <span>20th Birthday</span>
-    </div>
-
-    <!-- CD Player -->
-    <div class="desk-item cd-player" style="top: 55%; right: 15%;" data-drag id="cdPlayer">
-      <div class="cd-center" onclick="togglePlay(event)"></div>
-    </div>
-  </main>
-
-  <!-- Kawaii Drawer -->
-  <div class="drawer drawer-cute" id="drawerCute">
-    <div class="drawer-header">
-      <div>
-        <span class="badge">#WonderB100msLana</span>
-        <h2>7 Wonders of the 100th Show</h2>
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow"><span class="pulse"></span> live di teater jkt48</div>
+      <h1>Dua dunia berbenturan: panggung <span>kawaii</span> & kedewasaan.</h1>
+      <p class="lead">Aurhel Alana — Lana JKT48. Menelusuri tapak perjalanan pertunjukan teater ke-100 dan refleksi kedewasaan menyambut pertambahan usia ke-20 tahun.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#wonders100">Lihat Wonders →</a>
+        <a class="btn btn-ghost" href="#hashtags">Salin Tagar</a>
       </div>
-      <button class="drawer-close" onclick="closeDrawer('cute')">&times;</button>
     </div>
-    <div class="drawer-content">
-      <div class="grid">
-        <div class="card"><span class="num">01</span><h3>Aitakatta</h3><p>Langkah awal perjalanan penuh semangat bersama sentuhan warna hijau segar.</p><span class="source">100th Show</span></div>
-        <div class="card"><span class="num">02</span><h3>Pajama Drive</h3><p>Energi teater masa muda yang membakar semangat penonton dengan tarian enerjik.</p><span class="source">100th Show</span></div>
-        <div class="card"><span class="num">03</span><h3>Ramune no Nomikata</h3><p>Kesegaran manis tiada tara, menggambarkan keceriaan musim panas yang menyenangkan.</p><span class="source">100th Show</span></div>
-        <div class="card"><span class="num">04</span><h3>RKJ</h3><p>Renai Kinshi Jourei. Disiplin panggung membawakan aturan anti cinta legendaris teater JKT48.</p><span class="source">100th Show</span></div>
-        <div class="card"><span class="num">05</span><h3>TwT</h3><p>Te wo Tsunaginagara. Kehangatan persahabatan sejati sambil menggenggam tangan erat bersama pendukung.</p><span class="source">100th Show</span></div>
-        <div class="card"><span class="num">06</span><h3>Percin</h3><p>Pertaruhan Cinta. Dedikasi tulus mengekspresikan emosi panggung yang mendalam.</p><span class="source">100th Show</span></div>
-        <div class="card"><span class="num">07</span><h3>Itadaki</h3><p>Mendaki Bukit. Bersama-sama mendaki rintangan panggung demi menggapai puncak impian teratas.</p><span class="source">100th Show</span></div>
+    <div class="monitor">
+      <div class="screen">
+        <div class="screen-bar"><span></span><span></span><span></span></div>
+        <div class="term mono" id="term">
+          <div><span class="prompt">lana@wonder:~#</span> whoami</div>
+          <div class="out" id="typed-out"></div>
+          <span class="caret"></span>
+        </div>
+      </div>
+      <div class="stand"></div>
+      <div class="base"></div>
+    </div>
+  </div>
+</header>
+
+<section class="about" id="about">
+  <div class="wrap about-grid">
+    <div class="sticky">
+      "WonderLana: Perjalanan Aurhel Alana merajut mimpi di teater JKT48."
+    </div>
+    <div class="about-text">
+      <div class="section-head" style="margin-bottom:20px;"><span class="tag">profil</span><h2>Satu langkah, seribu mimpi terwujud.</h2></div>
+      <p>Dari membawakan keceriaan awal panggung teater hingga menghadapi refleksi kedewasaan yang penuh ketenangan. Inilah persembahan khusus untuk merayakan dua tonggak penting Lana JKT48.</p>
+      <p>Menampilkan setlist ikonik dari debut pertunjukan teater ke-100 dan transisi emosional yang melambangkan kematangan wanita dewasa pada ulang tahunnya yang ke-20.</p>
+      <div class="stat-row">
+        <div class="stat"><b>100+</b><span>PERTUNJUKAN TEATER</span></div>
+        <div class="stat"><b>12</b><span>GENERASI JKT48</span></div>
+        <div class="stat"><b>20</b><span>TAHUN USIA</span></div>
       </div>
     </div>
   </div>
+</section>
 
-  <!-- Mature Drawer -->
-  <div class="drawer drawer-elegant" id="drawerElegant">
-    <div class="drawer-header">
-      <div>
-        <span class="badge">#Wonder20nesLana</span>
-        <h2>7 Wonders of the 20th Birthday</h2>
+<!-- 100th Show Wonders -->
+<section class="section" id="wonders100">
+  <div class="wrap">
+    <div class="section-head"><span class="tag">100th Show</span><h2>7 Wonders of the 100th Show</h2></div>
+    <div class="keycap-grid">
+      <div class="keycap" data-drag>
+        <span class="kc-tag mono">WONDER 01 · KAWAII</span>
+        <h3>Aitakatta</h3>
+        <p>Langkah awal perjalanan penuh semangat bersama sentuhan warna hijau segar.</p>
+        <div class="kc-stack"><span>Pink</span><span>Grass Green</span></div>
       </div>
-      <button class="drawer-close" onclick="closeDrawer('elegant')">&times;</button>
+      <div class="keycap" data-drag>
+        <span class="kc-tag mono">WONDER 02 · KAWAII</span>
+        <h3>Pajama Drive</h3>
+        <p>Energi teater masa muda yang membakar semangat penonton dengan koreografi lincah.</p>
+        <div class="kc-stack"><span>Youth</span><span>Energy</span></div>
+      </div>
+      <div class="keycap" data-drag>
+        <span class="kc-tag mono">WONDER 03 · KAWAII</span>
+        <h3>Ramune no Nomikata</h3>
+        <p>Kesegaran manis tiada tara, menggambarkan keceriaan musim panas yang menyenangkan.</p>
+        <div class="kc-stack"><span>Sweet</span><span>Fresh</span></div>
+      </div>
+      <div class="keycap" data-drag>
+        <span class="kc-tag mono">WONDER 04 · KAWAII</span>
+        <h3>RKJ</h3>
+        <p>Renai Kinshi Jourei. Disiplin panggung membawakan aturan anti cinta yang legendaris.</p>
+        <div class="kc-stack"><span>Rules</span><span>Theater</span></div>
+      </div>
+      <div class="keycap" data-drag>
+        <span class="kc-tag mono">WONDER 05 · KAWAII</span>
+        <h3>TwT</h3>
+        <p>Te wo Tsunaginagara. Kehangatan persahabatan sejati sambil menggenggam tangan erat fans.</p>
+        <div class="kc-stack"><span>Friendship</span><span>Union</span></div>
+      </div>
+      <div class="keycap" data-drag>
+        <span class="kc-tag mono">WONDER 06 · KAWAII</span>
+        <h3>Percin</h3>
+        <p>Pertaruhan Cinta. Dedikasi tulus mengekspresikan emosi panggung yang mendalam.</p>
+        <div class="kc-stack"><span>Dedication</span><span>Love</span></div>
+      </div>
+      <div class="keycap" data-drag>
+        <span class="kc-tag mono">WONDER 07 · KAWAII</span>
+        <h3>Itadaki</h3>
+        <p>Mendaki Bukit. Bersama-sama mendaki rintangan teater demi menggapai puncak impian teratas.</p>
+        <div class="kc-stack"><span>Dream</span><span>Summit</span></div>
+      </div>
     </div>
-    <div class="drawer-content">
-      <div class="grid">
-        <div class="card"><span class="num">01</span><h3>Dai Dai Dai</h3><p>Lagu original JKT48 (dari setlist Pertaruhan Cinta, Act 2). Liriknya cute dan playful tentang crush remaja yang "benci-benci" tapi sebenarnya suka banget.</p><span class="source">genius.com</span></div>
-        <div class="card"><span class="num">02</span><h3>Manazashi, Sayonara</h3><p>Unit song dari setlist Cara Meminum Ramune (Omatase Setlist). Tema perpisahan di bawah hujan yang mellow.</p><span class="source">jkt48.com</span></div>
-        <div class="card"><span class="num">03</span><h3>Return Match</h3><p>Lagu klasik dari setlist Bel Terakhir Berbunyi (Saishuu Bell ga Naru). Tentang ingin "balas dendam" cinta masa lalu dengan semangat baru.</p><span class="source">akb48.fandom.com</span></div>
-        <div class="card"><span class="num">04</span><h3>Ame no Pianist</h3><p>Unit song dari setlist Sambil Menggandeng Erat Tanganku (Te wo Tsunaginagara). Lagu sedih tentang perpisahan, dengan imagery hujan dan piano.</p><span class="source">akb48.fandom.com</span></div>
-        <div class="card"><span class="num">05</span><h3>Hatsukoi yo, Konnichiwa</h3><p>Kedua sering muncul di stage. Yang pertama ringan tentang first love di sekolah, yang kedua lebih playful soal "cinta pertama dicuri".</p><span class="source">genius.com</span></div>
-        <div class="card"><span class="num">06</span><h3>Renai Kinshi Jourei</h3><p>Lagu klasik JKT48 tentang melanggar aturan "no dating" di idol world, tapi justru bikin cinta semakin membara.</p><span class="source">portalkudus.pikiran-rakyat.com</span></div>
-        <div class="card"><span class="num">07</span><h3>Bird</h3><p>Unit song ikonik dari setlist Demi Seseorang (Dareka no Tame ni). Metafor burung yang kehilangan sayap, tentang patah hati dan kehilangan kebebasan.</p><span class="source">akb48.fandom.com</span></div>
+    <p class="drag-hint">↳ tips: kartu-kartu teater di atas bisa digeser-geser layaknya keycap keyboard.</p>
+  </div>
+</section>
+
+<!-- 20th Birthday Wonders -->
+<section class="section" id="wonders20" style="border-top:1px solid var(--line);">
+  <div class="wrap">
+    <div class="section-head"><span class="tag">20th Birthday</span><h2>7 Wonders of the 20th Birthday</h2></div>
+    <div class="keycap-grid">
+      <!-- Special Card with Polaroid Image Background -->
+      <div class="keycap" data-drag style="position: relative; overflow: hidden; background: #fff;">
+        <img src="daidaidai.jpg" alt="Lana JKT48" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.15; z-index: 1; pointer-events: none;">
+        <div style="position: relative; z-index: 2;">
+          <span class="kc-tag mono" style="color: #6c757d;">WONDER 01 · MATURE</span>
+          <h3>Dai Dai Dai</h3>
+          <p style="color: #495057;">Lagu original JKT48 (dari setlist Pertaruhan Cinta, Act 2). Liriknya cute dan playful tentang crush remaja yang "benci-benci" tapi suka banget.</p>
+          <div class="kc-stack"><span>genius.com</span><span>Pertaruhan Cinta</span></div>
+        </div>
+      </div>
+      <div class="keycap" data-drag>
+        <span class="kc-tag mono">WONDER 02 · MATURE</span>
+        <h3>Manazashi, Sayonara</h3>
+        <p>Unit song dari setlist Cara Meminum Ramune (Omatase Setlist). Tema perpisahan di bawah hujan yang mellow.</p>
+        <div class="kc-stack"><span>jkt48.com</span><span>Cara Meminum Ramune</span></div>
+      </div>
+      <div class="keycap" data-drag>
+        <span class="kc-tag mono">WONDER 03 · MATURE</span>
+        <h3>Return Match</h3>
+        <p>Lagu klasik dari setlist Bel Terakhir Berbunyi (Saishuu Bell ga Naru). Tentang ingin "balas dendam" cinta masa lalu dengan semangat baru.</p>
+        <div class="kc-stack"><span>akb48.fandom.com</span><span>Bel Terakhir Berbunyi</span></div>
+      </div>
+      <div class="keycap" data-drag>
+        <span class="kc-tag mono">WONDER 04 · MATURE</span>
+        <h3>Ame no Pianist</h3>
+        <p>Unit song dari setlist Sambil Menggandeng Erat Tanganku (Te wo Tsunaginagara). Lagu sedih tentang perpisahan, dengan imagery hujan dan piano.</p>
+        <div class="kc-stack"><span>akb48.fandom.com</span><span>Pianis Hujan</span></div>
+      </div>
+      <div class="keycap" data-drag>
+        <span class="kc-tag mono">WONDER 05 · MATURE</span>
+        <h3>Hatsukoi yo, Konnichiwa</h3>
+        <p>Sering muncul di stage. Ringan tentang first love di sekolah, atau Hatsukoi Dorobou yang playful soal "cinta pertama dicuri".</p>
+        <div class="kc-stack"><span>genius.com</span><span>Cinta Pertama</span></div>
+      </div>
+      <div class="keycap" data-drag>
+        <span class="kc-tag mono">WONDER 06 · MATURE</span>
+        <h3>Renai Kinshi Jourei</h3>
+        <p>Lagu klasik JKT48 tentang melanggar aturan "no dating" di idol world, tapi justru bikin cinta semakin membara.</p>
+        <div class="kc-stack"><span>portalkudus.pikiran-rakyat.com</span><span>Anti Cinta</span></div>
+      </div>
+      <div class="keycap" data-drag>
+        <span class="kc-tag mono">WONDER 07 · MATURE</span>
+        <h3>Bird</h3>
+        <p>Unit song ikonik dari setlist Demi Seseorang (Dareka no Tame ni). Metafor burung yang kehilangan sayap, tentang patah hati dan kehilangan kebebasan.</p>
+        <div class="kc-stack"><span>akb48.fandom.com</span><span>Demi Seseorang</span></div>
       </div>
     </div>
   </div>
+</section>
 
-  <script>
-    // Drag and Drop implementation
-    const dragItems = document.querySelectorAll('[data-drag]');
-    let activeItem = null;
-    let initialX, initialY;
-    let xOffset = 0, yOffset = 0;
+<section class="section skills" id="profile">
+  <div class="wrap">
+    <div class="section-head"><span class="tag">metadata</span><h2>Informasi Member</h2></div>
+    <div class="keyboard">
+      <span class="key">Aurhel Alana</span>
+      <span class="key">Lana JKT48</span>
+      <span class="key">Generasi 12</span>
+      <span class="key">Team Love</span>
+      <span class="key">14 September 2006</span>
+      <span class="key">Aitakatta</span>
+      <span class="key">Seitansai 20</span>
+      <span class="key">100th Show</span>
+    </div>
+  </div>
+</section>
 
-    dragItems.forEach(item => {
-      // Keep track of offsets per item
-      item.xOffset = 0;
-      item.yOffset = 0;
+<section class="section contact" id="hashtags">
+  <div class="wrap">
+    <a class="power" href="#" onclick="navigator.clipboard.writeText('#WonderB100msLana #Wonder20nesLana'); alert('Hashtags disalin!'); return false;">SALIN<br>TAGAR</a>
+    <h2>Mari ramaikan tagar WonderLana!</h2>
+    <p>Gunakan tagar resmi ini di media sosial untuk memberikan ucapan selamat teater ke-100 dan ulang tahun ke-20 untuk Lana.</p>
+    <div class="contact-links">
+      <a href="#" onclick="navigator.clipboard.writeText('#WonderB100msLana'); alert('Tagar disalin!'); return false;">#WonderB100msLana</a>
+      <a href="#" onclick="navigator.clipboard.writeText('#Wonder20nesLana'); alert('Tagar disalin!'); return false;">#Wonder20nesLana</a>
+    </div>
+  </div>
+</section>
 
-      item.addEventListener('mousedown', dragStart);
-      item.addEventListener('touchstart', dragStart);
+<footer>© 2026 WonderLana. Dibuat dengan dedikasi untuk Aurhel Alana JKT48.</footer>
+
+<script>
+  // typing effect
+  const outEl = document.getElementById('typed-out');
+  const lines = [
+    "kawaii idol JKT48",
+    "gadis beranjak dewasa",
+    "member generasi 12"
+  ];
+  let li = 0, ci = 0, deleting = false;
+  function typeLoop(){
+    const current = lines[li];
+    if(!deleting){
+      ci++;
+      outEl.textContent = current.slice(0, ci);
+      if(ci === current.length){ deleting = true; setTimeout(typeLoop, 1400); return; }
+    } else {
+      ci--;
+      outEl.textContent = current.slice(0, ci);
+      if(ci === 0){ deleting = false; li = (li+1) % lines.length; }
+    }
+    box = deleting ? 35 : 65;
+    setTimeout(typeLoop, box);
+  }
+  typeLoop();
+
+  // draggable keycaps with 3D tilt
+  document.querySelectorAll('[data-drag]').forEach(card => {
+    let isDown = false, startX, startY, origX = 0, origY = 0;
+
+    card.addEventListener('mousemove', (e) => {
+      if(isDown) return;
+      const r = card.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      card.style.transform = `translate(${origX}px, ${origY}px) rotateY(${x*14}deg) rotateX(${-y*14}deg)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      if(!isDown) card.style.transform = `translate(${origX}px, ${origY}px) rotateY(0) rotateX(0)`;
     });
 
-    window.addEventListener('mousemove', drag);
-    window.addEventListener('touchmove', drag);
-    window.addEventListener('mouseup', dragEnd);
-    window.addEventListener('touchend', dragEnd);
+    card.addEventListener('mousedown', (e) => {
+      isDown = true;
+      startX = e.clientX; startY = e.clientY;
+      card.style.zIndex = 10;
+      card.style.transition = 'none';
+    });
+    window.addEventListener('mousemove', (e) => {
+      if(!isDown) return;
+      const dx = e.clientX - startX;
+      const dy = e.clientY - startY;
+      card.style.transform = `translate(${origX+dx}px, ${origY+dy}px) rotate(${dx*0.03}deg)`;
+    });
+    window.addEventListener('mouseup', (e) => {
+      if(!isDown) return;
+      isDown = false;
+      origX += (e.clientX - startX);
+      origY += (e.clientY - startY);
+      card.style.transition = 'transform .35s cubic-bezier(.2,.9,.3,1.3)';
+      card.style.transform = `translate(${origX}px, ${origY}px) rotate(0deg)`;
+      setTimeout(()=>{ origX = 0; origY = 0; card.style.transform = 'translate(0,0)'; }, 380);
+    });
+  });
+</script>
 
-    function dragStart(e) {
-      if (e.target.closest('.cd-center') || e.target.classList.contains('cd-center')) return;
-      activeItem = e.currentTarget;
-      
-      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-
-      initialX = clientX - activeItem.xOffset;
-      initialY = clientY - activeItem.yOffset;
-    }
-
-    function drag(e) {
-      if (!activeItem) return;
-      e.preventDefault();
-
-      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-
-      activeItem.xOffset = clientX - initialX;
-      activeItem.yOffset = clientY - initialY;
-
-      setTranslate(activeItem.xOffset, activeItem.yOffset, activeItem);
-    }
-
-    function setTranslate(xPos, yPos, el) {
-      el.style.transform = `translate3d(${xPos}px, ${yPos}px, 0)`;
-    }
-
-    function dragEnd() {
-      if (activeItem) {
-        initialX = activeItem.xOffset;
-        initialY = activeItem.yOffset;
-        activeItem = null;
-      }
-    }
-
-    // Drawer toggles
-    function openDrawer(type) {
-      // Prevent drawer triggering on end-drag click
-      if (activeItem) return; 
-      document.getElementById(type === 'cute' ? 'drawerCute' : 'drawerElegant').classList.add('open');
-    }
-
-    function closeDrawer(type) {
-      document.getElementById(type === 'cute' ? 'drawerCute' : 'drawerElegant').classList.remove('open');
-    }
-
-    // CD Simulation
-    function togglePlay(e) {
-      e.stopPropagation();
-      document.getElementById('cdPlayer').classList.toggle('playing');
-    }
-  </script>
 </body>
 </html>
