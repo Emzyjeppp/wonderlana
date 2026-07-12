@@ -382,6 +382,52 @@
   .wish-card p{ font-family:'Caveat'; font-size:21px; line-height:1.35; margin:0 0 12px; }
   .wish-card b{ font-size:13px; font-weight:800; color:var(--rose); }
 
+  /* ---------- STORY MODAL ---------- */
+  .polaroid .read-more{
+    display:block; margin-top:10px; font-family:'Plus Jakarta Sans';
+    font-size:12px; font-weight:800; letter-spacing:.06em; text-transform:uppercase;
+    color:var(--rose);
+  }
+  .mature .polaroid .read-more{ color:var(--gold); }
+
+  .modal-backdrop{
+    position:fixed; inset:0; background:rgba(71,32,60,0.55); backdrop-filter:blur(4px);
+    z-index:400; display:none; align-items:center; justify-content:center; padding:24px;
+  }
+  .modal-backdrop.open{ display:flex; }
+  .modal{
+    background:#fff; border:2.5px solid var(--plum); border-radius:18px;
+    max-width:560px; width:100%; max-height:85vh; overflow-y:auto;
+    padding:34px 32px 30px; position:relative;
+    box-shadow: 10px 10px 0 var(--pink-soft), var(--shadow-big);
+    animation: modal-pop .3s cubic-bezier(.2,.9,.3,1.3);
+  }
+  @keyframes modal-pop{ from{ transform:scale(.85) rotate(-1.5deg); opacity:0; } to{ transform:scale(1) rotate(0); opacity:1; } }
+  .modal.mature-modal{
+    background:#5A2C4C; border-color:var(--gold); color:var(--cream);
+    box-shadow: 10px 10px 0 rgba(232,169,60,0.35), var(--shadow-big);
+  }
+  .modal .m-tag{
+    display:inline-block; font-family:'Caveat'; font-size:21px; color:#fff;
+    background:var(--pink); padding:3px 18px; border-radius:999px; transform:rotate(-2deg);
+    margin-bottom:14px;
+  }
+  .modal.mature-modal .m-tag{ background:var(--gold); color:var(--plum); }
+  .modal h3{ font-size:30px; font-weight:900; margin-bottom:4px; }
+  .modal .m-setlist{ font-family:'Caveat'; font-size:20px; color:var(--rose); display:block; margin-bottom:18px; }
+  .modal.mature-modal .m-setlist{ color:var(--gold); }
+  .modal .m-story{ font-size:15px; line-height:1.8; color:var(--plum-soft); }
+  .modal.mature-modal .m-story{ color:#E3CBDB; }
+  .modal .m-story p{ margin:0 0 14px; }
+  .modal-close{
+    position:absolute; top:14px; right:14px; width:38px; height:38px; border-radius:50%;
+    background:var(--pink-pale); border:2px solid var(--plum); font-size:17px; font-weight:800;
+    color:var(--plum); cursor:pointer; line-height:1;
+    transition:transform .15s ease, background .15s ease;
+  }
+  .modal-close:hover{ transform:rotate(90deg); background:var(--pink-soft); }
+  .modal.mature-modal .modal-close{ background:var(--plum); border-color:var(--gold); color:var(--gold); }
+
   footer{
     text-align:center; padding:34px 0 40px; font-size:13px; color:var(--plum-soft);
     background:var(--cream-2);
@@ -502,54 +548,61 @@
     </div>
     <div class="string" aria-hidden="true"></div>
     <div class="polaroid-grid">
-      <div class="polaroid" data-drag>
+      <div class="polaroid" data-drag data-story="aitakatta" role="button" tabindex="0" aria-haspopup="dialog">
         <span class="pin" aria-hidden="true"></span>
         <div class="photo fill-1">🌱<span class="p-num">01</span></div>
         <h3>Aitakatta</h3>
         <p>Langkah awal perjalanan penuh semangat bersama sentuhan warna hijau segar.</p>
         <span class="p-caption">"aku ingin bertemu!"</span>
+        <span class="read-more">baca cerita →</span>
       </div>
-      <div class="polaroid" data-drag>
+      <div class="polaroid" data-drag data-story="pajama" role="button" tabindex="0" aria-haspopup="dialog">
         <span class="pin" aria-hidden="true"></span>
         <div class="photo fill-2">🌙<span class="p-num">02</span></div>
         <h3>Pajama Drive</h3>
         <p>Energi teater masa muda yang membakar semangat penonton dengan koreografi lincah.</p>
         <span class="p-caption">energi tanpa habis ⚡</span>
+        <span class="read-more">baca cerita →</span>
       </div>
-      <div class="polaroid" data-drag>
+      <div class="polaroid" data-drag data-story="ramune" role="button" tabindex="0" aria-haspopup="dialog">
         <span class="pin" aria-hidden="true"></span>
         <div class="photo fill-3">🥤<span class="p-num">03</span></div>
         <h3>Ramune no Nomikata</h3>
         <p>Kesegaran manis tiada tara, menggambarkan keceriaan musim panas yang menyenangkan.</p>
         <span class="p-caption">semanis ramune 🍬</span>
+        <span class="read-more">baca cerita →</span>
       </div>
-      <div class="polaroid" data-drag>
+      <div class="polaroid" data-drag data-story="rkj" role="button" tabindex="0" aria-haspopup="dialog">
         <span class="pin" aria-hidden="true"></span>
         <div class="photo fill-1">📜<span class="p-num">04</span></div>
         <h3>RKJ</h3>
         <p>Renai Kinshi Jourei. Disiplin panggung membawakan aturan anti cinta yang legendaris.</p>
         <span class="p-caption">aturan yang legendaris</span>
+        <span class="read-more">baca cerita →</span>
       </div>
-      <div class="polaroid" data-drag>
+      <div class="polaroid" data-drag data-story="twt" role="button" tabindex="0" aria-haspopup="dialog">
         <span class="pin" aria-hidden="true"></span>
         <div class="photo fill-2">🤝<span class="p-num">05</span></div>
         <h3>TwT</h3>
         <p>Te wo Tsunaginagara. Kehangatan persahabatan sejati sambil menggenggam tangan erat fans.</p>
         <span class="p-caption">genggam tanganku 💞</span>
+        <span class="read-more">baca cerita →</span>
       </div>
-      <div class="polaroid" data-drag>
+      <div class="polaroid" data-drag data-story="percin" role="button" tabindex="0" aria-haspopup="dialog">
         <span class="pin" aria-hidden="true"></span>
         <div class="photo fill-3">🎭<span class="p-num">06</span></div>
         <h3>Percin</h3>
         <p>Pertaruhan Cinta. Dedikasi tulus mengekspresikan emosi panggung yang mendalam.</p>
         <span class="p-caption">dari hati, untuk panggung</span>
+        <span class="read-more">baca cerita →</span>
       </div>
-      <div class="polaroid" data-drag>
+      <div class="polaroid" data-drag data-story="itadaki" role="button" tabindex="0" aria-haspopup="dialog">
         <span class="pin" aria-hidden="true"></span>
         <div class="photo fill-1">⛰️<span class="p-num">07</span></div>
         <h3>Itadaki</h3>
         <p>Mendaki Bukit. Bersama-sama mendaki rintangan teater demi menggapai puncak impian teratas.</p>
         <span class="p-caption">menuju puncak! 🏔️</span>
+        <span class="read-more">baca cerita →</span>
       </div>
     </div>
     <p class="drag-hint">↳ psst… foto-fotonya bisa digeser-geser, seperti menata kenangan di meja pesta</p>
@@ -566,7 +619,7 @@
     </div>
     <div class="string" aria-hidden="true"></div>
     <div class="polaroid-grid">
-      <div class="polaroid" data-drag>
+      <div class="polaroid" data-drag data-story="daidaidai" role="button" tabindex="0" aria-haspopup="dialog">
         <span class="pin" aria-hidden="true"></span>
         <div class="photo fill-m1">
           <img src="daidaidai.jpg" alt="Lana JKT48" onerror="this.remove()">
@@ -575,48 +628,55 @@
         <h3>Dai Dai Dai</h3>
         <p>Dari setlist Pertaruhan Cinta, Act 2. Lirik playful tentang crush yang "benci-benci tapi suka banget".</p>
         <span class="p-caption">benci tapi rindu 💘</span>
+        <span class="read-more">baca cerita →</span>
       </div>
-      <div class="polaroid" data-drag>
+      <div class="polaroid" data-drag data-story="manazashi" role="button" tabindex="0" aria-haspopup="dialog">
         <span class="pin" aria-hidden="true"></span>
         <div class="photo fill-m2">🌧️<span class="p-num">02</span></div>
         <h3>Manazashi, Sayonara</h3>
         <p>Unit song dari setlist Cara Meminum Ramune. Tema perpisahan di bawah hujan yang mellow.</p>
         <span class="p-caption">selamat tinggal, tatapan itu</span>
+        <span class="read-more">baca cerita →</span>
       </div>
-      <div class="polaroid" data-drag>
+      <div class="polaroid" data-drag data-story="returnmatch" role="button" tabindex="0" aria-haspopup="dialog">
         <span class="pin" aria-hidden="true"></span>
         <div class="photo fill-m1">🔥<span class="p-num">03</span></div>
         <h3>Return Match</h3>
         <p>Lagu klasik dari setlist Bel Terakhir Berbunyi. Tentang membalas cinta masa lalu dengan semangat baru.</p>
         <span class="p-caption">ronde kedua dimulai</span>
+        <span class="read-more">baca cerita →</span>
       </div>
-      <div class="polaroid" data-drag>
+      <div class="polaroid" data-drag data-story="amenopianist" role="button" tabindex="0" aria-haspopup="dialog">
         <span class="pin" aria-hidden="true"></span>
         <div class="photo fill-m2">🎹<span class="p-num">04</span></div>
         <h3>Ame no Pianist</h3>
         <p>Unit song dari setlist Te wo Tsunaginagara. Lagu sendu tentang perpisahan, hujan, dan piano.</p>
         <span class="p-caption">melodi di tengah hujan</span>
+        <span class="read-more">baca cerita →</span>
       </div>
-      <div class="polaroid" data-drag>
+      <div class="polaroid" data-drag data-story="hatsukoi" role="button" tabindex="0" aria-haspopup="dialog">
         <span class="pin" aria-hidden="true"></span>
         <div class="photo fill-m1">💌<span class="p-num">05</span></div>
         <h3>Hatsukoi yo, Konnichiwa</h3>
         <p>Sering muncul di stage — kisah ringan tentang cinta pertama di masa sekolah yang playful.</p>
         <span class="p-caption">halo, cinta pertama</span>
+        <span class="read-more">baca cerita →</span>
       </div>
-      <div class="polaroid" data-drag>
+      <div class="polaroid" data-drag data-story="renai" role="button" tabindex="0" aria-haspopup="dialog">
         <span class="pin" aria-hidden="true"></span>
         <div class="photo fill-m2">🚫<span class="p-num">06</span></div>
         <h3>Renai Kinshi Jourei</h3>
         <p>Lagu klasik tentang melanggar aturan "no dating" di dunia idol — justru membuat cinta makin membara.</p>
         <span class="p-caption">aturan dibuat untuk…</span>
+        <span class="read-more">baca cerita →</span>
       </div>
-      <div class="polaroid" data-drag>
+      <div class="polaroid" data-drag data-story="bird" role="button" tabindex="0" aria-haspopup="dialog">
         <span class="pin" aria-hidden="true"></span>
         <div class="photo fill-m1">🕊️<span class="p-num">07</span></div>
         <h3>Bird</h3>
         <p>Unit song ikonik dari setlist Dareka no Tame ni. Metafora burung kehilangan sayap — patah hati dan kebebasan.</p>
         <span class="p-caption">terbanglah lebih tinggi</span>
+        <span class="read-more">baca cerita →</span>
       </div>
     </div>
     <p class="drag-hint">↳ kartu di sini juga bisa digeser</p>
@@ -688,6 +748,17 @@
   © 2026 WonderLana — dibuat dengan dedikasi untuk Aurhel Alana JKT48.
 </footer>
 
+<!-- Modal cerita wonder -->
+<div class="modal-backdrop" id="storyBackdrop">
+  <div class="modal" id="storyModal" role="dialog" aria-modal="true" aria-labelledby="storyTitle">
+    <button class="modal-close" id="storyClose" aria-label="Tutup cerita">✕</button>
+    <span class="m-tag" id="storyTag"></span>
+    <h3 id="storyTitle"></h3>
+    <span class="m-setlist" id="storySetlist"></span>
+    <div class="m-story" id="storyBody"></div>
+  </div>
+</div>
+
 <div class="copied-toast" id="toast" role="status"></div>
 
 <script>
@@ -731,13 +802,152 @@
     relight.style.display = 'none';
   });
 
-  // ---------- polaroid drag ----------
+  // ---------- cerita setiap wonder ----------
+  const STORIES = {
+    aitakatta: {
+      tag: 'Wonder 01 · Kawaii', title: 'Aitakatta', setlist: 'lagu pembuka perjalanan',
+      story: [
+        '"Aitakatta" — aku ingin bertemu denganmu. Tidak ada lagu yang lebih pas untuk membuka kisah seratus panggung Lana. Lagu inilah yang menjadi gerbang: gerbang bertemunya seorang gadis dengan mimpinya, dan gerbang bertemunya Lana dengan para fans untuk pertama kalinya.',
+        'Setiap kali intro lagu ini berbunyi di teater, energinya selalu sama seperti hari pertama — penuh semangat, penuh harapan, dan penuh warna hijau segar seperti tunas yang baru tumbuh. Dari sinilah semua dimulai.'
+      ]
+    },
+    pajama: {
+      tag: 'Wonder 02 · Kawaii', title: 'Pajama Drive', setlist: 'setlist penuh energi masa muda',
+      story: [
+        'Pajama Drive adalah setlist yang identik dengan masa muda — koreografi lincah, senyum lebar, dan energi yang tidak pernah habis. Di panggung inilah Lana menunjukkan sisi paling ceria dari dirinya.',
+        'Bagi banyak fans, melihat Lana membawakan setlist ini seperti melihat definisi kata "genki": semangat yang menular sampai ke barisan paling belakang teater. Momen-momen seperti inilah yang membuat perjalanan menuju 100 show terasa begitu hidup.'
+      ]
+    },
+    ramune: {
+      tag: 'Wonder 03 · Kawaii', title: 'Ramune no Nomikata', setlist: 'Cara Meminum Ramune',
+      story: [
+        'Semanis soda ramune di musim panas — begitulah rasanya setlist ini. Cara Meminum Ramune membawa keceriaan yang ringan, segar, dan menyenangkan, cocok sekali dengan sisi playful Lana.',
+        'Di antara seratus pertunjukan yang sudah dilalui, panggung-panggung Ramune selalu jadi pengingat bahwa menjadi idol juga tentang berbagi kebahagiaan sederhana: senyum, tawa, dan kesegaran yang tidak pernah basi.'
+      ]
+    },
+    rkj: {
+      tag: 'Wonder 04 · Kawaii', title: 'RKJ — Renai Kinshi Jourei', setlist: 'Aturan Anti Cinta',
+      story: [
+        'Renai Kinshi Jourei — aturan anti cinta yang legendaris di dunia 48. Setlist ini menuntut kedisiplinan panggung yang tinggi: formasi rapat, ekspresi teatrikal, dan cerita yang harus tersampaikan lewat setiap gerakan.',
+        'Lewat setlist inilah terlihat sisi profesional Lana: bukan cuma imut di panggung, tapi juga serius berlatih demi membawakan cerita dengan sempurna. Disiplin ini yang mengantarnya melangkah pasti hingga show ke-100.'
+      ]
+    },
+    twt: {
+      tag: 'Wonder 05 · Kawaii', title: 'TwT — Te wo Tsunaginagara', setlist: 'Sambil Menggandeng Erat Tanganku',
+      story: [
+        'Te wo Tsunaginagara berarti "sambil bergandengan tangan" — dan memang begitulah hubungan Lana dengan fansnya selama ini. Setlist ini penuh kehangatan tentang persahabatan dan kebersamaan.',
+        'Seratus show bukan perjalanan yang bisa ditempuh sendirian. Setiap teriakan dukungan, setiap lambaian, setiap kehadiran fans di kursi teater adalah tangan-tangan yang ikut menggandeng Lana sampai ke titik ini.'
+      ]
+    },
+    percin: {
+      tag: 'Wonder 06 · Kawaii', title: 'Percin — Pertaruhan Cinta', setlist: 'setlist kebanggaan',
+      story: [
+        'Pertaruhan Cinta adalah salah satu setlist yang paling melekat dengan perjalanan Lana. Di panggung inilah dedikasinya benar-benar teruji — emosi yang dalam, penampilan yang totalitas, dan cerita yang dibawakan sepenuh hati.',
+        'Banyak fans menyebut penampilan Lana di setlist ini sebagai salah satu yang paling berkesan. Dari sinilah terlihat: dia bukan hanya tampil, dia mempertaruhkan seluruh hatinya di setiap show.'
+      ]
+    },
+    itadaki: {
+      tag: 'Wonder 07 · Kawaii', title: 'Itadaki — Mendaki Bukit', setlist: 'puncak dari seratus panggung',
+      story: [
+        'Mendaki Bukit — judul yang seperti ditulis khusus untuk momen ini. Seratus pertunjukan teater adalah seratus anak tangga yang didaki satu per satu: ada yang ringan, ada yang berat, ada yang penuh keringat dan air mata.',
+        'Dan hari ini, Lana berdiri di puncak bukit ke-100 itu. Tapi seperti kata lagunya, di balik satu puncak selalu ada puncak berikutnya. Perjalanan ini belum selesai — justru baru saja dimulai. Menuju puncak berikutnya! 🏔️'
+      ]
+    },
+    daidaidai: {
+      tag: 'Wonder 01 · Mature', title: 'Dai Dai Dai', setlist: 'Pertaruhan Cinta · Act 2',
+      story: [
+        'Dai Dai Dai adalah lagu yang playful tentang perasaan "benci-benci tapi suka" — crush yang membuat hati kesal sekaligus berdebar. Di usia 20, lagu ini terasa seperti pintu masuk ke bab baru: perasaan yang lebih kompleks, lebih jujur, lebih dewasa.',
+        'Momen Lana membawakan lagu ini di setlist Pertaruhan Cinta jadi salah satu penampilan yang paling dikenang fans — bukti bahwa dia bisa membawakan sisi playful dengan kematangan seorang performer.'
+      ]
+    },
+    manazashi: {
+      tag: 'Wonder 02 · Mature', title: 'Manazashi, Sayonara', setlist: 'Cara Meminum Ramune',
+      story: [
+        '"Tatapan itu, selamat tinggal." Unit song ini bercerita tentang perpisahan di bawah hujan — mellow, sendu, dan dalam. Lagu seperti ini tidak bisa dibawakan hanya dengan teknik; ia butuh kedewasaan emosi.',
+        'Bahwa Lana dipercaya membawakan lagu seemosional ini adalah tanda pengakuan: gadis kawaii itu telah tumbuh menjadi performer yang mampu menyampaikan kesedihan dengan anggun. Usia 20 membawa kedalaman baru itu.'
+      ]
+    },
+    returnmatch: {
+      tag: 'Wonder 03 · Mature', title: 'Return Match', setlist: 'Bel Terakhir Berbunyi',
+      story: [
+        'Return Match adalah lagu tentang bangkit — tentang tidak menyerah pada kekalahan masa lalu dan kembali bertanding dengan semangat baru. Klasik dari setlist Bel Terakhir Berbunyi ini penuh api.',
+        'Memasuki usia 20, semangat "ronde kedua" ini terasa sangat relevan: bab remaja telah usai, dan kini Lana melangkah ke pertandingan yang lebih besar dengan bekal seratus panggung di belakangnya.'
+      ]
+    },
+    amenopianist: {
+      tag: 'Wonder 04 · Mature', title: 'Ame no Pianist', setlist: 'Te wo Tsunaginagara',
+      story: [
+        'Pianis Hujan — unit song dengan citra hujan dan denting piano yang menyayat. Ini salah satu lagu paling puitis di katalog 48: kesedihan yang dibawakan dengan keindahan.',
+        'Lagu ini mewakili sisi Lana yang jarang terlihat di panggung kawaii: kemampuan untuk diam, merasakan, dan menyampaikan emosi lewat kehalusan. Sisi dewasa yang kini, di usia 20, semakin sering ia tunjukkan.'
+      ]
+    },
+    hatsukoi: {
+      tag: 'Wonder 05 · Mature', title: 'Hatsukoi yo, Konnichiwa', setlist: 'kisah cinta pertama',
+      story: [
+        '"Halo, cinta pertama." Lagu ringan tentang debaran cinta pertama di masa sekolah — manis, malu-malu, dan jujur. Lagu yang sering muncul di stage dan selalu berhasil membuat teater tersenyum.',
+        'Di ulang tahun ke-20 ini, lagu ini terasa seperti surat untuk diri sendiri: perpisahan yang hangat dengan masa remaja, sambil menyapa masa dewasa dengan senyum yang sama manisnya.'
+      ]
+    },
+    renai: {
+      tag: 'Wonder 06 · Mature', title: 'Renai Kinshi Jourei', setlist: 'sisi lain dari aturan anti cinta',
+      story: [
+        'Menarik: lagu yang sama muncul di dua bab kehidupan Lana. Di bab kawaii, RKJ adalah tentang kedisiplinan panggung. Tapi di bab dewasa, lagu ini bercerita tentang hal yang lebih dalam — tentang perasaan yang justru semakin membara karena dilarang.',
+        'Begitulah tanda kedewasaan: lagu yang sama, tapi dimaknai dengan cara yang berbeda. Di usia 20, Lana membawakannya bukan lagi sekadar sebagai koreografi, tapi sebagai cerita yang ia pahami.'
+      ]
+    },
+    bird: {
+      tag: 'Wonder 07 · Mature', title: 'Bird', setlist: 'Dareka no Tame ni — Demi Seseorang',
+      story: [
+        'Bird adalah unit song paling ikonik dari setlist Demi Seseorang — metafora burung yang kehilangan sayapnya, tentang patah hati dan kebebasan yang direnggut. Lagu yang berat, indah, dan hanya bisa dibawakan oleh performer yang matang.',
+        'Menutup tujuh wonders ulang tahun ke-20 dengan Bird adalah pilihan yang tepat: karena setelah lagu tentang kehilangan sayap ini, harapan kita semua untuk Lana justru sebaliknya — terbanglah lebih tinggi, lebih jauh, lebih bebas. Selamat ulang tahun ke-20. 🕊️'
+      ]
+    }
+  };
+
+  // ---------- modal ----------
+  const backdrop = document.getElementById('storyBackdrop');
+  const modal = document.getElementById('storyModal');
+  const storyClose = document.getElementById('storyClose');
+  let lastFocused = null;
+
+  function openStory(key, isMature){
+    const s = STORIES[key];
+    if(!s) return;
+    document.getElementById('storyTag').textContent = s.tag;
+    document.getElementById('storyTitle').textContent = s.title;
+    document.getElementById('storySetlist').textContent = '♪ ' + s.setlist;
+    const body = document.getElementById('storyBody');
+    body.innerHTML = '';
+    s.story.forEach(par => {
+      const p = document.createElement('p');
+      p.textContent = par;
+      body.appendChild(p);
+    });
+    modal.classList.toggle('mature-modal', isMature);
+    backdrop.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    lastFocused = document.activeElement;
+    storyClose.focus();
+  }
+  function closeStory(){
+    backdrop.classList.remove('open');
+    document.body.style.overflow = '';
+    if(lastFocused) lastFocused.focus();
+  }
+  storyClose.addEventListener('click', closeStory);
+  backdrop.addEventListener('click', (e) => { if(e.target === backdrop) closeStory(); });
+  window.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeStory(); });
+
+  // ---------- polaroid: geser = drag, klik singkat = buka cerita ----------
+  const CLICK_THRESHOLD = 8; // px
   document.querySelectorAll('[data-drag]').forEach(card => {
-    let isDown = false, startX, startY;
+    let isDown = false, startX, startY, moved = 0;
     const move = (e) => {
       if(!isDown) return;
-      const x = (e.touches ? e.touches[0].clientX : e.clientX) - startX;
-      const y = (e.touches ? e.touches[0].clientY : e.clientY) - startY;
+      const cx = e.touches ? e.touches[0].clientX : e.clientX;
+      const cy = e.touches ? e.touches[0].clientY : e.clientY;
+      const x = cx - startX, y = cy - startY;
+      moved = Math.max(moved, Math.hypot(x, y));
       card.style.transform = `translate(${x}px, ${y}px) rotate(${x*0.04}deg)`;
     };
     const up = () => {
@@ -746,9 +956,12 @@
       card.style.transition = 'transform .4s cubic-bezier(.2,.9,.3,1.35)';
       card.style.transform = '';
       card.style.zIndex = '';
+      if(moved < CLICK_THRESHOLD && card.dataset.story){
+        openStory(card.dataset.story, !!card.closest('.mature'));
+      }
     };
     const down = (e) => {
-      isDown = true;
+      isDown = true; moved = 0;
       startX = e.touches ? e.touches[0].clientX : e.clientX;
       startY = e.touches ? e.touches[0].clientY : e.clientY;
       card.style.transition = 'none';
@@ -760,6 +973,13 @@
     window.addEventListener('touchmove', move, {passive:true});
     window.addEventListener('mouseup', up);
     window.addEventListener('touchend', up);
+    // keyboard: Enter/Spasi buka cerita
+    card.addEventListener('keydown', (e) => {
+      if((e.key === 'Enter' || e.key === ' ') && card.dataset.story){
+        e.preventDefault();
+        openStory(card.dataset.story, !!card.closest('.mature'));
+      }
+    });
   });
 
   // ---------- popper tagar ----------
