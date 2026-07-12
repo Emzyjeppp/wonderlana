@@ -385,6 +385,34 @@
   </div>
 </section>
 
+<!-- Fan Wish Box Section -->
+<section class="section" id="wishes" style="border-top:1px solid var(--line); background: var(--ink-2);">
+  <div class="wrap" style="max-width: 800px; margin: 0 auto;">
+    <div class="section-head" style="justify-content: center; text-align: center; margin-bottom: 30px;">
+      <span class="tag">wish box</span>
+      <h2>Kotak Harapan Fans untuk Lana</h2>
+    </div>
+    
+    <!-- Wish Form -->
+    <form id="wishForm" style="display: flex; flex-direction: column; gap: 15px; background: rgba(255,255,255,0.02); border: 1px solid var(--line); padding: 25px; border-radius: 16px; margin-bottom: 40px;">
+      <div style="display: flex; flex-direction: column; gap: 5px;">
+        <label for="fanName" style="font-family: 'Space Grotesk', sans-serif; font-size: 14px; color: var(--coral);">Nama Penggemar:</label>
+        <input type="text" id="fanName" required placeholder="Masukkan namamu..." style="background: rgba(0,0,0,0.3); border: 1px solid var(--line); color: #fff; padding: 12px; border-radius: 8px; font-family: inherit; font-size: 14px; outline: none; transition: border-color 0.2s;">
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 5px;">
+        <label for="fanMessage" style="font-family: 'Space Grotesk', sans-serif; font-size: 14px; color: var(--coral);">Harapan / Pesan Hangat:</label>
+        <textarea id="fanMessage" required rows="4" placeholder="Tulis ucapan selamat ulang tahun ke-20 atau selamat teater ke-100 untuk Lana..." style="background: rgba(0,0,0,0.3); border: 1px solid var(--line); color: #fff; padding: 12px; border-radius: 8px; font-family: inherit; font-size: 14px; outline: none; resize: vertical; transition: border-color 0.2s;"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary" style="align-self: flex-start; margin-top: 10px; border: none; box-shadow: 0 4px 0 #C24C33;">Kirim Harapan →</button>
+    </form>
+
+    <!-- Wishes List -->
+    <div id="wishesList" style="display: flex; flex-direction: column; gap: 18px;">
+      <!-- Wishes will be rendered dynamically here -->
+    </div>
+  </div>
+</section>
+
 <footer>© 2026 WonderLana. Dibuat dengan dedikasi untuk Aurhel Alana JKT48.</footer>
 
 <script>
@@ -449,6 +477,69 @@
       setTimeout(()=>{ origX = 0; origY = 0; card.style.transform = 'translate(0,0)'; }, 380);
     });
   });
+
+  // Wish Box Functionality
+  const wishForm = document.getElementById('wishForm');
+  const wishesList = document.getElementById('wishesList');
+
+  // Prepopulated dummy wishes
+  const defaultWishes = [
+    { name: "Fans Garis Keras Lana", message: "Happy 20th Birthday Lana! Terima kasih selalu memberikan energi positif di teater. Semoga terus bersinar!" },
+    { name: "Gen 12 Support", message: "Selamat atas pencapaian 100th shownya! Keren banget penampilannya di setlist Pertaruhan Cinta. Terus melangkah!" }
+  ];
+
+  function getWishes() {
+    const saved = localStorage.getItem('wonderlana_wishes');
+    return saved ? JSON.parse(saved) : defaultWishes;
+  }
+
+  function saveWishes(wishes) {
+    localStorage.setItem('wonderlana_wishes', JSON.stringify(wishes));
+  }
+
+  function renderWishes() {
+    const wishes = getWishes();
+    wishesList.innerHTML = '';
+    wishes.slice().reverse().forEach(w => {
+      const item = document.createElement('div');
+      item.style.background = 'rgba(255,255,255,0.03)';
+      item.style.border = '1px solid var(--line)';
+      item.style.padding = '18px';
+      item.style.borderRadius = '12px';
+      item.style.boxShadow = 'var(--shadow-soft)';
+      item.innerHTML = `
+        <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+          <strong style="color:var(--coral); font-family:'Space Grotesk', sans-serif;">${w.name}</strong>
+          <span style="font-size:11px; color:#6b7280; font-family:'IBM Plex Mono';">Penggemar</span>
+        </div>
+        <p style="margin:0; font-size:14px; color:var(--cream-dim); line-height:1.5;">${w.message}</p>
+      `;
+      wishesList.appendChild(item);
+    });
+  }
+
+  wishForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const nameInput = document.getElementById('fanName');
+    const messageInput = document.getElementById('fanMessage');
+    
+    const newWish = {
+      name: nameInput.value.trim(),
+      message: messageInput.value.trim()
+    };
+
+    const wishes = getWishes();
+    wishes.push(newWish);
+    saveWishes(wishes);
+    renderWishes();
+
+    nameInput.value = '';
+    messageInput.value = '';
+    alert('Harapanmu berhasil dikirim!');
+  });
+
+  // Render on load
+  renderWishes();
 </script>
 
 </body>
