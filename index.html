@@ -1159,25 +1159,44 @@
   });
 
   // ---------- kartu ucapan ----------
+  // Utama: Supabase (database di cloud, ucapan terlihat semua orang).
+  // Fallback: localStorage jika Supabase belum diisi konfigurasinya / gagal.
+  //
+  // >>> ISI DUA BARIS INI setelah membuat project di supabase.com <<<
+  // (Settings → API: "Project URL" dan "anon public" key)
+  const SUPABASE_URL = 'https://izzfapunrshgghrbhhpf.supabase.co';
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml6emZhcHVucnNoZ2docmJoaHBmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM5NTUzMzgsImV4cCI6MjA5OTUzMTMzOH0.TIgOngCo6R_7sKyw2h_nPthVNqO0H-5_TmOebtB0hyw';
+  // Catatan: anon key memang dirancang untuk ditaruh di halaman publik —
+  // keamanannya dijaga oleh Row Level Security di sisi Supabase.
+
   const wishForm = document.getElementById('wishForm');
   const wishesList = document.getElementById('wishesList');
   const defaultWishes = [
     { name: "Fans Garis Keras Lana", message: "Happy 20th Birthday Lana! Terima kasih selalu memberikan energi positif di teater. Semoga terus bersinar!" },
     { name: "Gen 12 Support", message: "Selamat atas pencapaian 100th show-nya! Keren banget penampilannya di setlist Pertaruhan Cinta. Terus melangkah!" }
   ];
+  let useSupabase = !!(SUPABASE_URL && SUPABASE_ANON_KEY);
+  const SB_HEADERS = {
+    'apikey': SUPABASE_ANON_KEY,
+    'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+    'Content-Type': 'application/json'
+  };
+  const COOLDOWN_MS = 20000; // anti-spam sederhana di sisi halaman
+  let lastSubmit = 0;
 
-  function getWishes(){
+  function getLocalWishes(){
     try{
       const saved = localStorage.getItem('wonderlana_wishes');
-      return saved ? JSON.parse(saved) : defaultWishes;
-    }catch(e){ return defaultWishes; }
+      return saved ? JSON.parse(saved) : defaultWishes.slice();
+    }catch(e){ return defaultWishes.slice(); }
   }
-  function saveWishes(w){
+  function saveLocalWishes(w){
     try{ localStorage.setItem('wonderlana_wishes', JSON.stringify(w)); }catch(e){}
   }
-  function renderWishes(){
+
+  function renderWishes(list){
     wishesList.innerHTML = '';
-    getWishes().slice().reverse().forEach(w => {
+    list.forEach(w => {
       const card = document.createElement('div');
       card.className = 'wish-card';
       const tape = document.createElement('span');
@@ -1190,19 +1209,57 @@
       wishesList.appendChild(card);
     });
   }
-  wishForm.addEventListener('submit', (e) => {
+
+  async function loadWishes(){
+    if (useSupabase){
+      try{
+        const res = await fetch(
+          SUPABASE_URL + '/rest/v1/wishes?select=name,message,created_at&order=id.desc&limit=500',
+          { headers: SB_HEADERS }
+        );
+        if (!res.ok) throw new Error(res.status);
+        renderWishes(await res.json());
+        return;
+      }catch(e){ useSupabase = false; }
+    }
+    renderWishes(getLocalWishes().slice().reverse());
+  }
+
+  async function submitWish(name, message){
+    if (useSupabase){
+      try{
+        const res = await fetch(SUPABASE_URL + '/rest/v1/wishes', {
+          method:'POST',
+          headers:{ ...SB_HEADERS, 'Prefer':'return=minimal' },
+          body: JSON.stringify({ name, message })
+        });
+        if (!res.ok) throw new Error(res.status);
+        return true;
+      }catch(e){ useSupabase = false; }
+    }
+    const wishes = getLocalWishes();
+    wishes.push({ name, message });
+    saveLocalWishes(wishes);
+    return true;
+  }
+
+  wishForm.addEventListener('submit', async (e) => {
     e.preventDefault();
+    const now = Date.now();
+    if (now - lastSubmit < COOLDOWN_MS){
+      showToast('🎈 Sabar ya, tunggu sebentar sebelum kirim lagi');
+      return;
+    }
     const name = document.getElementById('fanName');
     const msg  = document.getElementById('fanMessage');
-    const wishes = getWishes();
-    wishes.push({ name: name.value.trim(), message: msg.value.trim() });
-    saveWishes(wishes);
-    renderWishes();
+    await submitWish(name.value.trim(), msg.value.trim());
+    lastSubmit = now;
+    await loadWishes();
     name.value = ''; msg.value = '';
     burstConfetti(60);
     showToast('💌 Kartumu tertempel di dinding pesta!');
   });
-  renderWishes();
+  loadWishes();
 
   // ---------- countdown seitansai ----------
   // Lana lahir 14 September 2006 → seitansai ke-20 = 14 September 2026
