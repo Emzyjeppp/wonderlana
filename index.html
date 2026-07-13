@@ -428,6 +428,97 @@
   .modal-close:hover{ transform:rotate(90deg); background:var(--pink-soft); }
   .modal.mature-modal .modal-close{ background:var(--plum); border-color:var(--gold); color:var(--gold); }
 
+  /* ---------- COUNTDOWN ---------- */
+  .countdown{ margin-top:38px; }
+  .cd-label{ font-family:'Caveat'; font-size:22px; color:var(--rose); display:block; margin-bottom:14px; }
+  .cd-grid{ display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+  .cd-box{
+    background:#fff; border:2.5px solid var(--plum); border-radius:14px;
+    min-width:86px; padding:14px 10px 10px; box-shadow:0 5px 0 var(--plum);
+    position:relative;
+  }
+  .cd-box::before{
+    content:''; position:absolute; top:-7px; left:50%; transform:translateX(-50%);
+    width:26px; height:12px; background:var(--gold); border:2px solid var(--plum); border-radius:4px;
+  }
+  .cd-box b{ display:block; font-family:'Fraunces'; font-weight:900; font-size:34px; color:var(--rose); line-height:1; }
+  .cd-box span{ font-size:10.5px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--plum-soft); }
+  .cd-done{
+    display:none; font-family:'Fraunces'; font-weight:900; font-size:clamp(22px,3.4vw,30px);
+    color:var(--rose); background:var(--gold-soft); border:2.5px solid var(--plum);
+    border-radius:999px; padding:12px 30px; transform:rotate(-1.5deg);
+    box-shadow:4px 4px 0 var(--pink-soft);
+  }
+
+  /* ---------- TIMELINE PERJALANAN ---------- */
+  .timeline{ position:relative; max-width:760px; margin:0 auto; padding:10px 0; }
+  .timeline::before{
+    content:''; position:absolute; top:0; bottom:0; left:50%; transform:translateX(-50%);
+    border-left:3px dashed var(--pink); opacity:.5;
+  }
+  .tl-item{ position:relative; width:50%; padding:0 44px 46px 0; }
+  .tl-item:nth-child(even){ margin-left:50%; padding:0 0 46px 44px; text-align:left; }
+  .tl-item:nth-child(odd){ text-align:right; }
+  .tl-pin{
+    position:absolute; top:0; width:52px; height:52px; border-radius:50%;
+    background:#fff; border:2.5px solid var(--plum); z-index:2;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Fraunces'; font-weight:900; font-size:15px; color:var(--rose);
+    box-shadow:0 4px 0 var(--pink-soft);
+  }
+  .tl-item:nth-child(odd) .tl-pin{ right:-26px; }
+  .tl-item:nth-child(even) .tl-pin{ left:-26px; }
+  .tl-card{
+    display:inline-block; background:#fff; border:2px solid var(--plum); border-radius:14px;
+    padding:18px 20px; box-shadow:var(--shadow); max-width:300px; text-align:left;
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .tl-card:hover{ transform:translateY(-3px); box-shadow:var(--shadow-big); }
+  .tl-card .tl-tag{ font-size:11px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; color:var(--plum-soft); }
+  .tl-card h3{ font-size:19px; font-weight:900; margin:4px 0 6px; }
+  .tl-card p{ font-size:13.5px; line-height:1.6; color:var(--plum-soft); margin:0; }
+  .tl-item.final .tl-pin{ background:var(--gold); color:var(--plum); width:62px; height:62px; font-size:17px; }
+  .tl-item.final .tl-card{ background:var(--gold-soft); box-shadow:5px 5px 0 var(--pink-soft); }
+  @media (max-width:640px){
+    .timeline::before{ left:26px; }
+    .tl-item, .tl-item:nth-child(even){ width:100%; margin-left:0; padding:0 0 40px 62px; text-align:left; }
+    .tl-item:nth-child(odd) .tl-pin, .tl-item:nth-child(even) .tl-pin{ left:0; right:auto; }
+  }
+
+  /* ---------- PENLIGHT WAVE ---------- */
+  .penlight-strip{
+    background:var(--plum); padding:34px 0 0; overflow:hidden; position:relative;
+    border-top:3px solid var(--plum); cursor:pointer; border:none; width:100%; display:block;
+  }
+  .penlight-strip .pl-note{
+    text-align:center; font-family:'Caveat'; font-size:21px; color:var(--gold-soft);
+    margin:0 0 18px; opacity:.9;
+  }
+  .pl-row{ display:flex; justify-content:center; align-items:flex-end; gap:4px; }
+  .penlight{
+    width:16px; height:74px; border-radius:8px 8px 4px 4px; position:relative; flex:0 0 auto;
+    transform-origin:50% 100%;
+    animation: wave 1.6s ease-in-out infinite alternate;
+    background:linear-gradient(var(--pl-glow, var(--pink)) 62%, #2E1327 62%);
+    box-shadow:0 -6px 18px 2px var(--pl-shadow, rgba(255,107,157,0.45));
+    transition:background .4s ease, box-shadow .4s ease;
+  }
+  @keyframes wave{
+    from{ transform:rotate(-16deg); }
+    to{ transform:rotate(16deg); }
+  }
+  .penlight-strip.gold-mode .penlight{
+    background:linear-gradient(var(--gold) 62%, #2E1327 62%);
+    box-shadow:0 -6px 18px 2px rgba(232,169,60,0.5);
+  }
+  .penlight-strip.mint-mode .penlight{
+    background:linear-gradient(var(--mint) 62%, #2E1327 62%);
+    box-shadow:0 -6px 18px 2px rgba(189,229,211,0.5);
+  }
+  @media (prefers-reduced-motion: reduce){
+    .penlight{ animation:none; transform:rotate(0); }
+  }
+
   footer{
     text-align:center; padding:34px 0 40px; font-size:13px; color:var(--plum-soft);
     background:var(--cream-2);
@@ -469,6 +560,7 @@
     <div class="brand"><span class="balloon">🎈</span> WonderLana</div>
     <div class="navlinks">
       <a href="#cake">Tiup Lilin</a>
+      <a href="#journey">Perjalanan</a>
       <a href="#wonders100">100th Show</a>
       <a href="#wonders20">20th Birthday</a>
       <a href="#invite">Undangan</a>
@@ -499,6 +591,17 @@
     <div class="hero-cta">
       <a class="btn btn-primary" href="#cake">🎂 Tiup Lilinnya</a>
       <a class="btn" href="#wishes">💌 Tulis Ucapan</a>
+    </div>
+
+    <div class="countdown" id="countdown">
+      <span class="cd-label">⏳ menghitung hari menuju seitansai ke-20…</span>
+      <div class="cd-grid" id="cdGrid">
+        <div class="cd-box"><b id="cdD">0</b><span>Hari</span></div>
+        <div class="cd-box"><b id="cdH">0</b><span>Jam</span></div>
+        <div class="cd-box"><b id="cdM">0</b><span>Menit</span></div>
+        <div class="cd-box"><b id="cdS">0</b><span>Detik</span></div>
+      </div>
+      <div class="cd-done" id="cdDone">🎉 Hari ini pestanya! Selamat ulang tahun ke-20, Lana! 🎉</div>
     </div>
   </div>
 </header>
@@ -538,6 +641,59 @@
   </div>
 </section>
 
+<!-- ================= TIMELINE PERJALANAN ================= -->
+<section class="section" id="journey">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="ribbon">jejak langkah 👣</span>
+      <h2>Perjalanan Menuju 100 Panggung</h2>
+      <p>Seratus pertunjukan tidak terjadi dalam semalam — ini dia jejak langkah Lana dari debut hingga panggung ke-100.</p>
+    </div>
+    <div class="timeline">
+      <div class="tl-item">
+        <span class="tl-pin">1</span>
+        <div class="tl-card">
+          <span class="tl-tag">2 Maret 2024 · 19.00 WIB · Ingin Bertemu</span>
+          <h3>Debut Teater — Sonichi</h3>
+          <p>Hari pertama Lana di panggung teater lewat setlist Ingin Bertemu (Aitakatta), membawakan unit song "Namida no Shounan" dan "Koi no Plan". Ia tampil bersama Delynn, Erine, Fritzy, Lily, Moreen, Nayla, Nachia, Oline, Regie, Nala, dan Kimmy. Dari sonichi inilah kisah WonderLana dimulai.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <span class="tl-pin">25</span>
+        <div class="tl-card">
+          <span class="tl-tag">9 November 2024 · 19.00 WIB · Ingin Bertemu</span>
+          <h3>Semakin Percaya Diri</h3>
+          <p>Show ke-25 kembali ke setlist Ingin Bertemu — setlist debutnya — dengan unit song "Namida no Shounan" dan "Koi no Plan". Kali ini bersama Delynn, Erine, Fritzy, Lily, Moreen, Levi, Nachia, Oline, Regie, Nala, dan Kimmy. Panggung yang sama, tapi Lana yang jauh lebih matang.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <span class="tl-pin">50</span>
+        <div class="tl-card">
+          <span class="tl-tag">1 Agustus 2025 · 19.00 WIB · Sambil Menggandeng Erat Tanganku</span>
+          <h3>Titik Tengah Perjalanan</h3>
+          <p>Show ke-50 lewat setlist Sambil Menggandeng Erat Tanganku (Te wo Tsunaginagara), membawakan unit song "Kono Mune no Barcode". Lana tampil bersama Alya, Lia, Daisy, Fiony, Fritzy, Ella, Greesel, Indira, Marsha, Raisha, dan Gracia. Di titik ini, panggung bukan lagi tempat yang menegangkan, melainkan rumah kedua.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <span class="tl-pin">75</span>
+        <div class="tl-card">
+          <span class="tl-tag">1 Mei 2026 · 19.00 WIB · Cara Meminum Ramune</span>
+          <h3>Menuju Puncak</h3>
+          <p>Show ke-75 lewat setlist Cara Meminum Ramune (Ramune no Nomikata), membawakan unit song "Manazashi, Sayonara". Lana tampil bersama Alya, Anindya, Lia, Cathy, Elin, Cynthia, Fritzy, Lili, Indah, Trisha, dan Nayla. Tiga perempat jalan — puncak ke-100 sudah terlihat di depan mata.</p>
+        </div>
+      </div>
+      <div class="tl-item final">
+        <span class="tl-pin">100</span>
+        <div class="tl-card">
+          <span class="tl-tag">🎊 Pencapaian</span>
+          <h3>WonderLana — 100th Show!</h3>
+          <p>Seratus panggung, seribu kenangan. Dan seperti kado yang datang berpasangan: pencapaian ini dirayakan bersama ulang tahunnya yang ke-20. Selamat, Lana!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ================= 100TH SHOW (KAWAII) ================= -->
 <section class="section" id="wonders100">
   <div class="wrap">
@@ -551,7 +707,6 @@
       <div class="polaroid" data-drag data-story="aitakatta" role="button" tabindex="0" aria-haspopup="dialog">
         <span class="pin" aria-hidden="true"></span>
         <div class="photo fill-1">🌱<span class="p-num">01</span></div>
-        <div style="font-size:10px; font-weight:800; color:var(--rose); margin-bottom:4px; opacity:0.85;">Shonichi: 18 Des 2023</div>
         <h3>Aitakatta</h3>
         <p>Langkah awal perjalanan penuh semangat bersama sentuhan warna hijau segar.</p>
         <span class="p-caption">"aku ingin bertemu!"</span>
@@ -560,7 +715,6 @@
       <div class="polaroid" data-drag data-story="pajama" role="button" tabindex="0" aria-haspopup="dialog">
         <span class="pin" aria-hidden="true"></span>
         <div class="photo fill-2">🌙<span class="p-num">02</span></div>
-        <div style="font-size:10px; font-weight:800; color:var(--rose); margin-bottom:4px; opacity:0.85;">Shonichi: 31 Mei 2024</div>
         <h3>Pajama Drive</h3>
         <p>Energi teater masa muda yang membakar semangat penonton dengan koreografi lincah.</p>
         <span class="p-caption">energi tanpa habis ⚡</span>
@@ -569,7 +723,6 @@
       <div class="polaroid" data-drag data-story="ramune" role="button" tabindex="0" aria-haspopup="dialog">
         <span class="pin" aria-hidden="true"></span>
         <div class="photo fill-3">🥤<span class="p-num">03</span></div>
-        <div style="font-size:10px; font-weight:800; color:var(--rose); margin-bottom:4px; opacity:0.85;">Shonichi: 25 Mei 2024</div>
         <h3>Ramune no Nomikata</h3>
         <p>Kesegaran manis tiada tara, menggambarkan keceriaan musim panas yang menyenangkan.</p>
         <span class="p-caption">semanis ramune 🍬</span>
@@ -578,7 +731,6 @@
       <div class="polaroid" data-drag data-story="rkj" role="button" tabindex="0" aria-haspopup="dialog">
         <span class="pin" aria-hidden="true"></span>
         <div class="photo fill-1">📜<span class="p-num">04</span></div>
-        <div style="font-size:10px; font-weight:800; color:var(--rose); margin-bottom:4px; opacity:0.85;">Shonichi: 12 Jan 2024</div>
         <h3>RKJ</h3>
         <p>Renai Kinshi Jourei. Disiplin panggung membawakan aturan anti cinta yang legendaris.</p>
         <span class="p-caption">aturan yang legendaris</span>
@@ -587,7 +739,6 @@
       <div class="polaroid" data-drag data-story="twt" role="button" tabindex="0" aria-haspopup="dialog">
         <span class="pin" aria-hidden="true"></span>
         <div class="photo fill-2">🤝<span class="p-num">05</span></div>
-        <div style="font-size:10px; font-weight:800; color:var(--rose); margin-bottom:4px; opacity:0.85;">Shonichi: 23 Feb 2024</div>
         <h3>TwT</h3>
         <p>Te wo Tsunaginagara. Kehangatan persahabatan sejati sambil menggenggam tangan erat fans.</p>
         <span class="p-caption">genggam tanganku 💞</span>
@@ -596,7 +747,6 @@
       <div class="polaroid" data-drag data-story="percin" role="button" tabindex="0" aria-haspopup="dialog">
         <span class="pin" aria-hidden="true"></span>
         <div class="photo fill-3">🎭<span class="p-num">06</span></div>
-        <div style="font-size:10px; font-weight:800; color:var(--rose); margin-bottom:4px; opacity:0.85;">Shonichi: 10 Apr 2024</div>
         <h3>Percin</h3>
         <p>Pertaruhan Cinta. Dedikasi tulus mengekspresikan emosi panggung yang mendalam.</p>
         <span class="p-caption">dari hati, untuk panggung</span>
@@ -605,7 +755,6 @@
       <div class="polaroid" data-drag data-story="itadaki" role="button" tabindex="0" aria-haspopup="dialog">
         <span class="pin" aria-hidden="true"></span>
         <div class="photo fill-1">⛰️<span class="p-num">07</span></div>
-        <div style="font-size:10px; font-weight:800; color:var(--rose); margin-bottom:4px; opacity:0.85;">Shonichi: 11 Mei 2024</div>
         <h3>Itadaki</h3>
         <p>Mendaki Bukit. Bersama-sama mendaki rintangan teater demi menggapai puncak impian teratas.</p>
         <span class="p-caption">menuju puncak! 🏔️</span>
@@ -632,7 +781,6 @@
           <img src="daidaidai.jpg" alt="Lana JKT48" onerror="this.remove()">
           <span class="p-num">01</span>
         </div>
-        <div style="font-size:10px; font-weight:800; color:var(--gold); margin-bottom:4px; opacity:0.85;">Shonichi: 15 Jun 2024</div>
         <h3>Dai Dai Dai</h3>
         <p>Dari setlist Pertaruhan Cinta, Act 2. Lirik playful tentang crush yang "benci-benci tapi suka banget".</p>
         <span class="p-caption">benci tapi rindu 💘</span>
@@ -641,7 +789,6 @@
       <div class="polaroid" data-drag data-story="manazashi" role="button" tabindex="0" aria-haspopup="dialog">
         <span class="pin" aria-hidden="true"></span>
         <div class="photo fill-m2">🌧️<span class="p-num">02</span></div>
-        <div style="font-size:10px; font-weight:800; color:var(--gold); margin-bottom:4px; opacity:0.85;">Shonichi: 02 Jul 2024</div>
         <h3>Manazashi, Sayonara</h3>
         <p>Unit song dari setlist Cara Meminum Ramune. Tema perpisahan di bawah hujan yang mellow.</p>
         <span class="p-caption">selamat tinggal, tatapan itu</span>
@@ -650,7 +797,6 @@
       <div class="polaroid" data-drag data-story="returnmatch" role="button" tabindex="0" aria-haspopup="dialog">
         <span class="pin" aria-hidden="true"></span>
         <div class="photo fill-m1">🔥<span class="p-num">03</span></div>
-        <div style="font-size:10px; font-weight:800; color:var(--gold); margin-bottom:4px; opacity:0.85;">Shonichi: 19 Agt 2024</div>
         <h3>Return Match</h3>
         <p>Lagu klasik dari setlist Bel Terakhir Berbunyi. Tentang membalas cinta masa lalu dengan semangat baru.</p>
         <span class="p-caption">ronde kedua dimulai</span>
@@ -659,16 +805,14 @@
       <div class="polaroid" data-drag data-story="amenopianist" role="button" tabindex="0" aria-haspopup="dialog">
         <span class="pin" aria-hidden="true"></span>
         <div class="photo fill-m2">🎹<span class="p-num">04</span></div>
-        <div style="font-size:10px; font-weight:800; color:var(--gold); margin-bottom:4px; opacity:0.85;">Shonichi: 05 Sep 2024</div>
         <h3>Ame no Pianist</h3>
-        <p>Unit song dari setlist Te wo Tsunaginagara. Lagu sendu tentang perpisahan, hujan, and piano.</p>
+        <p>Unit song dari setlist Te wo Tsunaginagara. Lagu sendu tentang perpisahan, hujan, dan piano.</p>
         <span class="p-caption">melodi di tengah hujan</span>
         <span class="read-more">baca cerita →</span>
       </div>
       <div class="polaroid" data-drag data-story="hatsukoi" role="button" tabindex="0" aria-haspopup="dialog">
         <span class="pin" aria-hidden="true"></span>
         <div class="photo fill-m1">💌<span class="p-num">05</span></div>
-        <div style="font-size:10px; font-weight:800; color:var(--gold); margin-bottom:4px; opacity:0.85;">Shonichi: 14 Sep 2024</div>
         <h3>Hatsukoi yo, Konnichiwa</h3>
         <p>Sering muncul di stage — kisah ringan tentang cinta pertama di masa sekolah yang playful.</p>
         <span class="p-caption">halo, cinta pertama</span>
@@ -677,7 +821,6 @@
       <div class="polaroid" data-drag data-story="renai" role="button" tabindex="0" aria-haspopup="dialog">
         <span class="pin" aria-hidden="true"></span>
         <div class="photo fill-m2">🚫<span class="p-num">06</span></div>
-        <div style="font-size:10px; font-weight:800; color:var(--gold); margin-bottom:4px; opacity:0.85;">Shonichi: 20 Okt 2024</div>
         <h3>Renai Kinshi Jourei</h3>
         <p>Lagu klasik tentang melanggar aturan "no dating" di dunia idol — justru membuat cinta makin membara.</p>
         <span class="p-caption">aturan dibuat untuk…</span>
@@ -686,9 +829,8 @@
       <div class="polaroid" data-drag data-story="bird" role="button" tabindex="0" aria-haspopup="dialog">
         <span class="pin" aria-hidden="true"></span>
         <div class="photo fill-m1">🕊️<span class="p-num">07</span></div>
-        <div style="font-size:10px; font-weight:800; color:var(--gold); margin-bottom:4px; opacity:0.85;">Shonichi: 10 Nov 2024</div>
         <h3>Bird</h3>
-        <p>Unit song ikonik dari setlist Dareka no Tame ni. Metafor burung kehilangan sayap — patah hati dan kebebasan.</p>
+        <p>Unit song ikonik dari setlist Dareka no Tame ni. Metafora burung kehilangan sayap — patah hati dan kebebasan.</p>
         <span class="p-caption">terbanglah lebih tinggi</span>
         <span class="read-more">baca cerita →</span>
       </div>
@@ -756,6 +898,12 @@
     <div class="wish-grid" id="wishesList"></div>
   </div>
 </section>
+
+<!-- ================= PENLIGHT WAVE ================= -->
+<button class="penlight-strip" id="penlightStrip" aria-label="Barisan penlight penonton — klik untuk mengganti warna">
+  <p class="pl-note">🔦 lambaian penlight dari kami semua — klik untuk ganti warna!</p>
+  <div class="pl-row" id="plRow" aria-hidden="true"></div>
+</button>
 
 <footer>
   <span class="hand">terima kasih sudah ikut merayakan 🎂</span>
@@ -1055,6 +1203,62 @@
     showToast('💌 Kartumu tertempel di dinding pesta!');
   });
   renderWishes();
+
+  // ---------- countdown seitansai ----------
+  // Lana lahir 14 September 2006 → seitansai ke-20 = 14 September 2026
+  const SEITANSAI = new Date(2026, 8, 14, 0, 0, 0); // bulan 8 = September
+  const DAY_AFTER = new Date(2026, 8, 15, 0, 0, 0);
+  const cdGrid = document.getElementById('cdGrid');
+  const cdDone = document.getElementById('cdDone');
+  const cdLabel = document.querySelector('.cd-label');
+  let celebrated = false;
+
+  function tickCountdown(){
+    const now = new Date();
+    if (now >= SEITANSAI && now < DAY_AFTER){
+      cdGrid.style.display = 'none';
+      cdDone.style.display = 'inline-block';
+      if(!celebrated){ celebrated = true; burstConfetti(120); }
+      return;
+    }
+    if (now >= DAY_AFTER){
+      cdGrid.style.display = 'none';
+      cdDone.style.display = 'inline-block';
+      cdDone.textContent = '🎂 Seitansai ke-20 sudah kita rayakan — terima kasih sudah hadir!';
+      cdLabel.textContent = '✨ pestanya sudah berlangsung meriah ✨';
+      return;
+    }
+    const diff = SEITANSAI - now;
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor(diff / 3600000) % 24;
+    const m = Math.floor(diff / 60000) % 60;
+    const s = Math.floor(diff / 1000) % 60;
+    document.getElementById('cdD').textContent = d;
+    document.getElementById('cdH').textContent = h;
+    document.getElementById('cdM').textContent = m;
+    document.getElementById('cdS').textContent = s;
+  }
+  tickCountdown();
+  setInterval(tickCountdown, 1000);
+
+  // ---------- penlight wave ----------
+  const plRow = document.getElementById('plRow');
+  const plStrip = document.getElementById('penlightStrip');
+  const PL_COUNT = 36;
+  for(let i=0; i<PL_COUNT; i++){
+    const p = document.createElement('span');
+    p.className = 'penlight';
+    p.style.animationDelay = (i * 0.12) + 's';           // efek gelombang berurutan
+    p.style.animationDuration = (1.4 + Math.random()*0.5) + 's';
+    plRow.appendChild(p);
+  }
+  const PL_MODES = ['', 'gold-mode', 'mint-mode'];
+  let plMode = 0;
+  plStrip.addEventListener('click', () => {
+    plMode = (plMode + 1) % PL_MODES.length;
+    plStrip.classList.remove('gold-mode', 'mint-mode');
+    if (PL_MODES[plMode]) plStrip.classList.add(PL_MODES[plMode]);
+  });
 
   // sambutan kecil saat halaman dibuka
   window.addEventListener('load', () => setTimeout(() => burstConfetti(50), 500));
