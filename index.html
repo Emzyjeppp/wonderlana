@@ -3,1330 +3,201 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WonderLana — Seitansai ke-20 & 100th Show Lana JKT48</title>
+<title>LANAUTICA — WonderLana</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,900;1,9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Bungee&family=Fraunces:ital,opsz,wght@0,9..144,900;1,9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --cream:      #FFF7F1;   /* frosting */
-    --cream-2:    #FFEFE6;
-    --pink:       #FF6B9D;   /* strawberry */
-    --pink-soft:  #FFD9E6;
-    --pink-pale:  #FFF0F5;
-    --rose:       #C93E6E;   /* rose jam */
-    --plum:       #47203C;   /* dark plum — main text */
-    --plum-soft:  #7A5570;
-    --gold:       #E8A93C;   /* candlelight */
-    --gold-soft:  #F7DFAE;
-    --mint:       #BDE5D3;
-    --shadow: 0 12px 30px rgba(71,32,60,0.14);
-    --shadow-big: 0 22px 50px rgba(71,32,60,0.20);
+    /* sisi teater (100th show) */
+    --stage:  #2B0A16;
+    --curtain:#C2274B;
+    --curtain-d:#8A1234;
+    --bulb:   #FFC85C;
+    --mint:   #9FE3C7;
+    /* sisi pesta (seitansai 20) */
+    --cream:  #FFF7F1;
+    --pink:   #FF6B9D;
+    --rose:   #C93E6E;
+    --plum:   #47203C;
+    --gold:   #E8A93C;
+    /* netral */
+    --ink:    #1A0710;
   }
-
-  *{ box-sizing:border-box; }
-  html{ scroll-behavior:smooth; }
+  *{ box-sizing:border-box; margin:0; }
+  html,body{ height:100%; }
   body{
-    margin:0;
-    background:var(--cream);
-    color:var(--plum);
-    font-family:'Plus Jakarta Sans', sans-serif;
-    background-image: radial-gradient(rgba(255,107,157,0.10) 1.6px, transparent 1.6px);
-    background-size: 30px 30px;
-    overflow-x:hidden;
+    font-family:'Plus Jakarta Sans', sans-serif; color:#fff;
+    overflow:hidden; min-height:100vh; position:relative;
+    background:
+      radial-gradient(ellipse 55% 50% at 15% 25%, rgba(255,200,92,0.14), transparent 60%),
+      radial-gradient(ellipse 55% 55% at 85% 78%, rgba(255,107,157,0.16), transparent 62%),
+      radial-gradient(ellipse 90% 70% at 50% 40%, #3D1526, transparent 75%),
+      linear-gradient(160deg, #2B0A16 0%, #1A0710 100%);
+  }
+  @media (prefers-reduced-motion: reduce){ *{ animation:none !important; transition-duration:.001ms !important; } }
+
+  /* ---------- lapisan bintang di atas latar gelap ---------- */
+  #sky{ position:fixed; inset:0; z-index:0; pointer-events:none; }
+  .spark{ position:absolute; border-radius:50%; animation:twinkle var(--tw,3s) ease-in-out infinite; }
+  @keyframes twinkle{ 0%,100%{ opacity:var(--o,.6); } 50%{ opacity:.08; } }
+
+  /* ---------- panggung utama ---------- */
+  .stage{
+    position:relative; z-index:2; min-height:100vh;
+    display:grid; grid-template-columns:1fr 1.15fr; align-items:center; gap:40px;
+    max-width:1080px; margin:0 auto; padding:48px 32px;
   }
 
-  @media (prefers-reduced-motion: reduce){
-    *{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important; }
-    .confetti-piece{ display:none !important; }
+  .portrait-col{ display:flex; justify-content:center; }
+  .portrait{ position:relative; width:min(320px, 74vw); aspect-ratio:4/5; animation:rise 1.1s cubic-bezier(.2,.8,.2,1) both; }
+  @keyframes rise{ from{ opacity:0; transform:translateY(26px) scale(.97); } to{ opacity:1; transform:none; } }
+  .portrait .halo{
+    position:absolute; inset:-24px; border-radius:28px;
+    background:conic-gradient(from 0deg, rgba(255,200,92,0.4), rgba(255,107,157,0.4), rgba(255,200,92,0.4));
+    filter:blur(14px); animation:breathe 5s ease-in-out infinite;
+  }
+  @keyframes breathe{ 0%,100%{ opacity:.65; transform:scale(1) rotate(0deg); } 50%{ opacity:.95; transform:scale(1.05) rotate(8deg); } }
+  .portrait .frame{
+    position:absolute; inset:0; border-radius:20px; overflow:hidden;
+    border:2px solid rgba(255,255,255,0.35);
+    box-shadow:0 24px 60px rgba(0,0,0,0.5), inset 0 0 30px rgba(26,7,16,0.5);
+    background:linear-gradient(160deg, var(--curtain-d), var(--plum));
+  }
+  .portrait .frame img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .portrait .frame .ph{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-family:'Caveat'; font-size:22px; color:#fff; text-align:center; padding:20px; }
+  .corner{ position:absolute; width:16px; height:16px; z-index:3; }
+  .corner.tl{ top:-4px; left:-4px; border-top:2px solid var(--bulb); border-left:2px solid var(--bulb); }
+  .corner.tr{ top:-4px; right:-4px; border-top:2px solid var(--pink); border-right:2px solid var(--pink); }
+  .corner.bl{ bottom:-4px; left:-4px; border-bottom:2px solid var(--bulb); border-left:2px solid var(--bulb); }
+  .corner.br{ bottom:-4px; right:-4px; border-bottom:2px solid var(--pink); border-right:2px solid var(--pink); }
+
+  .info{ animation:rise 1.1s .12s cubic-bezier(.2,.8,.2,1) both; }
+  .eyebrow{ font-family:'Caveat'; font-size:22px; color:#fff; letter-spacing:.02em; display:flex; align-items:center; gap:10px; margin-bottom:10px; text-shadow:0 2px 12px rgba(0,0,0,0.5); }
+  .eyebrow::before{ content:''; width:34px; height:2px; background:linear-gradient(90deg, var(--bulb), var(--pink)); }
+
+  .wordmark h1{
+    font-family:'Cinzel', serif; font-weight:800; font-size:clamp(38px, 6vw, 68px);
+    letter-spacing:.04em; line-height:1;
+    background:linear-gradient(100deg, var(--bulb) 0%, #fff 45%, var(--pink) 100%);
+    -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+    filter:drop-shadow(0 2px 20px rgba(0,0,0,0.4));
   }
 
-  a{ color:inherit; }
-  h1,h2,h3{ font-family:'Fraunces', serif; margin:0; line-height:1.08; }
-  .hand{ font-family:'Caveat', cursive; }
+  .moons{ display:flex; align-items:center; gap:9px; margin:20px 0 4px; }
+  .moons svg{ width:26px; height:26px; }
+  .moons .mlabel{ font-family:'Caveat'; font-size:18px; color:#fff; margin-left:6px; text-shadow:0 2px 10px rgba(0,0,0,0.5); }
 
-  .wrap{ max-width:1080px; margin:0 auto; padding:0 24px; }
+  .quote{
+    margin:26px 0 0; padding:20px 22px; max-width:440px; position:relative;
+    border:1px solid rgba(255,255,255,0.3); border-radius:14px;
+    background:linear-gradient(180deg, rgba(61,21,38,0.55), rgba(26,7,16,0.4));
+    backdrop-filter:blur(6px);
+  }
+  .quote::before{ content:'\201C'; position:absolute; top:-14px; left:16px; font-family:'Cinzel', serif; font-size:48px; color:var(--bulb); line-height:1; }
+  .quote p{ font-style:italic; font-size:15.5px; line-height:1.7; color:#fff; text-shadow:0 1px 8px rgba(0,0,0,0.4); }
+  .quote .attr{ display:block; margin-top:10px; font-family:'Caveat'; font-size:17px; color:var(--bulb); font-style:normal; }
 
-  a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible{
-    outline:3px solid var(--gold); outline-offset:3px; border-radius:6px;
+  .enter-btn{
+    margin-top:32px; position:relative; display:inline-flex; align-items:center; gap:12px;
+    font-weight:800; font-size:15px; letter-spacing:.02em;
+    padding:16px 42px; border-radius:999px; cursor:pointer; color:var(--ink); border:none;
+    background:linear-gradient(100deg, var(--bulb), #fff 50%, var(--pink));
+    background-size:200% 100%; background-position:0% 0;
+    box-shadow:0 10px 30px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.6);
+    transition:transform .2s, box-shadow .2s, background-position .5s; overflow:hidden;
   }
+  .enter-btn:hover{ transform:translateY(-2px); background-position:100% 0; box-shadow:0 14px 40px rgba(0,0,0,0.45); }
+  .enter-btn:active{ transform:translateY(1px); }
+  .enter-btn:focus-visible{ outline:3px solid #fff; outline-offset:3px; }
+  .enter-btn .moon-ic{ font-size:17px; animation:spin 8s linear infinite; }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+  .enter-btn::after{ content:''; position:absolute; top:0; left:-60%; width:40%; height:100%; background:linear-gradient(100deg, transparent, rgba(255,255,255,0.6), transparent); transform:skewX(-18deg); animation:sheen 3.6s ease-in-out infinite; }
+  @keyframes sheen{ 0%,60%{ left:-60%; } 85%,100%{ left:130%; } }
+  .hint{ margin-top:16px; font-size:12px; color:#fff; opacity:.7; text-shadow:0 1px 8px rgba(0,0,0,0.5); }
 
-  /* ---------- BUNTING (bendera pesta) ---------- */
-  .bunting{ width:100%; display:block; }
+  /* ---------- transisi mantra: dua warna bertemu ---------- */
+  #veil{ position:fixed; inset:0; z-index:50; pointer-events:none; background:radial-gradient(circle at 50% 50%, #fff 0%, var(--bulb) 20%, var(--pink) 45%, var(--plum) 100%); opacity:0; transform:scale(0); border-radius:50%; transition:transform .9s cubic-bezier(.6,0,.4,1), opacity .9s ease; }
+  body.leaving #veil{ opacity:1; transform:scale(3); }
+  body.leaving .stage{ transition:opacity .5s, transform .6s; opacity:0; transform:scale(1.05); }
 
-  /* ---------- NAV ---------- */
-  nav{
-    position:sticky; top:0; z-index:60;
-    background: rgba(255,247,241,0.85);
-    backdrop-filter: blur(10px);
-    border-bottom: 2px dashed var(--pink-soft);
-  }
-  nav .wrap{ display:flex; align-items:center; justify-content:space-between; height:64px; }
-  .brand{ font-family:'Fraunces', serif; font-weight:900; font-size:20px; letter-spacing:-0.02em; display:flex; align-items:center; gap:8px; }
-  .brand .balloon{ font-size:22px; transform:rotate(-8deg); display:inline-block; }
-  .navlinks{ display:flex; gap:24px; font-size:13.5px; font-weight:600; }
-  .navlinks a{ text-decoration:none; color:var(--plum-soft); padding:4px 2px; border-bottom:2px solid transparent; transition:color .2s, border-color .2s; }
-  .navlinks a:hover{ color:var(--rose); border-color:var(--pink); }
-
-  /* ---------- HERO ---------- */
-  .hero{ padding:72px 0 40px; text-align:center; position:relative; }
-  .hero .kicker{
-    display:inline-block; font-family:'Caveat'; font-size:24px; color:var(--rose);
-    transform:rotate(-2deg); margin-bottom:14px;
-  }
-  .hero h1{
-    font-size:clamp(42px, 7.5vw, 84px); font-weight:900; letter-spacing:-0.02em;
-    color:var(--plum);
-  }
-  .hero h1 .big20{
-    color:var(--pink);
-    text-shadow: 4px 4px 0 var(--gold-soft);
-    font-style:italic;
-  }
-  .hero p.lead{
-    margin:22px auto 0; max-width:560px; font-size:17px; line-height:1.7; color:var(--plum-soft);
-  }
-
-  /* two milestone tickets */
-  .tickets{ display:flex; gap:18px; justify-content:center; flex-wrap:wrap; margin-top:36px; }
-  .ticket{
-    position:relative; background:#fff; border:2px solid var(--plum);
-    border-radius:14px; padding:16px 26px; text-align:left;
-    box-shadow: 5px 5px 0 var(--pink-soft);
-    transition:transform .2s ease, box-shadow .2s ease;
-  }
-  .ticket:hover{ transform:translate(-2px,-2px); box-shadow: 8px 8px 0 var(--pink-soft); }
-  .ticket.gold{ box-shadow: 5px 5px 0 var(--gold-soft); }
-  .ticket.gold:hover{ box-shadow: 8px 8px 0 var(--gold-soft); }
-  .ticket::before, .ticket::after{
-    content:''; position:absolute; top:50%; width:16px; height:16px; border-radius:50%;
-    background:var(--cream); border:2px solid var(--plum); transform:translateY(-50%);
-  }
-  .ticket::before{ left:-9px; border-right-color:transparent; }
-  .ticket::after{ right:-9px; border-left-color:transparent; }
-  .ticket .t-label{ font-size:11px; font-weight:800; letter-spacing:0.14em; text-transform:uppercase; color:var(--plum-soft); }
-  .ticket .t-big{ font-family:'Fraunces'; font-weight:900; font-size:30px; color:var(--rose); }
-  .ticket.gold .t-big{ color:var(--gold); }
-  .ticket .t-sub{ font-family:'Caveat'; font-size:19px; color:var(--plum-soft); }
-
-  .hero-cta{ margin-top:34px; display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
-  .btn{
-    font-family:'Plus Jakarta Sans'; font-weight:700; font-size:14.5px;
-    padding:14px 26px; border-radius:999px; border:2px solid var(--plum);
-    cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:8px;
-    transition:transform .15s ease, box-shadow .15s ease; background:#fff; color:var(--plum);
-    box-shadow:0 4px 0 var(--plum);
-  }
-  .btn:hover{ transform:translateY(-2px); box-shadow:0 6px 0 var(--plum); }
-  .btn:active{ transform:translateY(2px); box-shadow:0 1px 0 var(--plum); }
-  .btn-primary{ background:var(--pink); color:#fff; }
-  .btn-gold{ background:var(--gold); color:var(--plum); }
-
-  /* ---------- CAKE (signature) ---------- */
-  .cake-section{ padding:70px 0 90px; text-align:center; }
-  .cake-note{ font-family:'Caveat'; font-size:26px; color:var(--rose); margin-bottom:6px; }
-  .cake-sub{ font-size:14px; color:var(--plum-soft); margin:0 0 40px; }
-
-  .cake-stage{ position:relative; width:min(420px, 88vw); margin:0 auto; }
-  .candles{
-    display:flex; justify-content:center; gap:26px; align-items:flex-end;
-    position:relative; z-index:3; margin-bottom:-6px;
-  }
-  .candle{
-    background:none; border:none; padding:0; cursor:pointer; position:relative;
-    display:flex; flex-direction:column; align-items:center;
-  }
-  .flame{
-    width:14px; height:20px; border-radius:50% 50% 50% 50% / 60% 60% 40% 40%;
-    background: radial-gradient(circle at 50% 30%, #FFF3B0, var(--gold) 60%, #E07B39);
-    box-shadow: 0 0 14px 4px rgba(232,169,60,0.55);
-    animation: flicker 0.9s infinite alternate ease-in-out;
-    transform-origin: 50% 100%;
-    transition: opacity .3s ease, transform .3s ease;
-  }
-  .candle:nth-child(2) .flame{ animation-delay:.2s; }
-  .candle:nth-child(3) .flame{ animation-delay:.45s; }
-  @keyframes flicker{
-    from{ transform:scaleY(1) rotate(-2deg); }
-    to{ transform:scaleY(1.15) rotate(3deg); }
-  }
-  .candle.out .flame{ opacity:0; transform:scale(0.2) translateY(6px); }
-  .smoke{
-    position:absolute; top:-8px; left:50%; font-size:14px; opacity:0;
-    transform:translate(-50%, 0);
-    pointer-events:none;
-  }
-  .candle.out .smoke{ animation: smoke-up 1.4s ease-out forwards; }
-  @keyframes smoke-up{
-    0%{ opacity:.9; transform:translate(-50%, 0); }
-    100%{ opacity:0; transform:translate(-40%, -30px); }
-  }
-  .wick{ width:2.5px; height:8px; background:var(--plum); }
-  .stick{
-    width:15px; height:52px; border-radius:5px;
-    background: repeating-linear-gradient(135deg, #fff 0 6px, var(--pink) 6px 12px);
-    border:1.5px solid var(--plum);
-  }
-  .stick.num{
-    width:38px; display:flex; align-items:center; justify-content:center;
-    font-family:'Fraunces'; font-weight:900; font-size:26px; color:var(--rose);
-    background:#fff;
-  }
-
-  .cake{ position:relative; z-index:2; }
-  .layer{
-    margin:0 auto; border:2.5px solid var(--plum); position:relative;
-    background:var(--pink-soft);
-  }
-  .layer.top{
-    width:62%; height:64px; border-radius:16px 16px 0 0;
-    background: linear-gradient(var(--pink-pale) 55%, var(--pink-soft) 55%);
-  }
-  .layer.bottom{
-    width:86%; height:76px; border-radius:16px 16px 0 0; border-top:none; margin-top:-2px;
-    background: linear-gradient(var(--gold-soft) 50%, var(--cream-2) 50%);
-  }
-  .drip{
-    position:absolute; top:-2px; left:0; right:0; height:26px; display:flex; overflow:hidden;
-  }
-  .drip i{
-    flex:1; background:var(--rose); border:2px solid var(--plum); border-top:none;
-    border-radius:0 0 999px 999px; margin:0 -1px; height:100%;
-  }
-  .drip i:nth-child(odd){ height:70%; }
-  .plate{
-    width:100%; height:18px; background:#fff; border:2.5px solid var(--plum);
-    border-radius:999px; margin-top:-2px; box-shadow: var(--shadow);
-  }
-  .cake-msg{
-    min-height:64px; margin-top:26px; font-family:'Caveat'; font-size:28px; color:var(--plum);
-    display:flex; align-items:center; justify-content:center; gap:12px; flex-wrap:wrap;
-  }
-  .relight{
-    display:none; font-family:'Plus Jakarta Sans'; font-size:12.5px; font-weight:700;
-    background:none; border:none; color:var(--rose); text-decoration:underline; cursor:pointer;
-  }
-
-  /* confetti */
-  .confetti-piece{
-    position:fixed; top:-20px; width:10px; height:14px; z-index:200; pointer-events:none;
-    animation: confetti-fall linear forwards;
-  }
-  @keyframes confetti-fall{
-    to{ transform: translateY(110vh) rotate(720deg); opacity:0.9; }
-  }
-
-  /* ---------- SECTION HEADERS ---------- */
-  .section{ padding:80px 0; }
-  .section-head{ text-align:center; margin-bottom:50px; }
-  .section-head .ribbon{
-    display:inline-block; font-family:'Caveat'; font-size:23px; color:#fff;
-    background:var(--pink); padding:5px 22px; border-radius:999px;
-    transform:rotate(-2deg); margin-bottom:14px; box-shadow:3px 3px 0 var(--plum);
-  }
-  .section-head .ribbon.plum{ background:var(--plum); }
-  .section-head h2{ font-size:clamp(28px, 4vw, 42px); font-weight:900; }
-  .section-head p{ color:var(--plum-soft); max-width:520px; margin:12px auto 0; font-size:15px; line-height:1.65; }
-
-  /* ---------- POLAROID GARLAND ---------- */
-  .string{
-    height:34px; margin-bottom:-14px; position:relative; z-index:1;
-    border-bottom:2.5px solid var(--plum-soft);
-    border-radius:0 0 60% 60% / 0 0 100% 100%;
-    width:96%; margin-left:auto; margin-right:auto;
-    opacity:.5;
-  }
-  .polaroid-grid{
-    display:grid; grid-template-columns:repeat(auto-fill, minmax(240px, 1fr));
-    gap:34px 26px; position:relative; z-index:2;
-  }
-  .polaroid{
-    background:#fff; border:2px solid var(--plum); border-radius:6px;
-    padding:12px 12px 16px; box-shadow:var(--shadow);
-    position:relative; cursor:grab; user-select:none;
-    transition: box-shadow .2s ease;
-  }
-  .polaroid:active{ cursor:grabbing; }
-  .polaroid:hover{ box-shadow:var(--shadow-big); }
-  .polaroid:nth-child(odd){ transform:rotate(-2deg); }
-  .polaroid:nth-child(even){ transform:rotate(1.6deg); }
-  .polaroid:nth-child(3n){ transform:rotate(2.4deg); }
-  .pin{
-    position:absolute; top:-13px; left:50%; transform:translateX(-50%) rotate(4deg);
-    width:22px; height:24px; background:var(--gold); border:2px solid var(--plum);
-    border-radius:5px 5px 3px 3px; z-index:3;
-  }
-  .pin::after{ content:''; position:absolute; left:50%; top:5px; transform:translateX(-50%); width:3px; height:12px; background:var(--plum); border-radius:2px; }
-  .photo{
-    height:120px; border-radius:4px; border:1.5px solid var(--plum);
-    display:flex; align-items:center; justify-content:center; font-size:44px;
-    margin-bottom:12px; overflow:hidden; position:relative;
-  }
-  .photo img{ width:100%; height:100%; object-fit:cover; }
-  .p-num{
-    position:absolute; top:8px; left:8px; background:#fff; border:1.5px solid var(--plum);
-    font-family:'Fraunces'; font-weight:900; font-size:13px; padding:2px 8px; border-radius:999px;
-  }
-  .polaroid h3{ font-size:19px; font-weight:900; margin-bottom:6px; }
-  .polaroid p{ font-size:13.5px; line-height:1.55; color:var(--plum-soft); margin:0 0 10px; }
-  .p-caption{ font-family:'Caveat'; font-size:18px; color:var(--rose); }
-
-  /* kawaii photo fills */
-  .fill-1{ background:linear-gradient(135deg, var(--pink-soft), var(--pink-pale)); }
-  .fill-2{ background:linear-gradient(135deg, var(--mint), #E5F6EE); }
-  .fill-3{ background:linear-gradient(135deg, var(--gold-soft), #FDF3DD); }
-
-  /* ---------- MATURE (20th) variant ---------- */
-  .mature{ background:var(--plum); color:var(--cream); border-top:3px solid var(--plum); border-bottom:3px solid var(--plum); }
-  .mature .section-head h2{ color:var(--cream); }
-  .mature .section-head p{ color:#CDAFC4; }
-  .mature .string{ border-color:var(--gold); opacity:.6; }
-  .mature .polaroid{
-    background:#5A2C4C; border-color:var(--gold); color:var(--cream);
-    box-shadow:0 12px 30px rgba(0,0,0,0.35);
-  }
-  .mature .polaroid:hover{ box-shadow:0 22px 50px rgba(0,0,0,0.45); }
-  .mature .pin{ background:var(--rose); border-color:var(--gold); }
-  .mature .pin::after{ background:var(--gold); }
-  .mature .photo{ border-color:var(--gold); }
-  .mature .p-num{ background:var(--plum); border-color:var(--gold); color:var(--gold); }
-  .mature .polaroid h3{ color:#fff; }
-  .mature .polaroid p{ color:#D8BCD0; }
-  .mature .p-caption{ color:var(--gold); }
-  .fill-m1{ background:linear-gradient(135deg, #6E3A5E, #47203C); }
-  .fill-m2{ background:linear-gradient(135deg, #7A4368, #5A2C4C); }
-
-  .drag-hint{ text-align:center; font-family:'Caveat'; font-size:20px; color:var(--plum-soft); margin-top:30px; }
-  .mature .drag-hint{ color:#CDAFC4; }
-
-  /* ---------- INVITATION (biodata) ---------- */
-  .invite-wrap{ display:flex; justify-content:center; }
-  .invite{
-    background:#fff; border:2.5px solid var(--plum); border-radius:18px;
-    max-width:520px; width:100%; padding:38px 36px; text-align:center;
-    box-shadow: 8px 8px 0 var(--gold-soft); position:relative;
-  }
-  .invite::before{
-    content:'🎀'; position:absolute; top:-20px; left:50%; transform:translateX(-50%);
-    font-size:34px;
-  }
-  .invite .inv-kicker{ font-family:'Caveat'; font-size:24px; color:var(--rose); }
-  .invite h2{ font-size:32px; font-weight:900; margin:6px 0 22px; }
-  .inv-rows{ text-align:left; border-top:2px dashed var(--pink-soft); }
-  .inv-row{
-    display:flex; justify-content:space-between; align-items:baseline; gap:16px;
-    padding:12px 4px; border-bottom:2px dashed var(--pink-soft); font-size:14.5px;
-  }
-  .inv-row b{ font-weight:800; }
-  .inv-row span{ color:var(--plum-soft); font-size:12.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; }
-
-  /* ---------- HASHTAG POPPER ---------- */
-  .popper-section{ text-align:center; padding:90px 0; }
-  .popper{
-    font-size:56px; width:130px; height:130px; border-radius:50%;
-    background:var(--pink); border:3px solid var(--plum);
-    box-shadow:0 8px 0 var(--plum); cursor:pointer;
-    transition:transform .15s ease, box-shadow .15s ease;
-  }
-  .popper:hover{ transform:translateY(-4px) rotate(-6deg); }
-  .popper:active{ transform:translateY(4px); box-shadow:0 2px 0 var(--plum); }
-  .popper-section h2{ font-size:clamp(26px,4vw,38px); margin:26px 0 10px; font-weight:900; }
-  .popper-section p{ color:var(--plum-soft); max-width:440px; margin:0 auto; font-size:15px; line-height:1.65; }
-  .tags-line{
-    margin-top:18px; font-weight:800; font-size:16px; color:var(--rose);
-    display:flex; gap:14px; justify-content:center; flex-wrap:wrap;
-  }
-  .social{ margin-top:26px; display:flex; gap:20px; justify-content:center; font-size:13.5px; font-weight:700; }
-  .social a{ text-decoration:none; color:var(--plum-soft); border-bottom:2px solid var(--pink-soft); padding-bottom:2px; }
-  .social a:hover{ color:var(--rose); border-color:var(--pink); }
-  .copied-toast{
-    position:fixed; bottom:26px; left:50%; transform:translate(-50%, 80px);
-    background:var(--plum); color:#fff; padding:12px 22px; border-radius:999px;
-    font-size:13.5px; font-weight:700; z-index:300; transition:transform .3s ease;
-    box-shadow:var(--shadow-big);
-  }
-  .copied-toast.show{ transform:translate(-50%, 0); }
-
-  /* ---------- WISH BOX (kartu ucapan) ---------- */
-  .wishes{ background:var(--cream-2); border-top:3px dashed var(--pink-soft); }
-  .wish-form{
-    background:#fff; border:2.5px solid var(--plum); border-radius:18px;
-    padding:28px; max-width:620px; margin:0 auto 46px;
-    box-shadow:6px 6px 0 var(--pink-soft);
-    display:flex; flex-direction:column; gap:16px;
-  }
-  .wish-form label{ font-weight:800; font-size:14px; display:block; margin-bottom:6px; }
-  .wish-form input, .wish-form textarea{
-    width:100%; background:var(--pink-pale); border:2px solid var(--pink-soft);
-    border-radius:10px; padding:13px 14px; font-family:inherit; font-size:14.5px;
-    color:var(--plum); transition:border-color .2s;
-  }
-  .wish-form input:focus, .wish-form textarea:focus{ border-color:var(--pink); outline:none; }
-  .wish-form textarea{ resize:vertical; min-height:110px; }
-  .wish-grid{
-    max-width:820px; margin:0 auto;
-    display:grid; grid-template-columns:repeat(auto-fill, minmax(240px, 1fr)); gap:22px;
-  }
-  .wish-card{
-    padding:20px 18px 16px; border-radius:4px 4px 4px 26px;
-    border:2px solid var(--plum); box-shadow:var(--shadow); position:relative;
-  }
-  .wish-card:nth-child(3n+1){ background:#FFF6C9; transform:rotate(-1.5deg); }
-  .wish-card:nth-child(3n+2){ background:var(--pink-pale); transform:rotate(1.2deg); }
-  .wish-card:nth-child(3n){ background:#E9F7F0; transform:rotate(-0.8deg); }
-  .wish-card .tape{
-    position:absolute; top:-12px; left:50%; transform:translateX(-50%) rotate(-3deg);
-    width:70px; height:20px; background:rgba(232,169,60,0.55);
-    border:1px dashed rgba(71,32,60,0.3);
-  }
-  .wish-card p{ font-family:'Caveat'; font-size:21px; line-height:1.35; margin:0 0 12px; }
-  .wish-card b{ font-size:13px; font-weight:800; color:var(--rose); }
-
-  /* ---------- STORY MODAL ---------- */
-  .polaroid .read-more{
-    display:block; margin-top:10px; font-family:'Plus Jakarta Sans';
-    font-size:12px; font-weight:800; letter-spacing:.06em; text-transform:uppercase;
-    color:var(--rose);
-  }
-  .mature .polaroid .read-more{ color:var(--gold); }
-
-  .modal-backdrop{
-    position:fixed; inset:0; background:rgba(71,32,60,0.55); backdrop-filter:blur(4px);
-    z-index:400; display:none; align-items:center; justify-content:center; padding:24px;
-  }
-  .modal-backdrop.open{ display:flex; }
-  .modal{
-    background:#fff; border:2.5px solid var(--plum); border-radius:18px;
-    max-width:560px; width:100%; max-height:85vh; overflow-y:auto;
-    padding:34px 32px 30px; position:relative;
-    box-shadow: 10px 10px 0 var(--pink-soft), var(--shadow-big);
-    animation: modal-pop .3s cubic-bezier(.2,.9,.3,1.3);
-  }
-  @keyframes modal-pop{ from{ transform:scale(.85) rotate(-1.5deg); opacity:0; } to{ transform:scale(1) rotate(0); opacity:1; } }
-  .modal.mature-modal{
-    background:#5A2C4C; border-color:var(--gold); color:var(--cream);
-    box-shadow: 10px 10px 0 rgba(232,169,60,0.35), var(--shadow-big);
-  }
-  .modal .m-tag{
-    display:inline-block; font-family:'Caveat'; font-size:21px; color:#fff;
-    background:var(--pink); padding:3px 18px; border-radius:999px; transform:rotate(-2deg);
-    margin-bottom:14px;
-  }
-  .modal.mature-modal .m-tag{ background:var(--gold); color:var(--plum); }
-  .modal h3{ font-size:30px; font-weight:900; margin-bottom:4px; }
-  .modal .m-setlist{ font-family:'Caveat'; font-size:20px; color:var(--rose); display:block; margin-bottom:18px; }
-  .modal.mature-modal .m-setlist{ color:var(--gold); }
-  .modal .m-story{ font-size:15px; line-height:1.8; color:var(--plum-soft); }
-  .modal.mature-modal .m-story{ color:#E3CBDB; }
-  .modal .m-story p{ margin:0 0 14px; }
-  .modal-close{
-    position:absolute; top:14px; right:14px; width:38px; height:38px; border-radius:50%;
-    background:var(--pink-pale); border:2px solid var(--plum); font-size:17px; font-weight:800;
-    color:var(--plum); cursor:pointer; line-height:1;
-    transition:transform .15s ease, background .15s ease;
-  }
-  .modal-close:hover{ transform:rotate(90deg); background:var(--pink-soft); }
-  .modal.mature-modal .modal-close{ background:var(--plum); border-color:var(--gold); color:var(--gold); }
-
-  /* ---------- COUNTDOWN ---------- */
-  .countdown{ margin-top:38px; }
-  .cd-label{ font-family:'Caveat'; font-size:22px; color:var(--rose); display:block; margin-bottom:14px; }
-  .cd-grid{ display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
-  .cd-box{
-    background:#fff; border:2.5px solid var(--plum); border-radius:14px;
-    min-width:86px; padding:14px 10px 10px; box-shadow:0 5px 0 var(--plum);
-    position:relative;
-  }
-  .cd-box::before{
-    content:''; position:absolute; top:-7px; left:50%; transform:translateX(-50%);
-    width:26px; height:12px; background:var(--gold); border:2px solid var(--plum); border-radius:4px;
-  }
-  .cd-box b{ display:block; font-family:'Fraunces'; font-weight:900; font-size:34px; color:var(--rose); line-height:1; }
-  .cd-box span{ font-size:10.5px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--plum-soft); }
-  .cd-done{
-    display:none; font-family:'Fraunces'; font-weight:900; font-size:clamp(22px,3.4vw,30px);
-    color:var(--rose); background:var(--gold-soft); border:2.5px solid var(--plum);
-    border-radius:999px; padding:12px 30px; transform:rotate(-1.5deg);
-    box-shadow:4px 4px 0 var(--pink-soft);
-  }
-
-  /* ---------- TIMELINE PERJALANAN ---------- */
-  .timeline{ position:relative; max-width:760px; margin:0 auto; padding:10px 0; }
-  .timeline::before{
-    content:''; position:absolute; top:0; bottom:0; left:50%; transform:translateX(-50%);
-    border-left:3px dashed var(--pink); opacity:.5;
-  }
-  .tl-item{ position:relative; width:50%; padding:0 44px 46px 0; }
-  .tl-item:nth-child(even){ margin-left:50%; padding:0 0 46px 44px; text-align:left; }
-  .tl-item:nth-child(odd){ text-align:right; }
-  .tl-pin{
-    position:absolute; top:0; width:52px; height:52px; border-radius:50%;
-    background:#fff; border:2.5px solid var(--plum); z-index:2;
-    display:flex; align-items:center; justify-content:center;
-    font-family:'Fraunces'; font-weight:900; font-size:15px; color:var(--rose);
-    box-shadow:0 4px 0 var(--pink-soft);
-  }
-  .tl-item:nth-child(odd) .tl-pin{ right:-26px; }
-  .tl-item:nth-child(even) .tl-pin{ left:-26px; }
-  .tl-card{
-    display:inline-block; background:#fff; border:2px solid var(--plum); border-radius:14px;
-    padding:18px 20px; box-shadow:var(--shadow); max-width:300px; text-align:left;
-    transition:transform .2s ease, box-shadow .2s ease;
-  }
-  .tl-card:hover{ transform:translateY(-3px); box-shadow:var(--shadow-big); }
-  .tl-card .tl-tag{ font-size:11px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; color:var(--plum-soft); }
-  .tl-card h3{ font-size:19px; font-weight:900; margin:4px 0 6px; }
-  .tl-card p{ font-size:13.5px; line-height:1.6; color:var(--plum-soft); margin:0; }
-  .tl-item.final .tl-pin{ background:var(--gold); color:var(--plum); width:62px; height:62px; font-size:17px; }
-  .tl-item.final .tl-card{ background:var(--gold-soft); box-shadow:5px 5px 0 var(--pink-soft); }
-  @media (max-width:640px){
-    .timeline::before{ left:26px; }
-    .tl-item, .tl-item:nth-child(even){ width:100%; margin-left:0; padding:0 0 40px 62px; text-align:left; }
-    .tl-item:nth-child(odd) .tl-pin, .tl-item:nth-child(even) .tl-pin{ left:0; right:auto; }
-  }
-
-  /* ---------- PENLIGHT WAVE ---------- */
-  .penlight-strip{
-    background:var(--plum); padding:34px 0 0; overflow:hidden; position:relative;
-    border-top:3px solid var(--plum); cursor:pointer; border:none; width:100%; display:block;
-  }
-  .penlight-strip .pl-note{
-    text-align:center; font-family:'Caveat'; font-size:21px; color:var(--gold-soft);
-    margin:0 0 18px; opacity:.9;
-  }
-  .pl-row{ display:flex; justify-content:center; align-items:flex-end; gap:4px; }
-  .penlight{
-    width:16px; height:74px; border-radius:8px 8px 4px 4px; position:relative; flex:0 0 auto;
-    transform-origin:50% 100%;
-    animation: wave 1.6s ease-in-out infinite alternate;
-    background:linear-gradient(var(--pl-glow, var(--pink)) 62%, #2E1327 62%);
-    box-shadow:0 -6px 18px 2px var(--pl-shadow, rgba(255,107,157,0.45));
-    transition:background .4s ease, box-shadow .4s ease;
-  }
-  @keyframes wave{
-    from{ transform:rotate(-16deg); }
-    to{ transform:rotate(16deg); }
-  }
-  .penlight-strip.gold-mode .penlight{
-    background:linear-gradient(var(--gold) 62%, #2E1327 62%);
-    box-shadow:0 -6px 18px 2px rgba(232,169,60,0.5);
-  }
-  .penlight-strip.mint-mode .penlight{
-    background:linear-gradient(var(--mint) 62%, #2E1327 62%);
-    box-shadow:0 -6px 18px 2px rgba(189,229,211,0.5);
-  }
-  @media (prefers-reduced-motion: reduce){
-    .penlight{ animation:none; transform:rotate(0); }
-  }
-
-  footer{
-    text-align:center; padding:34px 0 40px; font-size:13px; color:var(--plum-soft);
-    background:var(--cream-2);
-  }
-  footer .hand{ font-size:20px; color:var(--rose); display:block; margin-bottom:4px; }
-
-  @media (max-width:640px){
-    .navlinks{ display:none; }
-    .candles{ gap:16px; }
-    .tickets{ flex-direction:column; align-items:center; }
-    .ticket{ width:min(320px, 100%); }
+  @media (max-width:760px){
+    .stage{ grid-template-columns:1fr; text-align:center; padding-top:70px; gap:30px; }
+    .eyebrow, .wordmark, .moons{ justify-content:center; }
+    .wordmark{ display:flex; }
+    .quote{ margin-left:auto; margin-right:auto; text-align:left; }
+    .info{ display:flex; flex-direction:column; align-items:center; }
   }
 </style>
 </head>
 <body>
 
-<!-- bendera pesta -->
-<svg class="bunting" viewBox="0 0 1200 56" preserveAspectRatio="none" aria-hidden="true">
-  <path d="M0,6 Q600,26 1200,6" fill="none" stroke="#47203C" stroke-width="2.5"/>
-  <g>
-    <polygon points="40,10 80,10 60,48"  fill="#FF6B9D" stroke="#47203C" stroke-width="2"/>
-    <polygon points="130,13 170,13 150,51" fill="#E8A93C" stroke="#47203C" stroke-width="2"/>
-    <polygon points="220,15 260,15 240,53" fill="#BDE5D3" stroke="#47203C" stroke-width="2"/>
-    <polygon points="310,17 350,17 330,55" fill="#FFD9E6" stroke="#47203C" stroke-width="2"/>
-    <polygon points="400,18 440,18 420,56" fill="#FF6B9D" stroke="#47203C" stroke-width="2"/>
-    <polygon points="490,19 530,19 510,57" fill="#E8A93C" stroke="#47203C" stroke-width="2"/>
-    <polygon points="580,19 620,19 600,57" fill="#BDE5D3" stroke="#47203C" stroke-width="2"/>
-    <polygon points="670,19 710,19 690,57" fill="#FFD9E6" stroke="#47203C" stroke-width="2"/>
-    <polygon points="760,18 800,18 780,56" fill="#FF6B9D" stroke="#47203C" stroke-width="2"/>
-    <polygon points="850,17 890,17 870,55" fill="#E8A93C" stroke="#47203C" stroke-width="2"/>
-    <polygon points="940,15 980,15 960,53" fill="#BDE5D3" stroke="#47203C" stroke-width="2"/>
-    <polygon points="1030,13 1070,13 1050,51" fill="#FFD9E6" stroke="#47203C" stroke-width="2"/>
-    <polygon points="1120,10 1160,10 1140,48" fill="#FF6B9D" stroke="#47203C" stroke-width="2"/>
-  </g>
-</svg>
+<div id="sky" aria-hidden="true"></div>
+<div id="veil" aria-hidden="true"></div>
 
-<nav>
-  <div class="wrap">
-    <div class="brand"><span class="balloon">🎈</span> WonderLana</div>
-    <div class="navlinks">
-      <a href="#cake">Tiup Lilin</a>
-      <a href="#journey">Perjalanan</a>
-      <a href="#wonders100">100th Show</a>
-      <a href="#wonders20">20th Birthday</a>
-      <a href="#invite">Undangan</a>
-      <a href="#wishes">Kartu Ucapan</a>
-    </div>
-  </div>
-</nav>
-
-<header class="hero">
-  <div class="wrap">
-    <span class="kicker">✨ pesta spesial untuk Aurhel Alana — Lana JKT48 ✨</span>
-    <h1>Selamat Ulang Tahun<br>ke-<span class="big20">20</span>, Lana!</h1>
-    <p class="lead">Hari ini kita merayakan dua kado sekaligus: seitansai ke-20 dan pencapaian 100 pertunjukan teater. Dari panggung kawaii penuh keceriaan menuju sisi dewasa yang semakin bersinar.</p>
-
-    <div class="tickets">
-      <div class="ticket">
-        <div class="t-label">Tiket Perayaan · 01</div>
-        <div class="t-big">100th Show</div>
-        <div class="t-sub">seratus panggung penuh cerita</div>
-      </div>
-      <div class="ticket gold">
-        <div class="t-label">Tiket Perayaan · 02</div>
-        <div class="t-big">Seitansai 20</div>
-        <div class="t-sub">selamat datang usia dua puluh</div>
-      </div>
-    </div>
-
-    <div class="hero-cta">
-      <a class="btn btn-primary" href="#cake">🎂 Tiup Lilinnya</a>
-      <a class="btn" href="#wishes">💌 Tulis Ucapan</a>
-    </div>
-
-    <div class="countdown" id="countdown">
-      <span class="cd-label">⏳ menghitung hari menuju seitansai ke-20…</span>
-      <div class="cd-grid" id="cdGrid">
-        <div class="cd-box"><b id="cdD">0</b><span>Hari</span></div>
-        <div class="cd-box"><b id="cdH">0</b><span>Jam</span></div>
-        <div class="cd-box"><b id="cdM">0</b><span>Menit</span></div>
-        <div class="cd-box"><b id="cdS">0</b><span>Detik</span></div>
-      </div>
-      <div class="cd-done" id="cdDone">🎉 Hari ini pestanya! Selamat ulang tahun ke-20, Lana! 🎉</div>
-    </div>
-  </div>
-</header>
-
-<!-- ================= KUE ULANG TAHUN ================= -->
-<section class="cake-section" id="cake">
-  <div class="wrap">
-    <div class="cake-note">klik setiap lilin untuk meniupnya 🌬️</div>
-    <p class="cake-sub">Padamkan ketiganya dan buat satu permohonan untuk Lana.</p>
-
-    <div class="cake-stage">
-      <div class="candles" id="candles">
-        <button class="candle" aria-label="Tiup lilin angka 2">
-          <span class="flame"></span><span class="smoke">💨</span>
-          <span class="wick"></span>
-          <span class="stick num">2</span>
-        </button>
-        <button class="candle" aria-label="Tiup lilin tengah">
-          <span class="flame"></span><span class="smoke">💨</span>
-          <span class="wick"></span>
-          <span class="stick"></span>
-        </button>
-        <button class="candle" aria-label="Tiup lilin angka 0">
-          <span class="flame"></span><span class="smoke">💨</span>
-          <span class="wick"></span>
-          <span class="stick num">0</span>
-        </button>
-      </div>
-      <div class="cake">
-        <div class="layer top"><div class="drip"><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
-        <div class="layer bottom"><div class="drip"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
-        <div class="plate"></div>
-      </div>
-      <div class="cake-msg" id="cakeMsg" aria-live="polite"></div>
-      <button class="relight" id="relight">nyalakan lilinnya lagi</button>
-    </div>
-  </div>
-</section>
-
-<!-- ================= TIMELINE PERJALANAN ================= -->
-<section class="section" id="journey">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="ribbon">jejak langkah 👣</span>
-      <h2>Perjalanan Menuju 100 Panggung</h2>
-      <p>Seratus pertunjukan tidak terjadi dalam semalam — ini dia jejak langkah Lana dari debut hingga panggung ke-100.</p>
-    </div>
-    <div class="timeline">
-      <div class="tl-item">
-        <span class="tl-pin">0</span>
-        <div class="tl-card">
-          <span class="tl-tag">18 November 2023 · Jak-Japan Matsuri 2023</span>
-          <h3>Perkenalan Resmi Generasi 12</h3>
-          <p>Langkah pertama diperkenalkan langsung di luar panggung teater reguler JKT48, yaitu pada event Jak-Japan Matsuri 2023. Bersama 17 trainee lainnya, kehadiran mereka menarik perhatian masyarakat awam dan fans secara luas.</p>
-        </div>
-      </div>
-      <div class="tl-item">
-        <span class="tl-pin">1</span>
-        <div class="tl-card">
-          <span class="tl-tag">2 Maret 2024 · 19.00 WIB · Ingin Bertemu</span>
-          <h3>Debut Teater — Sonichi</h3>
-          <p>Hari pertama Lana di panggung teater lewat setlist Ingin Bertemu (Aitakatta), membawakan unit song "Namida no Shounan" dan "Koi no Plan". Ia tampil bersama Delynn, Erine, Fritzy, Lily, Moreen, Nayla, Nachia, Oline, Regie, Nala, dan Kimmy. Dari sonichi inilah kisah WonderLana dimulai.</p>
-        </div>
-      </div>
-      <div class="tl-item">
-        <span class="tl-pin">25</span>
-        <div class="tl-card">
-          <span class="tl-tag">9 November 2024 · 19.00 WIB · Ingin Bertemu</span>
-          <h3>Semakin Percaya Diri</h3>
-          <p>Show ke-25 kembali ke setlist Ingin Bertemu — setlist debutnya — dengan unit song "Namida no Shounan" dan "Koi no Plan". Kali ini bersama Delynn, Erine, Fritzy, Lily, Moreen, Levi, Nachia, Oline, Regie, Nala, dan Kimmy. Panggung yang sama, tapi Lana yang jauh lebih matang.</p>
-        </div>
-      </div>
-      <div class="tl-item">
-        <span class="tl-pin">50</span>
-        <div class="tl-card">
-          <span class="tl-tag">1 Agustus 2025 · 19.00 WIB · Sambil Menggandeng Erat Tanganku</span>
-          <h3>Titik Tengah Perjalanan</h3>
-          <p>Show ke-50 lewat setlist Sambil Menggandeng Erat Tanganku (Te wo Tsunaginagara), membawakan unit song "Kono Mune no Barcode". Lana tampil bersama Alya, Lia, Daisy, Fiony, Fritzy, Ella, Greesel, Indira, Marsha, Raisha, dan Gracia. Di titik ini, panggung bukan lagi tempat yang menegangkan, melainkan rumah kedua.</p>
-        </div>
-      </div>
-      <div class="tl-item">
-        <span class="tl-pin">75</span>
-        <div class="tl-card">
-          <span class="tl-tag">1 Mei 2026 · 19.00 WIB · Cara Meminum Ramune</span>
-          <h3>Menuju Puncak</h3>
-          <p>Show ke-75 lewat setlist Cara Meminum Ramune (Ramune no Nomikata), membawakan unit song "Manazashi, Sayonara". Lana tampil bersama Alya, Anindya, Lia, Cathy, Elin, Cynthia, Fritzy, Lili, Indah, Trisha, dan Nayla. Tiga perempat jalan — puncak ke-100 sudah terlihat di depan mata.</p>
-        </div>
-      </div>
-      <div class="tl-item final">
-        <span class="tl-pin">100</span>
-        <div class="tl-card">
-          <span class="tl-tag">🎊 Pencapaian</span>
-          <h3>WonderLana — 100th Show!</h3>
-          <p>Seratus panggung, seribu kenangan. Dan seperti kado yang datang berpasangan: pencapaian ini dirayakan bersama ulang tahunnya yang ke-20. Selamat, Lana!</p>
-        </div>
+<main class="stage">
+  <div class="portrait-col">
+    <div class="portrait">
+      <div class="halo"></div>
+      <span class="corner tl"></span><span class="corner tr"></span>
+      <span class="corner bl"></span><span class="corner br"></span>
+      <div class="frame">
+        <img src="daidaidai.jpg" alt="Aurhel Alana — Lana JKT48" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="ph" style="display:none;">&#10022; potret Lana &#10022;<br><small>(taruh daidaidai.jpg di folder yang sama)</small></div>
       </div>
     </div>
   </div>
-</section>
 
-<!-- ================= 100TH SHOW (KAWAII) ================= -->
-<section class="section" id="wonders100">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="ribbon">bab pertama 🌸</span>
-      <h2>7 Wonders of the 100th Show</h2>
-      <p>Tujuh momen teater paling berkesan dari perjalanan seratus panggung Lana — digantung seperti foto kenangan di tali pesta.</p>
+  <div class="info">
+    <span class="eyebrow">&#10022; di bawah cahaya bulan</span>
+    <div class="wordmark"><h1>LANAUTICA</h1></div>
+
+    <div class="moons" title="100th Show &amp; Seitansai ke-20" aria-label="Dua perayaan">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 3a9 9 0 1 0 5.5 8.3A7 7 0 0 1 15.5 3z" fill="#FFC85C"/></svg>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="#FF6B9D"/></svg>
+      <span class="mlabel">seratus panggung &amp; usia dua puluh</span>
     </div>
-    <div class="string" aria-hidden="true"></div>
-    <div class="polaroid-grid">
-      <div class="polaroid" data-drag data-story="aitakatta" role="button" tabindex="0" aria-haspopup="dialog">
-        <span class="pin" aria-hidden="true"></span>
-        <div class="photo fill-1">🌱<span class="p-num">01</span></div>
-        <h3>Aitakatta</h3>
-        <p>Langkah awal perjalanan penuh semangat bersama sentuhan warna hijau segar.</p>
-        <span class="p-caption">"aku ingin bertemu!"</span>
-        <span class="read-more">baca cerita →</span>
-      </div>
-      <div class="polaroid" data-drag data-story="pajama" role="button" tabindex="0" aria-haspopup="dialog">
-        <span class="pin" aria-hidden="true"></span>
-        <div class="photo fill-2">🌙<span class="p-num">02</span></div>
-        <h3>Pajama Drive</h3>
-        <p>Energi teater masa muda yang membakar semangat penonton dengan koreografi lincah.</p>
-        <span class="p-caption">energi tanpa habis ⚡</span>
-        <span class="read-more">baca cerita →</span>
-      </div>
-      <div class="polaroid" data-drag data-story="ramune" role="button" tabindex="0" aria-haspopup="dialog">
-        <span class="pin" aria-hidden="true"></span>
-        <div class="photo fill-3">🥤<span class="p-num">03</span></div>
-        <h3>Ramune no Nomikata</h3>
-        <p>Kesegaran manis tiada tara, menggambarkan keceriaan musim panas yang menyenangkan.</p>
-        <span class="p-caption">semanis ramune 🍬</span>
-        <span class="read-more">baca cerita →</span>
-      </div>
-      <div class="polaroid" data-drag data-story="rkj" role="button" tabindex="0" aria-haspopup="dialog">
-        <span class="pin" aria-hidden="true"></span>
-        <div class="photo fill-1">📜<span class="p-num">04</span></div>
-        <h3>RKJ</h3>
-        <p>Renai Kinshi Jourei. Disiplin panggung membawakan aturan anti cinta yang legendaris.</p>
-        <span class="p-caption">aturan yang legendaris</span>
-        <span class="read-more">baca cerita →</span>
-      </div>
-      <div class="polaroid" data-drag data-story="twt" role="button" tabindex="0" aria-haspopup="dialog">
-        <span class="pin" aria-hidden="true"></span>
-        <div class="photo fill-2">🤝<span class="p-num">05</span></div>
-        <h3>TwT</h3>
-        <p>Te wo Tsunaginagara. Kehangatan persahabatan sejati sambil menggenggam tangan erat fans.</p>
-        <span class="p-caption">genggam tanganku 💞</span>
-        <span class="read-more">baca cerita →</span>
-      </div>
-      <div class="polaroid" data-drag data-story="percin" role="button" tabindex="0" aria-haspopup="dialog">
-        <span class="pin" aria-hidden="true"></span>
-        <div class="photo fill-3">🎭<span class="p-num">06</span></div>
-        <h3>Percin</h3>
-        <p>Pertaruhan Cinta. Dedikasi tulus mengekspresikan emosi panggung yang mendalam.</p>
-        <span class="p-caption">dari hati, untuk panggung</span>
-        <span class="read-more">baca cerita →</span>
-      </div>
-      <div class="polaroid" data-drag data-story="itadaki" role="button" tabindex="0" aria-haspopup="dialog">
-        <span class="pin" aria-hidden="true"></span>
-        <div class="photo fill-1">⛰️<span class="p-num">07</span></div>
-        <h3>Itadaki</h3>
-        <p>Mendaki Bukit. Bersama-sama mendaki rintangan teater demi menggapai puncak impian teratas.</p>
-        <span class="p-caption">menuju puncak! 🏔️</span>
-        <span class="read-more">baca cerita →</span>
-      </div>
-    </div>
-    <p class="drag-hint">↳ psst… foto-fotonya bisa digeser-geser, seperti menata kenangan di meja pesta</p>
+
+    <blockquote class="quote">
+      <p>Dengan kekuatan bulan, aku akan menyihirmu dengan pesonaku.
+      <span class="attr">&#8212; untuk Lana, di malam perayaannya</span></p>
+    </blockquote>
+
+    <button class="enter-btn" id="enterBtn">
+      <span class="moon-ic">&#127769;</span> Masuk
+    </button>
+    <p class="hint">tekan untuk memilih perayaanmu</p>
   </div>
-</section>
-
-<!-- ================= 20TH BIRTHDAY (MATURE) ================= -->
-<section class="section mature" id="wonders20">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="ribbon plum">bab kedua 🥂</span>
-      <h2>7 Wonders of the 20th Birthday</h2>
-      <p>Saat lampu pesta meredup dan lilin dinyalakan — tujuh lagu yang menandai sisi dewasa Lana di usia dua puluh.</p>
-    </div>
-    <div class="string" aria-hidden="true"></div>
-    <div class="polaroid-grid">
-      <div class="polaroid" data-drag data-story="daidaidai" role="button" tabindex="0" aria-haspopup="dialog">
-        <span class="pin" aria-hidden="true"></span>
-        <div class="photo fill-m1">
-          <img src="daidaidai.jpg" alt="Lana JKT48" onerror="this.remove()">
-          <span class="p-num">01</span>
-        </div>
-        <h3>Dai Dai Dai</h3>
-        <p>Dari setlist Pertaruhan Cinta, Act 2. Lirik playful tentang crush yang "benci-benci tapi suka banget".</p>
-        <span class="p-caption">benci tapi rindu 💘</span>
-        <span class="read-more">baca cerita →</span>
-      </div>
-      <div class="polaroid" data-drag data-story="manazashi" role="button" tabindex="0" aria-haspopup="dialog">
-        <span class="pin" aria-hidden="true"></span>
-        <div class="photo fill-m2">🌧️<span class="p-num">02</span></div>
-        <h3>Manazashi, Sayonara</h3>
-        <p>Unit song dari setlist Cara Meminum Ramune. Tema perpisahan di bawah hujan yang mellow.</p>
-        <span class="p-caption">selamat tinggal, tatapan itu</span>
-        <span class="read-more">baca cerita →</span>
-      </div>
-      <div class="polaroid" data-drag data-story="returnmatch" role="button" tabindex="0" aria-haspopup="dialog">
-        <span class="pin" aria-hidden="true"></span>
-        <div class="photo fill-m1">🔥<span class="p-num">03</span></div>
-        <h3>Return Match</h3>
-        <p>Lagu klasik dari setlist Bel Terakhir Berbunyi. Tentang membalas cinta masa lalu dengan semangat baru.</p>
-        <span class="p-caption">ronde kedua dimulai</span>
-        <span class="read-more">baca cerita →</span>
-      </div>
-      <div class="polaroid" data-drag data-story="amenopianist" role="button" tabindex="0" aria-haspopup="dialog">
-        <span class="pin" aria-hidden="true"></span>
-        <div class="photo fill-m2">🎹<span class="p-num">04</span></div>
-        <h3>Ame no Pianist</h3>
-        <p>Unit song dari setlist Te wo Tsunaginagara. Lagu sendu tentang perpisahan, hujan, dan piano.</p>
-        <span class="p-caption">melodi di tengah hujan</span>
-        <span class="read-more">baca cerita →</span>
-      </div>
-      <div class="polaroid" data-drag data-story="hatsukoi" role="button" tabindex="0" aria-haspopup="dialog">
-        <span class="pin" aria-hidden="true"></span>
-        <div class="photo fill-m1">💌<span class="p-num">05</span></div>
-        <h3>Hatsukoi yo, Konnichiwa</h3>
-        <p>Sering muncul di stage — kisah ringan tentang cinta pertama di masa sekolah yang playful.</p>
-        <span class="p-caption">halo, cinta pertama</span>
-        <span class="read-more">baca cerita →</span>
-      </div>
-      <div class="polaroid" data-drag data-story="renai" role="button" tabindex="0" aria-haspopup="dialog">
-        <span class="pin" aria-hidden="true"></span>
-        <div class="photo fill-m2">🚫<span class="p-num">06</span></div>
-        <h3>Renai Kinshi Jourei</h3>
-        <p>Lagu klasik tentang melanggar aturan "no dating" di dunia idol — justru membuat cinta makin membara.</p>
-        <span class="p-caption">aturan dibuat untuk…</span>
-        <span class="read-more">baca cerita →</span>
-      </div>
-      <div class="polaroid" data-drag data-story="bird" role="button" tabindex="0" aria-haspopup="dialog">
-        <span class="pin" aria-hidden="true"></span>
-        <div class="photo fill-m1">🕊️<span class="p-num">07</span></div>
-        <h3>Bird</h3>
-        <p>Unit song ikonik dari setlist Dareka no Tame ni. Metafora burung kehilangan sayap — patah hati dan kebebasan.</p>
-        <span class="p-caption">terbanglah lebih tinggi</span>
-        <span class="read-more">baca cerita →</span>
-      </div>
-    </div>
-    <p class="drag-hint">↳ kartu di sini juga bisa digeser</p>
-  </div>
-</section>
-
-<!-- ================= UNDANGAN / BIODATA ================= -->
-<section class="section" id="invite">
-  <div class="wrap invite-wrap">
-    <div class="invite">
-      <span class="inv-kicker">kamu diundang ke pestanya!</span>
-      <h2>Bintang Acara Kita</h2>
-      <div class="inv-rows">
-        <div class="inv-row"><span>Nama Panggung</span><b>Lana JKT48</b></div>
-        <div class="inv-row"><span>Nama Lengkap</span><b>Aurhel Alana</b></div>
-        <div class="inv-row"><span>Lahir</span><b>14 September 2006</b></div>
-        <div class="inv-row"><span>Generasi</span><b>Generasi 12</b></div>
-        <div class="inv-row"><span>Tim</span><b>Team Love 💗</b></div>
-        <div class="inv-row"><span>Tinggi</span><b>162 cm</b></div>
-        <div class="inv-row"><span>Golongan Darah</span><b>A</b></div>
-        <div class="inv-row"><span>Pencapaian</span><b>100th Show 🎉</b></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ================= TAGAR ================= -->
-<section class="popper-section" id="hashtags">
-  <div class="wrap">
-    <button class="popper" id="popperBtn" aria-label="Salin tagar dan tembakkan confetti">🎉</button>
-    <h2>Ramaikan pestanya di media sosial!</h2>
-    <p>Tekan party popper di atas untuk menyalin tagar resmi, lalu bagikan ucapanmu untuk Lana.</p>
-    <div class="tags-line"><span>#WonderB100msLana</span><span>#Wonder20nesLana</span></div>
-    <div class="social">
-      <a href="https://x.com/Lana_JKT48" target="_blank" rel="noopener">Twitter Lana</a>
-      <a href="https://instagram.com/jkt48.lana" target="_blank" rel="noopener">Instagram Lana</a>
-      <a href="https://tiktok.com/@lana.jkt48" target="_blank" rel="noopener">TikTok Lana</a>
-    </div>
-  </div>
-</section>
-
-<!-- ================= KARTU UCAPAN ================= -->
-<section class="section wishes" id="wishes">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="ribbon">kotak kado 💌</span>
-      <h2>Kartu Ucapan untuk Lana</h2>
-      <p>Tulis harapan dan ucapan hangatmu — kartunya akan ditempel di dinding pesta di bawah.</p>
-    </div>
-
-    <form class="wish-form" id="wishForm">
-      <div>
-        <label for="fanName">Dari:</label>
-        <input type="text" id="fanName" required maxlength="40" placeholder="Namamu…">
-      </div>
-      <div>
-        <label for="fanMessage">Ucapan &amp; harapan:</label>
-        <textarea id="fanMessage" required maxlength="400" placeholder="Selamat ulang tahun ke-20, Lana! Semoga…"></textarea>
-      </div>
-      <button type="submit" class="btn btn-primary" style="align-self:flex-start;">Tempel di Dinding Pesta 🎈</button>
-    </form>
-
-    <div class="wish-grid" id="wishesList"></div>
-  </div>
-</section>
-
-<!-- ================= PENLIGHT WAVE ================= -->
-<button class="penlight-strip" id="penlightStrip" aria-label="Barisan penlight penonton — klik untuk mengganti warna">
-  <p class="pl-note">🔦 lambaian penlight dari kami semua — klik untuk ganti warna!</p>
-  <div class="pl-row" id="plRow" aria-hidden="true"></div>
-</button>
-
-<footer>
-  <span class="hand">terima kasih sudah ikut merayakan 🎂</span>
-  © 2026 WonderLana — dibuat dengan dedikasi untuk Aurhel Alana JKT48.
-</footer>
-
-<!-- Modal cerita wonder -->
-<div class="modal-backdrop" id="storyBackdrop">
-  <div class="modal" id="storyModal" role="dialog" aria-modal="true" aria-labelledby="storyTitle">
-    <button class="modal-close" id="storyClose" aria-label="Tutup cerita">✕</button>
-    <span class="m-tag" id="storyTag"></span>
-    <h3 id="storyTitle"></h3>
-    <span class="m-setlist" id="storySetlist"></span>
-    <div class="m-story" id="storyBody"></div>
-  </div>
-</div>
-
-<div class="copied-toast" id="toast" role="status"></div>
+</main>
 
 <script>
-  // ---------- confetti ----------
-  const CONFETTI_COLORS = ['#FF6B9D','#E8A93C','#BDE5D3','#FFD9E6','#C93E6E','#FFF6C9'];
-  function burstConfetti(count = 90){
-    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    for(let i=0;i<count;i++){
-      const p = document.createElement('span');
-      p.className = 'confetti-piece';
-      p.style.left = Math.random()*100 + 'vw';
-      p.style.background = CONFETTI_COLORS[i % CONFETTI_COLORS.length];
-      p.style.animationDuration = (2.2 + Math.random()*2.2) + 's';
-      p.style.animationDelay = (Math.random()*0.6) + 's';
-      p.style.transform = 'rotate(' + Math.random()*360 + 'deg)';
-      if (Math.random() > .5) p.style.borderRadius = '50%';
-      document.body.appendChild(p);
-      setTimeout(() => p.remove(), 5500);
+  // taburan bintang: campuran emas hangat & pink lembut di atas langit gelap
+  (function(){
+    const sky = document.getElementById('sky');
+    const frag = document.createDocumentFragment();
+    const palette = ['#FFE7B0', '#FF9DBE', '#FFFFFF', '#FFD98A'];
+    const n = Math.min(90, Math.floor(window.innerWidth/12));
+    for(let i=0;i<n;i++){
+      const s = document.createElement('span');
+      s.className = 'spark';
+      const size = Math.random()*2.2 + 0.7;
+      s.style.width = s.style.height = size + 'px';
+      s.style.background = palette[Math.floor(Math.random()*palette.length)];
+      s.style.left = Math.random()*100 + 'vw';
+      s.style.top  = Math.random()*100 + 'vh';
+      s.style.setProperty('--o', (Math.random()*0.6 + 0.35).toFixed(2));
+      s.style.setProperty('--tw', (Math.random()*3 + 2).toFixed(1) + 's');
+      s.style.animationDelay = (Math.random()*3).toFixed(1) + 's';
+      frag.appendChild(s);
     }
-  }
+    sky.appendChild(frag);
+  })();
 
-  // ---------- kue & lilin ----------
-  const candles = [...document.querySelectorAll('.candle')];
-  const cakeMsg = document.getElementById('cakeMsg');
-  const relight = document.getElementById('relight');
-
-  function checkCandles(){
-    if (candles.every(c => c.classList.contains('out'))){
-      cakeMsg.textContent = '🎉 Yeay! Selamat ulang tahun ke-20, Lana! Semoga semua permohonanmu terkabul! 🎉';
-      relight.style.display = 'inline';
-      burstConfetti(140);
-    }
-  }
-  candles.forEach(c => c.addEventListener('click', () => {
-    c.classList.add('out');
-    checkCandles();
-  }));
-  relight.addEventListener('click', () => {
-    candles.forEach(c => c.classList.remove('out'));
-    cakeMsg.textContent = '';
-    relight.style.display = 'none';
+  document.getElementById('enterBtn').addEventListener('click', function(){
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches){ location.href = 'gate.html'; return; }
+    document.body.classList.add('leaving');
+    setTimeout(function(){ location.href = 'gate.html'; }, 850);
   });
-
-  // ---------- cerita setiap wonder ----------
-  const STORIES = {
-    aitakatta: {
-      tag: 'Wonder 01 · Kawaii', title: 'Aitakatta', setlist: 'lagu pembuka perjalanan',
-      story: [
-        '"Aitakatta" — aku ingin bertemu denganmu. Tidak ada lagu yang lebih pas untuk membuka kisah seratus panggung Lana. Lagu inilah yang menjadi gerbang: gerbang bertemunya seorang gadis dengan mimpinya, dan gerbang bertemunya Lana dengan para fans untuk pertama kalinya.',
-        'Setiap kali intro lagu ini berbunyi di teater, energinya selalu sama seperti hari pertama — penuh semangat, penuh harapan, dan penuh warna hijau segar seperti tunas yang baru tumbuh. Dari sinilah semua dimulai.'
-      ]
-    },
-    pajama: {
-      tag: 'Wonder 02 · Kawaii', title: 'Pajama Drive', setlist: 'setlist penuh energi masa muda',
-      story: [
-        'Pajama Drive adalah setlist yang identik dengan masa muda — koreografi lincah, senyum lebar, dan energi yang tidak pernah habis. Di panggung inilah Lana menunjukkan sisi paling ceria dari dirinya.',
-        'Bagi banyak fans, melihat Lana membawakan setlist ini seperti melihat definisi kata "genki": semangat yang menular sampai ke barisan paling belakang teater. Momen-momen seperti inilah yang membuat perjalanan menuju 100 show terasa begitu hidup.'
-      ]
-    },
-    ramune: {
-      tag: 'Wonder 03 · Kawaii', title: 'Ramune no Nomikata', setlist: 'Cara Meminum Ramune',
-      story: [
-        'Semanis soda ramune di musim panas — begitulah rasanya setlist ini. Cara Meminum Ramune membawa keceriaan yang ringan, segar, dan menyenangkan, cocok sekali dengan sisi playful Lana.',
-        'Di antara seratus pertunjukan yang sudah dilalui, panggung-panggung Ramune selalu jadi pengingat bahwa menjadi idol juga tentang berbagi kebahagiaan sederhana: senyum, tawa, dan kesegaran yang tidak pernah basi.'
-      ]
-    },
-    rkj: {
-      tag: 'Wonder 04 · Kawaii', title: 'RKJ — Renai Kinshi Jourei', setlist: 'Aturan Anti Cinta',
-      story: [
-        'Renai Kinshi Jourei — aturan anti cinta yang legendaris di dunia 48. Setlist ini menuntut kedisiplinan panggung yang tinggi: formasi rapat, ekspresi teatrikal, dan cerita yang harus tersampaikan lewat setiap gerakan.',
-        'Lewat setlist inilah terlihat sisi profesional Lana: bukan cuma imut di panggung, tapi juga serius berlatih demi membawakan cerita dengan sempurna. Disiplin ini yang mengantarnya melangkah pasti hingga show ke-100.'
-      ]
-    },
-    twt: {
-      tag: 'Wonder 05 · Kawaii', title: 'TwT — Te wo Tsunaginagara', setlist: 'Sambil Menggandeng Erat Tanganku',
-      story: [
-        'Te wo Tsunaginagara berarti "sambil bergandengan tangan" — dan memang begitulah hubungan Lana dengan fansnya selama ini. Setlist ini penuh kehangatan tentang persahabatan dan kebersamaan.',
-        'Seratus show bukan perjalanan yang bisa ditempuh sendirian. Setiap teriakan dukungan, setiap lambaian, setiap kehadiran fans di kursi teater adalah tangan-tangan yang ikut menggandeng Lana sampai ke titik ini.'
-      ]
-    },
-    percin: {
-      tag: 'Wonder 06 · Kawaii', title: 'Percin — Pertaruhan Cinta', setlist: 'setlist kebanggaan',
-      story: [
-        'Pertaruhan Cinta adalah salah satu setlist yang paling melekat dengan perjalanan Lana. Di panggung inilah dedikasinya benar-benar teruji — emosi yang dalam, penampilan yang totalitas, dan cerita yang dibawakan sepenuh hati.',
-        'Banyak fans menyebut penampilan Lana di setlist ini sebagai salah satu yang paling berkesan. Dari sinilah terlihat: dia bukan hanya tampil, dia mempertaruhkan seluruh hatinya di setiap show.'
-      ]
-    },
-    itadaki: {
-      tag: 'Wonder 07 · Kawaii', title: 'Itadaki — Mendaki Bukit', setlist: 'puncak dari seratus panggung',
-      story: [
-        'Mendaki Bukit — judul yang seperti ditulis khusus untuk momen ini. Seratus pertunjukan teater adalah seratus anak tangga yang didaki satu per satu: ada yang ringan, ada yang berat, ada yang penuh keringat dan air mata.',
-        'Dan hari ini, Lana berdiri di puncak bukit ke-100 itu. Tapi seperti kata lagunya, di balik satu puncak selalu ada puncak berikutnya. Perjalanan ini belum selesai — justru baru saja dimulai. Menuju puncak berikutnya! 🏔️'
-      ]
-    },
-    daidaidai: {
-      tag: 'Wonder 01 · Mature', title: 'Dai Dai Dai', setlist: 'Pertaruhan Cinta · Act 2',
-      story: [
-        'Dai Dai Dai adalah lagu yang playful tentang perasaan "benci-benci tapi suka" — crush yang membuat hati kesal sekaligus berdebar. Di usia 20, lagu ini terasa seperti pintu masuk ke bab baru: perasaan yang lebih kompleks, lebih jujur, lebih dewasa.',
-        'Momen Lana membawakan lagu ini di setlist Pertaruhan Cinta jadi salah satu penampilan yang paling dikenang fans — bukti bahwa dia bisa membawakan sisi playful dengan kematangan seorang performer.'
-      ]
-    },
-    manazashi: {
-      tag: 'Wonder 02 · Mature', title: 'Manazashi, Sayonara', setlist: 'Cara Meminum Ramune',
-      story: [
-        '"Tatapan itu, selamat tinggal." Unit song ini bercerita tentang perpisahan di bawah hujan — mellow, sendu, dan dalam. Lagu seperti ini tidak bisa dibawakan hanya dengan teknik; ia butuh kedewasaan emosi.',
-        'Bahwa Lana dipercaya membawakan lagu seemosional ini adalah tanda pengakuan: gadis kawaii itu telah tumbuh menjadi performer yang mampu menyampaikan kesedihan dengan anggun. Usia 20 membawa kedalaman baru itu.'
-      ]
-    },
-    returnmatch: {
-      tag: 'Wonder 03 · Mature', title: 'Return Match', setlist: 'Bel Terakhir Berbunyi',
-      story: [
-        'Return Match adalah lagu tentang bangkit — tentang tidak menyerah pada kekalahan masa lalu dan kembali bertanding dengan semangat baru. Klasik dari setlist Bel Terakhir Berbunyi ini penuh api.',
-        'Memasuki usia 20, semangat "ronde kedua" ini terasa sangat relevan: bab remaja telah usai, dan kini Lana melangkah ke pertandingan yang lebih besar dengan bekal seratus panggung di belakangnya.'
-      ]
-    },
-    amenopianist: {
-      tag: 'Wonder 04 · Mature', title: 'Ame no Pianist', setlist: 'Te wo Tsunaginagara',
-      story: [
-        'Pianis Hujan — unit song dengan citra hujan dan denting piano yang menyayat. Ini salah satu lagu paling puitis di katalog 48: kesedihan yang dibawakan dengan keindahan.',
-        'Lagu ini mewakili sisi Lana yang jarang terlihat di panggung kawaii: kemampuan untuk diam, merasakan, dan menyampaikan emosi lewat kehalusan. Sisi dewasa yang kini, di usia 20, semakin sering ia tunjukkan.'
-      ]
-    },
-    hatsukoi: {
-      tag: 'Wonder 05 · Mature', title: 'Hatsukoi yo, Konnichiwa', setlist: 'kisah cinta pertama',
-      story: [
-        '"Halo, cinta pertama." Lagu ringan tentang debaran cinta pertama di masa sekolah — manis, malu-malu, dan jujur. Lagu yang sering muncul di stage dan selalu berhasil membuat teater tersenyum.',
-        'Di ulang tahun ke-20 ini, lagu ini terasa seperti surat untuk diri sendiri: perpisahan yang hangat dengan masa remaja, sambil menyapa masa dewasa dengan senyum yang sama manisnya.'
-      ]
-    },
-    renai: {
-      tag: 'Wonder 06 · Mature', title: 'Renai Kinshi Jourei', setlist: 'sisi lain dari aturan anti cinta',
-      story: [
-        'Menarik: lagu yang sama muncul di dua bab kehidupan Lana. Di bab kawaii, RKJ adalah tentang kedisiplinan panggung. Tapi di bab dewasa, lagu ini bercerita tentang hal yang lebih dalam — tentang perasaan yang justru semakin membara karena dilarang.',
-        'Begitulah tanda kedewasaan: lagu yang sama, tapi dimaknai dengan cara yang berbeda. Di usia 20, Lana membawakannya bukan lagi sekadar sebagai koreografi, tapi sebagai cerita yang ia pahami.'
-      ]
-    },
-    bird: {
-      tag: 'Wonder 07 · Mature', title: 'Bird', setlist: 'Dareka no Tame ni — Demi Seseorang',
-      story: [
-        'Bird adalah unit song paling ikonik dari setlist Demi Seseorang — metafora burung yang kehilangan sayapnya, tentang patah hati dan kebebasan yang direnggut. Lagu yang berat, indah, dan hanya bisa dibawakan oleh performer yang matang.',
-        'Menutup tujuh wonders ulang tahun ke-20 dengan Bird adalah pilihan yang tepat: karena setelah lagu tentang kehilangan sayap ini, harapan kita semua untuk Lana justru sebaliknya — terbanglah lebih tinggi, lebih jauh, lebih bebas. Selamat ulang tahun ke-20. 🕊️'
-      ]
-    }
-  };
-
-  // ---------- modal ----------
-  const backdrop = document.getElementById('storyBackdrop');
-  const modal = document.getElementById('storyModal');
-  const storyClose = document.getElementById('storyClose');
-  let lastFocused = null;
-
-  function openStory(key, isMature){
-    const s = STORIES[key];
-    if(!s) return;
-    document.getElementById('storyTag').textContent = s.tag;
-    document.getElementById('storyTitle').textContent = s.title;
-    document.getElementById('storySetlist').textContent = '♪ ' + s.setlist;
-    const body = document.getElementById('storyBody');
-    body.innerHTML = '';
-    s.story.forEach(par => {
-      const p = document.createElement('p');
-      p.textContent = par;
-      body.appendChild(p);
-    });
-    modal.classList.toggle('mature-modal', isMature);
-    backdrop.classList.add('open');
-    document.body.style.overflow = 'hidden';
-    lastFocused = document.activeElement;
-    storyClose.focus();
-  }
-  function closeStory(){
-    backdrop.classList.remove('open');
-    document.body.style.overflow = '';
-    if(lastFocused) lastFocused.focus();
-  }
-  storyClose.addEventListener('click', closeStory);
-  backdrop.addEventListener('click', (e) => { if(e.target === backdrop) closeStory(); });
-  window.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeStory(); });
-
-  // ---------- polaroid: geser = drag, klik singkat = buka cerita ----------
-  const CLICK_THRESHOLD = 8; // px
-  document.querySelectorAll('[data-drag]').forEach(card => {
-    let isDown = false, startX, startY, moved = 0;
-    const move = (e) => {
-      if(!isDown) return;
-      const cx = e.touches ? e.touches[0].clientX : e.clientX;
-      const cy = e.touches ? e.touches[0].clientY : e.clientY;
-      const x = cx - startX, y = cy - startY;
-      moved = Math.max(moved, Math.hypot(x, y));
-      card.style.transform = `translate(${x}px, ${y}px) rotate(${x*0.04}deg)`;
-    };
-    const up = () => {
-      if(!isDown) return;
-      isDown = false;
-      card.style.transition = 'transform .4s cubic-bezier(.2,.9,.3,1.35)';
-      card.style.transform = '';
-      card.style.zIndex = '';
-      if(moved < CLICK_THRESHOLD && card.dataset.story){
-        openStory(card.dataset.story, !!card.closest('.mature'));
-      }
-    };
-    const down = (e) => {
-      isDown = true; moved = 0;
-      startX = e.touches ? e.touches[0].clientX : e.clientX;
-      startY = e.touches ? e.touches[0].clientY : e.clientY;
-      card.style.transition = 'none';
-      card.style.zIndex = 20;
-    };
-    card.addEventListener('mousedown', down);
-    card.addEventListener('touchstart', down, {passive:true});
-    window.addEventListener('mousemove', move);
-    window.addEventListener('touchmove', move, {passive:true});
-    window.addEventListener('mouseup', up);
-    window.addEventListener('touchend', up);
-    // keyboard: Enter/Spasi buka cerita
-    card.addEventListener('keydown', (e) => {
-      if((e.key === 'Enter' || e.key === ' ') && card.dataset.story){
-        e.preventDefault();
-        openStory(card.dataset.story, !!card.closest('.mature'));
-      }
-    });
-  });
-
-  // ---------- popper tagar ----------
-  const toast = document.getElementById('toast');
-  function showToast(msg){
-    toast.textContent = msg;
-    toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 2400);
-  }
-  document.getElementById('popperBtn').addEventListener('click', () => {
-    burstConfetti(110);
-    navigator.clipboard.writeText('#WonderB100msLana #Wonder20nesLana')
-      .then(() => showToast('🎊 Tagar tersalin! Ayo bagikan!'))
-      .catch(() => showToast('🎊 Pop! Salin tagarnya manual ya'));
-  });
-
-  // ---------- kartu ucapan ----------
-  // Utama: Supabase (database di cloud, ucapan terlihat semua orang).
-  // Fallback: localStorage jika Supabase belum diisi konfigurasinya / gagal.
-  //
-  // >>> ISI DUA BARIS INI setelah membuat project di supabase.com <<<
-  // (Settings → API: "Project URL" dan "anon public" key)
-  const SUPABASE_URL = 'https://izzfapunrshgghrbhhpf.supabase.co';
-  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml6emZhcHVucnNoZ2docmJoaHBmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM5NTUzMzgsImV4cCI6MjA5OTUzMTMzOH0.TIgOngCo6R_7sKyw2h_nPthVNqO0H-5_TmOebtB0hyw';
-  // Catatan: anon key memang dirancang untuk ditaruh di halaman publik —
-  // keamanannya dijaga oleh Row Level Security di sisi Supabase.
-
-  const wishForm = document.getElementById('wishForm');
-  const wishesList = document.getElementById('wishesList');
-  const defaultWishes = [
-    { name: "Fans Garis Keras Lana", message: "Happy 20th Birthday Lana! Terima kasih selalu memberikan energi positif di teater. Semoga terus bersinar!" },
-    { name: "Gen 12 Support", message: "Selamat atas pencapaian 100th show-nya! Keren banget penampilannya di setlist Pertaruhan Cinta. Terus melangkah!" }
-  ];
-  let useSupabase = !!(SUPABASE_URL && SUPABASE_ANON_KEY);
-  const SB_HEADERS = {
-    'apikey': SUPABASE_ANON_KEY,
-    'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
-    'Content-Type': 'application/json'
-  };
-  const COOLDOWN_MS = 20000; // anti-spam sederhana di sisi halaman
-  let lastSubmit = 0;
-
-  function getLocalWishes(){
-    try{
-      const saved = localStorage.getItem('wonderlana_wishes');
-      return saved ? JSON.parse(saved) : defaultWishes.slice();
-    }catch(e){ return defaultWishes.slice(); }
-  }
-  function saveLocalWishes(w){
-    try{ localStorage.setItem('wonderlana_wishes', JSON.stringify(w)); }catch(e){}
-  }
-
-  function renderWishes(list){
-    wishesList.innerHTML = '';
-    list.forEach(w => {
-      const card = document.createElement('div');
-      card.className = 'wish-card';
-      const tape = document.createElement('span');
-      tape.className = 'tape';
-      const p = document.createElement('p');
-      p.textContent = w.message;          // textContent = aman dari HTML injection
-      const b = document.createElement('b');
-      b.textContent = '— ' + w.name;
-      card.append(tape, p, b);
-      wishesList.appendChild(card);
-    });
-  }
-
-  async function loadWishes(){
-    if (useSupabase){
-      try{
-        const res = await fetch(
-          SUPABASE_URL + '/rest/v1/wishes?select=name,message,created_at&order=id.desc&limit=500',
-          { headers: SB_HEADERS }
-        );
-        if (!res.ok) throw new Error(res.status);
-        renderWishes(await res.json());
-        return;
-      }catch(e){ useSupabase = false; }
-    }
-    renderWishes(getLocalWishes().slice().reverse());
-  }
-
-  async function submitWish(name, message){
-    if (useSupabase){
-      try{
-        const res = await fetch(SUPABASE_URL + '/rest/v1/wishes', {
-          method:'POST',
-          headers:{ ...SB_HEADERS, 'Prefer':'return=minimal' },
-          body: JSON.stringify({ name, message })
-        });
-        if (!res.ok) throw new Error(res.status);
-        return true;
-      }catch(e){ useSupabase = false; }
-    }
-    const wishes = getLocalWishes();
-    wishes.push({ name, message });
-    saveLocalWishes(wishes);
-    return true;
-  }
-
-  wishForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const now = Date.now();
-    if (now - lastSubmit < COOLDOWN_MS){
-      showToast('🎈 Sabar ya, tunggu sebentar sebelum kirim lagi');
-      return;
-    }
-    const name = document.getElementById('fanName');
-    const msg  = document.getElementById('fanMessage');
-    await submitWish(name.value.trim(), msg.value.trim());
-    lastSubmit = now;
-    await loadWishes();
-    name.value = ''; msg.value = '';
-    burstConfetti(60);
-    showToast('💌 Kartumu tertempel di dinding pesta!');
-  });
-  loadWishes();
-
-  // ---------- countdown seitansai ----------
-  // Lana lahir 14 September 2006 → seitansai ke-20 = 14 September 2026
-  const SEITANSAI = new Date(2026, 8, 14, 0, 0, 0); // bulan 8 = September
-  const DAY_AFTER = new Date(2026, 8, 15, 0, 0, 0);
-  const cdGrid = document.getElementById('cdGrid');
-  const cdDone = document.getElementById('cdDone');
-  const cdLabel = document.querySelector('.cd-label');
-  let celebrated = false;
-
-  function tickCountdown(){
-    const now = new Date();
-    if (now >= SEITANSAI && now < DAY_AFTER){
-      cdGrid.style.display = 'none';
-      cdDone.style.display = 'inline-block';
-      if(!celebrated){ celebrated = true; burstConfetti(120); }
-      return;
-    }
-    if (now >= DAY_AFTER){
-      cdGrid.style.display = 'none';
-      cdDone.style.display = 'inline-block';
-      cdDone.textContent = '🎂 Seitansai ke-20 sudah kita rayakan — terima kasih sudah hadir!';
-      cdLabel.textContent = '✨ pestanya sudah berlangsung meriah ✨';
-      return;
-    }
-    const diff = SEITANSAI - now;
-    const d = Math.floor(diff / 86400000);
-    const h = Math.floor(diff / 3600000) % 24;
-    const m = Math.floor(diff / 60000) % 60;
-    const s = Math.floor(diff / 1000) % 60;
-    document.getElementById('cdD').textContent = d;
-    document.getElementById('cdH').textContent = h;
-    document.getElementById('cdM').textContent = m;
-    document.getElementById('cdS').textContent = s;
-  }
-  tickCountdown();
-  setInterval(tickCountdown, 1000);
-
-  // ---------- penlight wave ----------
-  const plRow = document.getElementById('plRow');
-  const plStrip = document.getElementById('penlightStrip');
-  const PL_COUNT = 36;
-  for(let i=0; i<PL_COUNT; i++){
-    const p = document.createElement('span');
-    p.className = 'penlight';
-    p.style.animationDelay = (i * 0.12) + 's';           // efek gelombang berurutan
-    p.style.animationDuration = (1.4 + Math.random()*0.5) + 's';
-    plRow.appendChild(p);
-  }
-  const PL_MODES = ['', 'gold-mode', 'mint-mode'];
-  let plMode = 0;
-  plStrip.addEventListener('click', () => {
-    plMode = (plMode + 1) % PL_MODES.length;
-    plStrip.classList.remove('gold-mode', 'mint-mode');
-    if (PL_MODES[plMode]) plStrip.classList.add(PL_MODES[plMode]);
-  });
-
-  // sambutan kecil saat halaman dibuka
-  window.addEventListener('load', () => setTimeout(() => burstConfetti(50), 500));
 </script>
 
 </body>
