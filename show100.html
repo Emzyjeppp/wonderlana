@@ -228,18 +228,26 @@
   .stagecard:nth-child(odd){ transform:rotate(-1.4deg); }
   .stagecard:nth-child(even){ transform:rotate(1.2deg); }
   .sc-top{
-    height:180px; display:flex; align-items:center; justify-content:center;
-    position:relative; border-bottom:3px solid var(--curtain); overflow:hidden;
+    aspect-ratio:3/4; width:100%; overflow:hidden;
+    position:relative; border-bottom:3px solid var(--curtain);
+    background:var(--stage-2);
   }
-  .sc-top img{ width:100%; height:100%; object-fit:cover; object-position:center top; }
+  .sc-top img{
+    width:100%; height:100%; object-fit:cover; object-position:center 22%;
+    display:block; pointer-events:none;
+    transition:transform .4s ease;
+  }
+  .stagecard:hover .sc-top img{ transform:scale(1.05); }
+  /* gradasi bawah biar nomor ACT & tepi menyatu */
+  .sc-top::after{
+    content:''; position:absolute; inset:0; pointer-events:none;
+    background:linear-gradient(180deg, transparent 65%, rgba(43,10,22,0.35));
+  }
   .sc-num{
-    display:inline-block; font-family:'Bungee'; font-size:11px;
-    background:var(--curtain); color:var(--cream); padding:4px 12px; border-radius:999px;
-    margin-bottom:8px;
+    position:absolute; top:8px; left:8px; z-index:2; font-family:'Bungee'; font-size:11px;
+    background:var(--ink); color:var(--bulb); padding:4px 10px; border-radius:999px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.4);
   }
-  .g1{ background:linear-gradient(135deg, #FFD9E6, #FFC1D6); }
-  .g2{ background:linear-gradient(135deg, #C8F0DF, #9FE3C7); }
-  .g3{ background:linear-gradient(135deg, #FFE6B8, #FFC85C); }
   .sc-body{ padding:16px 16px 18px; }
   .sc-body h3{ font-size:18px; font-weight:800; margin-bottom:6px; }
   .sc-body p{ font-size:13px; line-height:1.55; color:#6E4452; margin:0 0 10px; }
@@ -264,6 +272,10 @@
     animation:modal-pop .3s cubic-bezier(.2,.9,.3,1.3);
   }
   @keyframes modal-pop{ from{ transform:scale(.85) rotate(-1.5deg); opacity:0; } to{ transform:scale(1); opacity:1; } }
+  .modal .m-photo{
+    width:100%; max-height:320px; object-fit:cover; object-position:center 20%;
+    border-radius:12px; margin-bottom:18px; border:2px solid var(--curtain); display:block;
+  }
   .modal .m-tag{
     display:inline-block; font-family:'Bungee'; font-size:11px; letter-spacing:.14em;
     color:var(--cream); background:var(--curtain); padding:6px 16px; border-radius:6px; margin-bottom:14px;
@@ -431,11 +443,8 @@
     </div>
     <div class="card-grid">
       <div class="stagecard" data-drag data-story="aitakatta" role="button" tabindex="0" aria-haspopup="dialog">
-        <div class="sc-top g2">
-          <img src="100show/aitakatta.jpg" alt="Aitakatta" onerror="this.remove()">
-        </div>
+        <div class="sc-top"><span class="sc-num">ACT 01</span><img src="100show/aitakatta.jpg" alt="Lana — Aitakatta" style="object-position:center 35%;"></div>
         <div class="sc-body">
-          <span class="sc-num">ACT 01</span>
           <h3>Aitakatta</h3>
           <p>Langkah awal perjalanan penuh semangat bersama sentuhan warna hijau segar.</p>
           <span class="sc-caption">"aku ingin bertemu!"</span>
@@ -443,11 +452,8 @@
         </div>
       </div>
       <div class="stagecard" data-drag data-story="pajama" role="button" tabindex="0" aria-haspopup="dialog">
-        <div class="sc-top g1">
-          <img src="100show/pajama.jpg" alt="Pajama Drive" onerror="this.remove()">
-        </div>
+        <div class="sc-top"><span class="sc-num">ACT 02</span><img src="100show/pajama.jpg" alt="Lana — Pajama Drive"></div>
         <div class="sc-body">
-          <span class="sc-num">ACT 02</span>
           <h3>Pajama Drive</h3>
           <p>Energi teater masa muda yang membakar semangat penonton dengan koreografi lincah.</p>
           <span class="sc-caption">energi tanpa habis ⚡</span>
@@ -455,11 +461,8 @@
         </div>
       </div>
       <div class="stagecard" data-drag data-story="ramune" role="button" tabindex="0" aria-haspopup="dialog">
-        <div class="sc-top g3">
-          <img src="100show/ramune.jpg" alt="Ramune no Nomikata" onerror="this.remove()">
-        </div>
+        <div class="sc-top"><span class="sc-num">ACT 03</span><img src="100show/ramune.jpg" alt="Lana — Ramune no Nomikata"></div>
         <div class="sc-body">
-          <span class="sc-num">ACT 03</span>
           <h3>Ramune no Nomikata</h3>
           <p>Kesegaran manis tiada tara, menggambarkan keceriaan musim panas yang menyenangkan.</p>
           <span class="sc-caption">semanis ramune 🍬</span>
@@ -467,11 +470,8 @@
         </div>
       </div>
       <div class="stagecard" data-drag data-story="rkj" role="button" tabindex="0" aria-haspopup="dialog">
-        <div class="sc-top g1">
-          <img src="100show/rkj.jpg" alt="Renai Kinshi Jourei" onerror="this.remove()">
-        </div>
+        <div class="sc-top"><span class="sc-num">ACT 04</span><img src="100show/rkj.jpg" alt="Lana — Renai Kinshi Jourei"></div>
         <div class="sc-body">
-          <span class="sc-num">ACT 04</span>
           <h3>Renai Kinshi Jourei</h3>
           <p>Disiplin panggung membawakan aturan anti cinta yang legendaris.</p>
           <span class="sc-caption">aturan yang legendaris</span>
@@ -479,11 +479,8 @@
         </div>
       </div>
       <div class="stagecard" data-drag data-story="twt" role="button" tabindex="0" aria-haspopup="dialog">
-        <div class="sc-top g2">
-          <img src="100show/twt.jpg" alt="Te wo Tsunaginagara" onerror="this.remove()">
-        </div>
+        <div class="sc-top"><span class="sc-num">ACT 05</span><img src="100show/twt.jpg" alt="Lana — Te wo Tsunaginagara"></div>
         <div class="sc-body">
-          <span class="sc-num">ACT 05</span>
           <h3>Te wo Tsunaginagara</h3>
           <p>Kehangatan persahabatan sejati sambil menggenggam tangan erat fans.</p>
           <span class="sc-caption">genggam tanganku 💞</span>
@@ -491,11 +488,8 @@
         </div>
       </div>
       <div class="stagecard" data-drag data-story="percin" role="button" tabindex="0" aria-haspopup="dialog">
-        <div class="sc-top g3">
-          <img src="100show/percin.jpg" alt="Pertaruhan Cinta" onerror="this.remove()">
-        </div>
+        <div class="sc-top"><span class="sc-num">ACT 06</span><img src="100show/percin.jpg" alt="Lana — Pertaruhan Cinta"></div>
         <div class="sc-body">
-          <span class="sc-num">ACT 06</span>
           <h3>Pertaruhan Cinta</h3>
           <p>Dedikasi tulus mengekspresikan emosi panggung yang mendalam.</p>
           <span class="sc-caption">dari hati, untuk panggung</span>
@@ -503,11 +497,8 @@
         </div>
       </div>
       <div class="stagecard" data-drag data-story="itadaki" role="button" tabindex="0" aria-haspopup="dialog">
-        <div class="sc-top g2">
-          <img src="100show/itadaki.jpg" alt="Itadaki Love" onerror="this.remove()">
-        </div>
+        <div class="sc-top"><span class="sc-num">ACT 07</span><img src="100show/itadaki.jpg" alt="Lana — Itadaki Love"></div>
         <div class="sc-body">
-          <span class="sc-num">ACT 07</span>
           <h3>Itadaki Love</h3>
           <p>Mendaki Bukit. Bersama-sama mendaki rintangan teater demi menggapai puncak impian teratas.</p>
           <span class="sc-caption">menuju puncak! 🏔️</span>
@@ -535,6 +526,7 @@
 <div class="modal-backdrop" id="storyBackdrop">
   <div class="modal" id="storyModal" role="dialog" aria-modal="true" aria-labelledby="storyTitle">
     <button class="modal-close" id="storyClose" aria-label="Tutup cerita">✕</button>
+    <img class="m-photo" id="storyPhoto" alt="" hidden>
     <span class="m-tag" id="storyTag"></span>
     <h3 id="storyTitle"></h3>
     <span class="m-setlist" id="storySetlist"></span>
@@ -566,51 +558,51 @@
   // ---------- cerita setiap wonder ----------
   const STORIES = {
     aitakatta: {
-      tag: 'ACT 01', title: 'Aitakatta', setlist: 'Ingin Bertemu — lagu pembuka perjalanan',
+      tag: 'ACT 01', photo: '100show/aitakatta.jpg', pos: 'center 35%', title: 'Aitakatta', setlist: 'lagu pembuka perjalanan',
       story: [
         '"Aitakatta" — aku ingin bertemu denganmu. Tidak ada lagu yang lebih pas untuk membuka kisah seratus panggung Lana. Lagu inilah yang menjadi gerbang: gerbang bertemunya seorang gadis dengan mimpinya, dan gerbang bertemunya Lana dengan para fans untuk pertama kalinya.',
         'Setiap kali intro lagu ini berbunyi di teater, energinya selalu sama seperti hari pertama — penuh semangat, penuh harapan, dan penuh warna hijau segar seperti tunas yang baru tumbuh. Dari sinilah semua dimulai.'
       ]
     },
     pajama: {
-      tag: 'ACT 02', title: 'Pajama Drive', setlist: 'setlist penuh energi masa muda',
+      tag: 'ACT 02', photo: '100show/pajama.jpg', pos: 'center 20%', title: 'Pajama Drive', setlist: 'setlist penuh energi masa muda',
       story: [
         'Pajama Drive adalah setlist yang identik dengan masa muda — koreografi lincah, senyum lebar, dan energi yang tidak pernah habis. Di panggung inilah Lana menunjukkan sisi paling ceria dari dirinya.',
         'Bagi banyak fans, melihat Lana membawakan setlist ini seperti melihat definisi kata "genki": semangat yang menular sampai ke barisan paling belakang teater. Momen-momen seperti inilah yang membuat perjalanan menuju 100 show terasa begitu hidup.'
       ]
     },
     ramune: {
-      tag: 'ACT 03', title: 'Ramune no Nomikata', setlist: 'Cara Meminum Ramune',
+      tag: 'ACT 03', photo: '100show/ramune.jpg', pos: 'center 20%', title: 'Ramune no Nomikata', setlist: 'Cara Meminum Ramune',
       story: [
         'Semanis soda ramune di musim panas — begitulah rasanya setlist ini. Cara Meminum Ramune membawa keceriaan yang ringan, segar, dan menyenangkan, cocok sekali dengan sisi playful Lana.',
         'Di antara seratus pertunjukan yang sudah dilalui, panggung-panggung Ramune selalu jadi pengingat bahwa menjadi idol juga tentang berbagi kebahagiaan sederhana: senyum, tawa, dan kesegaran yang tidak pernah basi. Di show ke-75, setlist inilah yang menemani langkah Lana menuju puncak.'
       ]
     },
     rkj: {
-      tag: 'ACT 04', title: 'Renai Kinshi Jourei', setlist: 'Aturan Anti Cinta',
+      tag: 'ACT 04', photo: '100show/rkj.jpg', pos: 'center 20%', title: 'RKJ — Renai Kinshi Jourei', setlist: 'Aturan Anti Cinta',
       story: [
         'Renai Kinshi Jourei — aturan anti cinta yang legendaris di dunia 48. Setlist ini menuntut kedisiplinan panggung yang tinggi: formasi rapat, ekspresi teatrikal, dan cerita yang harus tersampaikan lewat setiap gerakan.',
         'Lewat setlist inilah terlihat sisi profesional Lana: bukan cuma imut di panggung, tapi juga serius berlatih demi membawakan cerita dengan sempurna. Disiplin ini yang mengantarnya melangkah pasti hingga show ke-100.'
       ]
     },
     twt: {
-      tag: 'ACT 05', title: 'Te wo Tsunaginagara', setlist: 'Sambil Menggandeng Erat Tanganku',
+      tag: 'ACT 05', photo: '100show/twt.jpg', pos: 'center 20%', title: 'TwT — Te wo Tsunaginagara', setlist: 'Sambil Menggandeng Erat Tanganku',
       story: [
         'Te wo Tsunaginagara berarti "sambil bergandengan tangan" — dan memang begitulah hubungan Lana dengan fansnya selama ini. Setlist ini penuh kehangatan tentang persahabatan dan kebersamaan.',
         'Show ke-50 Lana ditandai dengan setlist ini — tepat di tengah perjalanan. Seratus show bukan perjalanan yang bisa ditempuh sendirian: setiap teriakan dukungan, setiap lambaian, setiap kehadiran fans di kursi teater adalah tangan-tangan yang ikut menggandeng Lana sampai ke titik ini.'
       ]
     },
     percin: {
-      tag: 'ACT 06', title: 'Pertaruhan Cinta', setlist: 'setlist kebanggaan',
+      tag: 'ACT 06', photo: '100show/percin.jpg', pos: 'center 20%', title: 'Percin — Pertaruhan Cinta', setlist: 'setlist kebanggaan',
       story: [
         'Pertaruhan Cinta adalah salah satu setlist yang paling melekat dengan perjalanan Lana. Di panggung inilah dedikasinya benar-benar teruji — emosi yang dalam, penampilan yang totalitas, dan cerita yang dibawakan sepenuh hati.',
         'Banyak fans menyebut penampilan Lana di setlist ini sebagai salah satu yang paling berkesan. Dari sinilah terlihat: dia bukan hanya tampil, dia mempertaruhkan seluruh hatinya di setiap show.'
       ]
     },
     itadaki: {
-      tag: 'ACT 07', title: 'Itadaki Love', setlist: 'puncak dari seratus panggung',
+      tag: 'ACT 07', photo: '100show/itadaki.jpg', pos: 'center 20%', title: 'Itadaki — Mendaki Bukit', setlist: 'puncak dari seratus panggung',
       story: [
-        'Itadaki Love (Mendaki Bukit) — judul yang seperti ditulis khusus untuk momen ini. Seratus pertunjukan teater adalah seratus anak tangga yang didaki satu per satu: ada yang ringan, ada yang berat, ada yang penuh keringat dan air mata.',
+        'Mendaki Bukit — judul yang seperti ditulis khusus untuk momen ini. Seratus pertunjukan teater adalah seratus anak tangga yang didaki satu per satu: ada yang ringan, ada yang berat, ada yang penuh keringat dan air mata.',
         'Dan hari ini, Lana berdiri di puncak bukit ke-100 itu. Tapi seperti kata lagunya, di balik satu puncak selalu ada puncak berikutnya. Perjalanan ini belum selesai — justru baru saja dimulai. Menuju puncak berikutnya! 🏔️'
       ]
     }
@@ -625,6 +617,9 @@
   function openStory(key){
     const s = STORIES[key];
     if(!s) return;
+    const ph = document.getElementById('storyPhoto');
+    if(s.photo){ ph.src = s.photo; ph.alt = 'Lana — ' + s.title; ph.style.objectPosition = s.pos || 'center 20%'; ph.hidden = false; }
+    else { ph.hidden = true; ph.removeAttribute('src'); }
     document.getElementById('storyTag').textContent = s.tag;
     document.getElementById('storyTitle').textContent = s.title;
     document.getElementById('storySetlist').textContent = '♪ ' + s.setlist;
