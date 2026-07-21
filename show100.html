@@ -228,12 +228,14 @@
   .stagecard:nth-child(odd){ transform:rotate(-1.4deg); }
   .stagecard:nth-child(even){ transform:rotate(1.2deg); }
   .sc-top{
-    height:110px; display:flex; align-items:center; justify-content:center; font-size:44px;
-    position:relative; border-bottom:3px solid var(--curtain);
+    height:180px; display:flex; align-items:center; justify-content:center;
+    position:relative; border-bottom:3px solid var(--curtain); overflow:hidden;
   }
+  .sc-top img{ width:100%; height:100%; object-fit:cover; object-position:center top; }
   .sc-num{
-    position:absolute; top:8px; left:8px; font-family:'Bungee'; font-size:11px;
-    background:var(--ink); color:var(--bulb); padding:4px 10px; border-radius:999px;
+    display:inline-block; font-family:'Bungee'; font-size:11px;
+    background:var(--curtain); color:var(--cream); padding:4px 12px; border-radius:999px;
+    margin-bottom:8px;
   }
   .g1{ background:linear-gradient(135deg, #FFD9E6, #FFC1D6); }
   .g2{ background:linear-gradient(135deg, #C8F0DF, #9FE3C7); }
@@ -430,10 +432,10 @@
     <div class="card-grid">
       <div class="stagecard" data-drag data-story="aitakatta" role="button" tabindex="0" aria-haspopup="dialog">
         <div class="sc-top g2">
-          <img src="100show/aitakatta.jpg" alt="Aitakatta" style="width:100%;height:100%;object-fit:cover;" onerror="this.remove()">
-          <span class="sc-num">ACT 01</span>
+          <img src="100show/aitakatta.jpg" alt="Aitakatta" onerror="this.remove()">
         </div>
         <div class="sc-body">
+          <span class="sc-num">ACT 01</span>
           <h3>Aitakatta</h3>
           <p>Langkah awal perjalanan penuh semangat bersama sentuhan warna hijau segar.</p>
           <span class="sc-caption">"aku ingin bertemu!"</span>
@@ -442,10 +444,10 @@
       </div>
       <div class="stagecard" data-drag data-story="pajama" role="button" tabindex="0" aria-haspopup="dialog">
         <div class="sc-top g1">
-          <img src="100show/pajama.jpg" alt="Pajama Drive" style="width:100%;height:100%;object-fit:cover;" onerror="this.remove()">
-          <span class="sc-num">ACT 02</span>
+          <img src="100show/pajama.jpg" alt="Pajama Drive" onerror="this.remove()">
         </div>
         <div class="sc-body">
+          <span class="sc-num">ACT 02</span>
           <h3>Pajama Drive</h3>
           <p>Energi teater masa muda yang membakar semangat penonton dengan koreografi lincah.</p>
           <span class="sc-caption">energi tanpa habis ⚡</span>
@@ -454,10 +456,10 @@
       </div>
       <div class="stagecard" data-drag data-story="ramune" role="button" tabindex="0" aria-haspopup="dialog">
         <div class="sc-top g3">
-          <img src="100show/ramune.jpg" alt="Ramune no Nomikata" style="width:100%;height:100%;object-fit:cover;" onerror="this.remove()">
-          <span class="sc-num">ACT 03</span>
+          <img src="100show/ramune.jpg" alt="Ramune no Nomikata" onerror="this.remove()">
         </div>
         <div class="sc-body">
+          <span class="sc-num">ACT 03</span>
           <h3>Ramune no Nomikata</h3>
           <p>Kesegaran manis tiada tara, menggambarkan keceriaan musim panas yang menyenangkan.</p>
           <span class="sc-caption">semanis ramune 🍬</span>
@@ -466,10 +468,10 @@
       </div>
       <div class="stagecard" data-drag data-story="rkj" role="button" tabindex="0" aria-haspopup="dialog">
         <div class="sc-top g1">
-          <img src="100show/rkj.jpg" alt="Renai Kinshi Jourei" style="width:100%;height:100%;object-fit:cover;" onerror="this.remove()">
-          <span class="sc-num">ACT 04</span>
+          <img src="100show/rkj.jpg" alt="Renai Kinshi Jourei" onerror="this.remove()">
         </div>
         <div class="sc-body">
+          <span class="sc-num">ACT 04</span>
           <h3>Renai Kinshi Jourei</h3>
           <p>Disiplin panggung membawakan aturan anti cinta yang legendaris.</p>
           <span class="sc-caption">aturan yang legendaris</span>
@@ -478,10 +480,10 @@
       </div>
       <div class="stagecard" data-drag data-story="twt" role="button" tabindex="0" aria-haspopup="dialog">
         <div class="sc-top g2">
-          <img src="100show/twt.jpg" alt="Te wo Tsunaginagara" style="width:100%;height:100%;object-fit:cover;" onerror="this.remove()">
-          <span class="sc-num">ACT 05</span>
+          <img src="100show/twt.jpg" alt="Te wo Tsunaginagara" onerror="this.remove()">
         </div>
         <div class="sc-body">
+          <span class="sc-num">ACT 05</span>
           <h3>Te wo Tsunaginagara</h3>
           <p>Kehangatan persahabatan sejati sambil menggenggam tangan erat fans.</p>
           <span class="sc-caption">genggam tanganku 💞</span>
@@ -490,10 +492,10 @@
       </div>
       <div class="stagecard" data-drag data-story="percin" role="button" tabindex="0" aria-haspopup="dialog">
         <div class="sc-top g3">
-          <img src="100show/percin.jpg" alt="Pertaruhan Cinta" style="width:100%;height:100%;object-fit:cover;" onerror="this.remove()">
-          <span class="sc-num">ACT 06</span>
+          <img src="100show/percin.jpg" alt="Pertaruhan Cinta" onerror="this.remove()">
         </div>
         <div class="sc-body">
+          <span class="sc-num">ACT 06</span>
           <h3>Pertaruhan Cinta</h3>
           <p>Dedikasi tulus mengekspresikan emosi panggung yang mendalam.</p>
           <span class="sc-caption">dari hati, untuk panggung</span>
@@ -502,10 +504,10 @@
       </div>
       <div class="stagecard" data-drag data-story="itadaki" role="button" tabindex="0" aria-haspopup="dialog">
         <div class="sc-top g2">
-          <img src="100show/itadaki.jpg" alt="Itadaki Love" style="width:100%;height:100%;object-fit:cover;" onerror="this.remove()">
-          <span class="sc-num">ACT 07</span>
+          <img src="100show/itadaki.jpg" alt="Itadaki Love" onerror="this.remove()">
         </div>
         <div class="sc-body">
+          <span class="sc-num">ACT 07</span>
           <h3>Itadaki Love</h3>
           <p>Mendaki Bukit. Bersama-sama mendaki rintangan teater demi menggapai puncak impian teratas.</p>
           <span class="sc-caption">menuju puncak! 🏔️</span>
